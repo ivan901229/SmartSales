@@ -112,6 +112,10 @@
 				</div>
 			</div>
 		</div>
+		<div class="ui-theme-settings">
+                <div class="scrollbar-container">
+                </div>
+        </div>
 		<div class="app-main">
 			<div
 				class="app-sidebar sidebar-shadow bg-heavy-rain sidebar-text-dark">
