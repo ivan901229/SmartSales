@@ -7,8 +7,10 @@ import com.lcpan.bean.InventoryBean;
 import com.lcpan.bean.MemberBean;
 
 public interface SmartSalesDAO {
-	public List<MemberBean> getAllMembers();    // 會員總覽
+	public List<MemberBean> getAllMembers(int pageNo);    // 會員總覽
 	public int insertGetMember();
+	public int getTotalPage();
+	
 	public void insertMember(String memberNo, String memberLevel, InputStream memberImageIn, String memberName, String memberBirth,
 			 String memberGender, String memberPreferences, String memberPhone, String memberEmail, String memberPhotoURL);
 	public void deleteMember(String memberNo);

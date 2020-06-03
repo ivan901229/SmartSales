@@ -33544,7 +33544,7 @@ function (e, t) { }
     	for (var i = 0; i < 5; i++)
     		text += possible.charAt(Math.floor(Math.random() * possible.length));
     	
-    	window.location.href=('../member/GetAllMembers?'+text)
+    	window.location.href=('../member/GetAllMembers?'+text+"&currentpageno=1")
     }
     
     function MakeID_2(){

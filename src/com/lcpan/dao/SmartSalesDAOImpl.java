@@ -13,7 +13,8 @@ import com.lcpan.bean.InventoryBean;
 import com.lcpan.bean.MemberBean;
 
 public class SmartSalesDAOImpl implements SmartSalesDAO {
-	private static final String GET_ALL = "SELECT number,memberLevel,name,birthday,age,gender,preferences,phone,email,site,photoURL FROM member_overview";
+	
+//	private static final String GET_ALL = "SELECT number,memberLevel,name,birthday,age,gender,preferences,phone,email,site,photoURL FROM member_overview LIMIT 1 , 5";
 	private static final String GET_MAX_NUM = "SELECT MAX(number) max FROM member_overview";
 	private static final String INSERT_MEMBER = "{call insert_member(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
 	private static final String CAL_AGE = "{call cal_age}";
@@ -35,7 +36,7 @@ public class SmartSalesDAOImpl implements SmartSalesDAO {
 	private static final String DEL_PRODUCTINVEN = "delete from inventory_list where productNo= ?";
 	private static final String Update_Get_PRODUCT = "SELECT * FROM product_information WHERE productNo = ?";
 	private static final String Update_PRODUCT = "{call upd_product_information(?, ?, ?)}";
-	
+	private static int pagesize = 11;
 	Connection conn;
 
 	public SmartSalesDAOImpl() {
@@ -50,10 +51,12 @@ public class SmartSalesDAOImpl implements SmartSalesDAO {
 		}
 	}
 
-	public List<MemberBean> getAllMembers() { // 會員總覽
+	public List<MemberBean> getAllMembers(int pageNo) { // 會員總覽
 		List<MemberBean> members = null;
+		int begin = (pageNo-1)*pagesize;
+		int end = pagesize;
 		try {
-			PreparedStatement stmt = conn.prepareStatement(GET_ALL);
+			PreparedStatement stmt = conn.prepareStatement("SELECT number,memberLevel,name,birthday,age,gender,preferences,phone,email,site,photoURL FROM member_overview LIMIT "+ begin+","+end);
 			ResultSet rs = stmt.executeQuery();
 			members = new ArrayList<>();
 			MemberBean member = null;
@@ -90,6 +93,35 @@ public class SmartSalesDAOImpl implements SmartSalesDAO {
 		}
 		return members;
 	}
+	
+	public int getTotalPage() {
+		// TODO Auto-generated method stub
+		int totalCount = 0;
+		int totalPage = 0;
+		try {
+			PreparedStatement stmt = conn.prepareStatement("SELECT COUNT(number) number FROM member_overview");
+			ResultSet rs = stmt.executeQuery();
+			if(rs.next()){
+				totalCount = Integer.valueOf(rs.getString("number"));
+				totalPage = (totalCount-1)/pagesize+1;
+			}
+			stmt.close();
+		}  catch (SQLException e) {
+			System.out.println("NOOOOOOOOOOOOOOOOOOO");
+			e.printStackTrace();
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		return totalPage;
+	}
+
 
 	public int insertGetMember() {
 		int max = 0;
@@ -552,6 +584,11 @@ public class SmartSalesDAOImpl implements SmartSalesDAO {
 				}
 		}
 	}
+
+	
+	
+	
+	
 
 //	public void addImage() {
 //		try

@@ -68,10 +68,19 @@ public class MemberController extends HttpServlet {
 		request.getRequestDispatcher("/LogIn/CheckLogIn").include(request, response);
 		checkLogIn = (String) request.getAttribute("checkLogIn");
 		if (checkLogIn.equals("true")) {
+			String currentPageNo = request.getParameter("currentpageno");
+			int pageNo = 1;
+			if(currentPageNo!=null){
+				pageNo = Integer.parseInt(currentPageNo);
+			}
 			SmartSalesDAO dao = new SmartSalesDAOImpl();
-			List<MemberBean> members = dao.getAllMembers();
+			List<MemberBean> members = dao.getAllMembers(pageNo);
 			// list --> json
-			request.setAttribute("members", members);
+			SmartSalesDAO dao1 = new SmartSalesDAOImpl();
+			int totalPage = dao1.getTotalPage();
+			request.setAttribute("members", members); 
+			request.setAttribute("currentpageno", pageNo);  
+			request.setAttribute("totalPage", totalPage);
 			request.getRequestDispatcher("/member_list.jsp").forward(request, response);
 		}
 		else
