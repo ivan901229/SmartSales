@@ -4,7 +4,6 @@
 <%
 	UserBean user = (UserBean) session.getAttribute("user");
 %>
-<%!@SuppressWarnings("unchecked")%>
 <html lang="zh-Hant-TW">
 
 <head>
