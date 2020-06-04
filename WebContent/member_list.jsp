@@ -112,9 +112,8 @@
 												<td class="text-center">
 													<button
 														onclick="showPhoto('<%=(members.get(i)).getMemberNo()%>')">
-														<!-- <img src="../assets/images/member_photo/15.jpg" style="height: 60px"/> -->
 														<img
-															src="/member_photo/<%=(members.get(i)).getMemberNo()%>.jpg"
+															src="../assets/images/member_photo/<%=(members.get(i)).getMemberNo()%>.jpg"
 															style="height: 60px" />
 													</button>
 												</td>
