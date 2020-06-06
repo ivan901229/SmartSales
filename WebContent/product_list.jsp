@@ -64,6 +64,8 @@
 												<th>商品編號</th>
 												<th>商品名稱</th>
 												<th>商品分類</th>
+												<th>價格</th>
+												<th>RFID</th>
 												<th>修改</th>
 												<th>刪除</th>
 
@@ -79,6 +81,8 @@
 												<td class="text-center"><%=(products.get(i)).getProductNo()%></td>
 												<td class="text-center"><%=(products.get(i)).getProductName()%></td>
 												<td class="text-center"><%=(products.get(i)).getCategory()%></td>
+												<td class="text-center"><%=(products.get(i)).getPrice()%></td>
+												<td class="text-center"><%=(products.get(i)).getRfid()%></td>
 												<td class="text-center">
 													<button
 														onclick="updateProduct('<%=(products.get(i)).getProductNo()%>')">

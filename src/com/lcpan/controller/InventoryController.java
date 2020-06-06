@@ -25,28 +25,28 @@ public class InventoryController extends HttpServlet {
 		switch (path) {
 		case "/SmartSales/inventory/GetAllInventory":
 			getAllInventory(request, response);
-			break; // ®w¦sÁ`Äý
+			break; // ï¿½wï¿½sï¿½`ï¿½ï¿½
 		case "/SmartSales/inventory/UpdateGetProductNo":
 			updateGetProductNo(request, response);
-			break; // ¨ú±o°Ó«~(¶i³f)
+			break; // ï¿½ï¿½ï¿½oï¿½Ó«~(ï¿½iï¿½f)
 		case "/SmartSales/inventory/UpdateInventory":
 			updateInventory(request, response);
-			break; // ®w¦s§ó·s
+			break; // ï¿½wï¿½sï¿½ï¿½s
 		case "/SmartSales/inventory/NewProduct":
 			newProduct(request, response);
-			break; // ·s¼W°Ó«~
+			break; // ï¿½sï¿½Wï¿½Ó«~
 		case "/SmartSales/inventory/ProductList":
 			productList(request, response);
 			break;
 		case "/SmartSales/inventory/UpdateGetProductNo1":
 			updateGetProductNo1(request, response);
-			break; // ¨ú±o°Ó«~(­×§ï°Ó«~¥Î)
+			break; // ï¿½ï¿½ï¿½oï¿½Ó«~(ï¿½×§ï¿½Ó«~ï¿½ï¿½)
 		case "/SmartSales/inventory/UpdateProduct":
 			updateProduct(request, response);
-			break; // ®w¦s§ó·s
+			break; // ï¿½wï¿½sï¿½ï¿½s
 		case "/SmartSales/inventory/DeleteProduct":
 			deleteProduct(request, response);
-			break; // §R°£°Ó«~
+			break; // ï¿½Rï¿½ï¿½ï¿½Ó«~
 
 		}
 
@@ -60,7 +60,7 @@ public class InventoryController extends HttpServlet {
 
 	private void getAllInventory(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String checkLogIn = ""; // §PÂ_¬O§_¦³log in
+		String checkLogIn = ""; // ï¿½Pï¿½_ï¿½Oï¿½_ï¿½ï¿½log in
 		request.getRequestDispatcher("/LogIn/CheckLogIn").include(request, response);
 		checkLogIn = (String) request.getAttribute("checkLogIn");
 		if (checkLogIn.equals("true")) {
@@ -76,7 +76,7 @@ public class InventoryController extends HttpServlet {
 
 	private void updateGetProductNo(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String checkLogIn = ""; // §PÂ_¬O§_¦³log in
+		String checkLogIn = ""; // ï¿½Pï¿½_ï¿½Oï¿½_ï¿½ï¿½log in
 		request.getRequestDispatcher("/LogIn/CheckLogIn").include(request, response);
 		checkLogIn = (String) request.getAttribute("checkLogIn");
 		if (checkLogIn.equals("true")) {
@@ -93,7 +93,7 @@ public class InventoryController extends HttpServlet {
 
 	private void updateInventory(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String checkLogIn = ""; // §PÂ_¬O§_¦³log in
+		String checkLogIn = ""; // ï¿½Pï¿½_ï¿½Oï¿½_ï¿½ï¿½log in
 		request.getRequestDispatcher("/LogIn/CheckLogIn").include(request, response);
 		checkLogIn = (String) request.getAttribute("checkLogIn");
 		if (checkLogIn.equals("true")) {
@@ -115,7 +115,7 @@ public class InventoryController extends HttpServlet {
 
 	private void newProduct(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String checkLogIn = ""; // §PÂ_¬O§_¦³log in
+		String checkLogIn = ""; // ï¿½Pï¿½_ï¿½Oï¿½_ï¿½ï¿½log in
 		request.getRequestDispatcher("/LogIn/CheckLogIn").include(request, response);
 		checkLogIn = (String) request.getAttribute("checkLogIn");
 		if (checkLogIn.equals("true")) {
@@ -125,6 +125,8 @@ public class InventoryController extends HttpServlet {
 			String productNo = request.getParameter("productNo");
 			String productName = request.getParameter("productName");
 			String category = request.getParameter("category");
+			String price = request.getParameter("price");
+			String rfid = request.getParameter("rfid");
 			SmartSalesDAO dao = new SmartSalesDAOImpl();
 			dao.newProduct(productNo, productName, category);
 			response.sendRedirect("../inventory/GetAllInventory");
@@ -135,7 +137,7 @@ public class InventoryController extends HttpServlet {
 
 	private void productList(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String checkLogIn = ""; // §PÂ_¬O§_¦³log in
+		String checkLogIn = ""; // ï¿½Pï¿½_ï¿½Oï¿½_ï¿½ï¿½log in
 		request.getRequestDispatcher("/LogIn/CheckLogIn").include(request, response);
 		checkLogIn = (String) request.getAttribute("checkLogIn");
 		if (checkLogIn.equals("true")) {
@@ -151,7 +153,7 @@ public class InventoryController extends HttpServlet {
 
 	private void updateGetProductNo1(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String checkLogIn = ""; // §PÂ_¬O§_¦³log in
+		String checkLogIn = ""; // ï¿½Pï¿½_ï¿½Oï¿½_ï¿½ï¿½log in
 		request.getRequestDispatcher("/LogIn/CheckLogIn").include(request, response);
 		checkLogIn = (String) request.getAttribute("checkLogIn");
 		if (checkLogIn.equals("true")) {
@@ -168,7 +170,7 @@ public class InventoryController extends HttpServlet {
 
 	private void updateProduct(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String checkLogIn = ""; // §PÂ_¬O§_¦³log in
+		String checkLogIn = ""; // ï¿½Pï¿½_ï¿½Oï¿½_ï¿½ï¿½log in
 		request.getRequestDispatcher("/LogIn/CheckLogIn").include(request, response);
 		checkLogIn = (String) request.getAttribute("checkLogIn");
 		if (checkLogIn.equals("true")) {
@@ -191,7 +193,7 @@ public class InventoryController extends HttpServlet {
 
 	private void deleteProduct(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String checkLogIn = ""; // §PÂ_¬O§_¦³log in
+		String checkLogIn = ""; // ï¿½Pï¿½_ï¿½Oï¿½_ï¿½ï¿½log in
 		request.getRequestDispatcher("/LogIn/CheckLogIn").include(request, response);
 		checkLogIn = (String) request.getAttribute("checkLogIn");
 		if (checkLogIn.equals("true")) {

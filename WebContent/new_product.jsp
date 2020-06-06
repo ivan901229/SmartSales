@@ -285,6 +285,9 @@
 													<th class="text-center">商品編號</th>
 													<th class="text-center">商品名稱</th>
 													<th class="text-center">分類</th>
+													<th class="text-center">定價</th>
+													<th class="text-center">RFID</th>
+													
 													<!--  <th class="text-center">定價</th> -->
 
 
@@ -302,8 +305,12 @@
 													<td class="text-center"><input class="text-center"
 														style="width: 100px" type="text" name="category">
 													</td>
-													<!--  <td class="text-center"><input class="text-center"
-														style="width: 100px" type="text" name="price"></td> -->
+													<td class="text-center"><input class="text-center"
+														style="width: 100px" type="text" name="price">
+													</td>
+													<td class="text-center"><input class="text-center"
+														style="width: 100px" type="text" name="rfid">
+													</td>
 												</tr>
 
 											</tbody>
