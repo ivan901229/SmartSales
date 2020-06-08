@@ -178,13 +178,15 @@ public class InventoryController extends HttpServlet {
 			response.setCharacterEncoding("UTF-8");
 			response.setContentType("text/html;charset=UTF-8");
 			String productNo = request.getParameter("productNo");
-			System.out.println(productNo);
+			// System.out.println(productNo);
 			String productName = request.getParameter("productName");
-			System.out.println(productName);
+			// System.out.println(productName);
 			String category = request.getParameter("category");
-			System.out.println(category);
+			// System.out.println(category);
+			String price = request.getParameter("price");
+			String rfid = request.getParameter("rfid");
 			SmartSalesDAO dao = new SmartSalesDAOImpl();
-			dao.updateProduct(productNo, productName, category);
+			dao.updateProduct(productNo, productName, category, price, rfid);
 			response.sendRedirect("../inventory/ProductList");
 		}
 		else

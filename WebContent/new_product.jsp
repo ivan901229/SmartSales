@@ -297,7 +297,7 @@
 												<tr>
 
 													<td class="text-center"><input class="text-center"
-														style="width: 200px" type="text" name="productNo" /><br>
+														style="width: 100px" type="text" name="productNo" /><br>
 													</td>
 													<td class="text-center"><input class="text-center"
 														style="width: 150px" type="text" name="productName">
