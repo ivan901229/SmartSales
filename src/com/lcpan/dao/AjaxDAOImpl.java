@@ -14,6 +14,7 @@ import javax.sql.DataSource;
 public class AjaxDAOImpl implements AjaxDAO {
 	private static final String Get_ONSITE_COUNT = "SELECT COUNT(site) FROM member_overview WHERE site='T'";
 	private static final String Get_ONSITE_MEMBERS = "SELECT number,memberLevel,name,birthday,age,gender,preferences,phone,email,site,photoURL FROM member_overview WHERE site = 'T'";
+	private static final String Get_RFID_TMP = "SELECT rfid FROM rfid_tmp";
 
 	Connection conn;
 	
@@ -73,5 +74,28 @@ public class AjaxDAOImpl implements AjaxDAO {
 			}
 		}
 		return rsString;
+	}
+	
+	public String scanNewRFID() {                            // 掃描新產品的RFID
+		String newProductRFID = "";
+		try {
+			PreparedStatement stmt = conn.prepareStatement(Get_RFID_TMP);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				newProductRFID = rs.getString("rfid");
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return newProductRFID;
 	}
 }

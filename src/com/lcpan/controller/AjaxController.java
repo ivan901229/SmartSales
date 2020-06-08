@@ -27,6 +27,9 @@ public class AjaxController extends HttpServlet {
 		case "/SmartSales/Ajax/OnSiteMemberList":  // 現場會員清單
 			onSiteMemberList(request, response);
 			break; 
+		case "/SmartSales/Ajax/scanNewRFID":  // 現場會員清單
+			scanNewRFID(request, response);
+			break; 	
 		}
 	}
 
@@ -54,6 +57,17 @@ public class AjaxController extends HttpServlet {
 		String rsString = dao.getOnSiteMembers();
 //		System.out.println(rsString);
 		out.println(rsString);
+		
+	}
+	
+	private void scanNewRFID(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		PrintWriter out = response.getWriter();
+		AjaxDAO dao = new AjaxDAOImpl();
+		String newProductRFID = dao.scanNewRFID();
+//		System.out.println(rsString);
+		out.println(newProductRFID);
 		
 	}
 

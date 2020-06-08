@@ -47,6 +47,10 @@ public class InventoryController extends HttpServlet {
 		case "/SmartSales/inventory/DeleteProduct":
 			deleteProduct(request, response);
 			break; // 刪除產品!!
+		case "/SmartSales/inventory/NewProductJSP":
+//			response.sendRedirect("../new_product.jsp");
+			request.getRequestDispatcher("../new_product.jsp").forward(request, response);
+			break; // 刪除產品!!
 
 		}
 
