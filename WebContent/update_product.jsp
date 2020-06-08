@@ -70,6 +70,8 @@
 													<th class="text-center">商品編號</th>
 													<th class="text-center">商品名稱</th>
 													<th class="text-center">商品類別</th>
+													<th class="text-center">定價</th>
+													<th class="text-center">RFID</th>
 													<th class="text-center"></th>
 
 												</tr>
@@ -85,6 +87,12 @@
 														style="width: 150px"></td>
 													<td class="text-center"><input type="text"
 														value="<%=inventory.getCategory()%>" name="category"
+														class="text-center" style="width: 150px"></td>
+													<td class="text-center"><input type="text"
+														value="<%=inventory.getPrice()%>" name="price"
+														class="text-center" style="width: 150px"></td>
+													<td class="text-center"><input type="text"
+														value="<%=inventory.getRfid()%>" name="rfid"
 														class="text-center" style="width: 150px"></td>
 
 
