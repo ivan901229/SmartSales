@@ -124,13 +124,13 @@
 		}, 1000);
 		
 		function scanNewRFID(){
-			 loadXMLDoc1("../Ajax/scanNewRFID",function()
-						{
+			 loadXMLDoc1("../Ajax/scanNewRFID",
+					 function(){
 						  	if (xmlhttp1.readyState==4 && xmlhttp1.status==200)
 						    {	
-						  		$("#newProductRFID").html("");
+						  		//$("#newProductRFID").html("");
 						  		var RFID = xmlhttp1.responseText;
-					            $("#newProductRFID").append("<input class='text-center' value='"+RFID+"' style='width: 100px' type='text' name='rfid'>");
+					            $("#newProductRFID").append("<input class='text-center' value='"+RFID+"' style='width: 100px' type='text' name='rfid' readonly>");
 						  		}
 						});
 		 }

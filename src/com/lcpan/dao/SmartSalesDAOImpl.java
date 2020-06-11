@@ -36,6 +36,7 @@ public class SmartSalesDAOImpl implements SmartSalesDAO {
 	private static final String DEL_PRODUCTINVEN = "delete from inventory_list where productNo= ?";
 	private static final String Update_Get_PRODUCT = "SELECT productNo, productName, category, price, rfid FROM product_information WHERE productNo = ?";
 	private static final String Update_PRODUCT = "{call upd_product_information(?, ?, ?, ?, ?)}";
+	private static final String DEL_RFID = "UPDATE rfid_tmp SET rfid = NULL WHERE rfid_tmp.No = 1;";
 	private static int pagesize = 11;
 	Connection conn;
 
@@ -467,6 +468,8 @@ public class SmartSalesDAOImpl implements SmartSalesDAO {
 			stmt.execute();
 			stmt = conn.prepareStatement(INSERT_PRODUCTTOSTORAGE);
 			stmt.setString(1, productNo);
+			stmt.execute();
+			stmt = conn.prepareStatement(DEL_RFID);
 			stmt.execute();
 			stmt.close();
 			System.out.println("Insert successful!");
