@@ -113,12 +113,7 @@
 	</div>
 	<script type="text/javascript" src="../assets/scripts/main.js"></script>
 	<script>
-		setTimeout(function() {
-			memberOnSiteCount();
-		}, 50);
-		setInterval(function() {
-			memberOnSiteCount();
-		}, 3000);
+		memberOnSiteCount();
 	</script>
 
 </body>

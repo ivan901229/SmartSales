@@ -33685,6 +33685,9 @@ function (e, t) { }
 				    	document.getElementById("memberOnSiteCount").innerHTML=xmlhttp.responseText;
 				    }
 				});
+	 setTimeout(function() {
+		 memberOnSiteCount();
+		}, 3000);
  }
  
  

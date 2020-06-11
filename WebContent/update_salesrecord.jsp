@@ -158,12 +158,7 @@
 			maxDate : "+0d"
 		}).val(setDateTest);
 
-		setTimeout(function() {
-			memberOnSiteCount();
-		}, 50);
-		setInterval(function() {
-			memberOnSiteCount();
-		}, 3000);
+		memberOnSiteCount();
 	</script>
 </body>
 
