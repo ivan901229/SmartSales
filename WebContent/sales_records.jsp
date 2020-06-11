@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
 	import="java.util.*,com.lcpan.bean.SalesRecordBean,com.lcpan.bean.UserBean"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 	UserBean user = (UserBean) session.getAttribute("user");
 %>
@@ -93,7 +94,7 @@
 										<tbody>
 											<%
 												List<SalesRecordBean> salesrecords = (ArrayList<SalesRecordBean>) request.getAttribute("salesrecords");
-												for (int i = 0; i < salesrecords.size(); i++) {
+											for (int i = 0; i < salesrecords.size(); i++) {
 											%>
 											<tr class="datarow">
 												<td class="text-center"><%=(salesrecords.get(i)).getOrderNumber()%></td>
@@ -122,8 +123,23 @@
 											%>
 										</tbody>
 									</table>
+									<div class="text-center">
+									<c:if test="${(currentpageno >1) && (currentpageno < totalSalesPage)}">
+										<button class="mb-2 mr-2 btn btn-dark" onclick="location.href='GetAllSalesRecord?currentpageno=1'">首頁</button>
+   	                                    <button class="mb-2 mr-2 btn btn-dark" onclick="location.href='GetAllSalesRecord?currentpageno=${currentpageno-1}'">上一頁</button>
+   	                                    <button class="mb-2 mr-2 btn btn-dark" onclick="location.href='GetAllSalesRecord?currentpageno=${currentpageno+1}'">下一頁</button>
+   	                                    <button class="mb-2 mr-2 btn btn-dark" onclick="location.href='GetAllSalesRecord?currentpageno=${totalSalesPage}'">尾頁</button>
+									</c:if>
+									<c:if test="${currentpageno==totalSalesPage && totalSalesPage!=1}">
+								     	<button class="mb-2 mr-2 btn btn-dark" onclick="location.href='GetAllSalesRecord?currentpageno=1'">首頁</button>
+   	                                    <button class="mb-2 mr-2 btn btn-dark" onclick="location.href='GetAllSalesRecord?currentpageno=${currentpageno-1}'">上一頁</button>
+									</c:if>
+									<c:if test="${currentpageno==1 && totalSalesPage!=1}">
+										<button class="mb-2 mr-2 btn btn-dark" onclick="location.href='GetAllSalesRecord?currentpageno=${currentpageno+1}'">下一頁</button>
+   	                                    <button class="mb-2 mr-2 btn btn-dark" onclick="location.href='GetAllSalesRecord?currentpageno=${totalSalesPage}'">尾頁</button>
+									</c:if>
+									</div>
 								</div>
-
 							</div>
 						</div>
 					</div>
