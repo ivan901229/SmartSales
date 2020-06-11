@@ -25,7 +25,7 @@ public interface SmartSalesDAO {
 	public void updateInventory(String productNo, String shelves, String inwareHouse, String totalAmount);
 	public void newProduct(String productNo, String productName, String category, String price, String rfid);
 	public InventoryBean updateGetProductNo1(String productNo);
-	public void updateProduct(String productNo, String productName, String category);
+	public void updateProduct(String productNo, String productName, String category, String price, String rfid);
 	public void deleteProduct(String productNo);
 	public List<InventoryBean> productList(); //°Ó«~¦Cªí
 //	public void addImage();

@@ -33661,6 +33661,22 @@ function (e, t) { }
  	xmlhttp.send();
  }
  
+ var xmlhttp1;
+ function loadXMLDoc1(url,cfunc)
+ {
+ 	if (window.XMLHttpRequest)
+ 	{// IE7+, Firefox, Chrome, Opera, Safari 代码
+ 		xmlhttp1=new XMLHttpRequest();
+ 	}
+ 	else
+ 	{// IE6, IE5 代码
+ 		xmlhttp1=new ActiveXObject("Microsoft.XMLHTTP");
+ 	}
+ 	xmlhttp1.onreadystatechange=cfunc;
+ 	xmlhttp1.open("GET",url,true);
+ 	xmlhttp1.send();
+ }
+ 
  function memberOnSiteCount(){
 	 loadXMLDoc("../Ajax/OnSiteMemberCount",function()
 				{
@@ -33670,6 +33686,8 @@ function (e, t) { }
 				    }
 				});
  }
+ 
+ 
 
 
     

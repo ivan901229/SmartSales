@@ -96,7 +96,6 @@ public class SmartSalesDAOImpl implements SmartSalesDAO {
 	}
 	
 	public int getTotalPage() {
-		// TODO Auto-generated method stub
 		int totalCount = 0;
 		int totalPage = 0;
 		try {
@@ -549,6 +548,8 @@ public class SmartSalesDAOImpl implements SmartSalesDAO {
 				inventory.setProductNo(rs.getString("productNo"));
 				inventory.setProductName(rs.getString("productName"));
 				inventory.setCategory(rs.getString("category"));
+				inventory.setPrice(rs.getString("price"));
+				inventory.setRfid(rs.getString("rfid"));
 				
 			}
 			stmt.close();
@@ -565,7 +566,7 @@ public class SmartSalesDAOImpl implements SmartSalesDAO {
 		return inventory;
 	}
 	
-	public void updateProduct(String productNo, String productName, String category) {
+	public void updateProduct(String productNo, String productName, String category, String price, String rfid) {
 		try {
 			CallableStatement cstmt = conn.prepareCall(Update_PRODUCT);
 			cstmt.setString(1, productNo);
@@ -574,6 +575,8 @@ public class SmartSalesDAOImpl implements SmartSalesDAO {
 			System.out.println(productName);
 			cstmt.setString(3, category);
 			System.out.println(category);
+			cstmt.setString(4, price);
+			cstmt.setString(5, rfid);
 			cstmt.execute();
 			System.out.println("updateProduct Stored Procedure successful!");
 			cstmt.close();
