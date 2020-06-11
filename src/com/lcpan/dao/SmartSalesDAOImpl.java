@@ -34,17 +34,12 @@ public class SmartSalesDAOImpl implements SmartSalesDAO {
 	private static final String INSERT_PRODUCTTOSTORAGE = "insert into inventory_list values(?, 0, 0, 0)"; //將新增商品加入庫存，庫存=0
 	private static final String DEL_PRODUCT = "delete from product_information where productNo= ?";
 	private static final String DEL_PRODUCTINVEN = "delete from inventory_list where productNo= ?";
-<<<<<<< HEAD
 	private static final String Update_Get_PRODUCT = "SELECT productNo, productName, category, price, rfid FROM product_information WHERE productNo = ?";
 	private static final String Update_PRODUCT = "{call upd_product_information(?, ?, ?, ?, ?)}";
 	private static final String DEL_RFID = "UPDATE rfid_tmp SET rfid = NULL WHERE rfid_tmp.No = 1;";
-	private static int pagesize = 11;
-=======
-	private static final String Update_Get_PRODUCT = "SELECT * FROM product_information WHERE productNo = ?";
-	private static final String Update_PRODUCT = "{call upd_product_information(?, ?, ?)}";
 	private static final String GET_PRODUCTNO ="SELECT productNo FROM product_information";
 	private static int pagesize = 11;  //一頁顯示11筆
->>>>>>> refs/remotes/origin/master
+
 	Connection conn;
 
 	public SmartSalesDAOImpl() {
