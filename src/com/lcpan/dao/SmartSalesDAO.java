@@ -7,7 +7,7 @@ import com.lcpan.bean.InventoryBean;
 import com.lcpan.bean.MemberBean;
 
 public interface SmartSalesDAO {
-	public List<MemberBean> getAllMembers(int pageNo);    // ï¿½|ï¿½ï¿½ï¿½`ï¿½ï¿½
+	public List<MemberBean> getAllMembers(int pageNo);     // ·|­ûÁ`Äý
 	public int insertGetMember();
 	public int getTotalPage();
 	
@@ -19,7 +19,7 @@ public interface SmartSalesDAO {
 			 String memberGender, String memberPreferences, String memberPhone, String memberEmail, String memberPhotoURL);
 	public List<MemberBean> searchMember(String keyword);
 	public List<InventoryBean> getAllInventory();
-	public List<MemberBean> getOnsiteMembers(); // ï¿½ï¿½ï¿½ï¿½-ï¿½{ï¿½ï¿½ï¿½|ï¿½ï¿½
+	public List<MemberBean> getOnsiteMembers(); // ­º­¶-²{³õ·|­û
 	public String getPhotoURL(String memberNo);
 	public InventoryBean updateGetProductNo(String productNo);
 	public void updateInventory(String productNo, String shelves, String inwareHouse, String totalAmount);
@@ -27,7 +27,7 @@ public interface SmartSalesDAO {
 	public InventoryBean updateGetProductNo1(String productNo);
 	public void updateProduct(String productNo, String productName, String category);
 	public void deleteProduct(String productNo);
-	public List<InventoryBean> productList(); //ï¿½Ó«~ï¿½Cï¿½ï¿½
+	public List<InventoryBean> productList(); //°Ó«~¦Cªí
 //	public void addImage();
 
 }

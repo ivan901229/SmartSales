@@ -60,10 +60,11 @@
 							class="metismenu-icon pe-7s-home"></i> 首頁
 					</a></li>
 					<li class="app-sidebar__heading">分析</li>
-					<li><a href="../sales_analysis.jsp"> <i
+					<li><a href="../analysis/GetPurchaseRatio"> <i
 							class="metismenu-icon pe-7s-graph"></i> 銷售分析
 					</a></li>
-					<li><a href="../flow.jsp"> <i
+					<!-- <li><a href="../sales_analysis.jsp"> <i -->
+					<li><a href="../analysis/GetFootfall"> <i
 							class="metismenu-icon pe-7s-graph2"></i> 客流分析
 					</a></li>
 					<li class="app-sidebar__heading">商品</li>
@@ -88,7 +89,7 @@
 							class="metismenu-icon pe-7s-look"></i> 現場會員
 					</a></li>
 					<li class="app-sidebar__heading">銷售</li>
-					<li><a href="../salesrecord/GetAllSalesRecord"> <i
+					<li><a href="../salesrecord/GetAllSalesRecord?currentpageno=1"> <i
 							class="metismenu-icon pe-7s-note2"></i> 銷售紀錄
 					</a></li>
 				</ul>

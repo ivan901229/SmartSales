@@ -28,15 +28,16 @@ public class SmartSalesDAOImpl implements SmartSalesDAO {
 //	private static final String Add_Image = "insert into p(id, photo) values(?,?)";
 //	private static final String Add_Image = "UPDATE member_overview SET photo = ? WHERE number = ?";
 	private static final String Update_Get_INVENTORY = "SELECT * FROM inventory_list WHERE productNo = ?";
-	private static final String Update_INVENTORY = "{call upd_inventory_all(?, ?, ?, ?)}"; //ï¿½ï¿½sï¿½ï¿½ï¿½~
-	private static final String NEW_PRODUCT = "insert into product_information values(?, ?, ?, ?, ?, 0)"; //ï¿½sï¿½Wï¿½Ó«~
+	private static final String Update_INVENTORY = "{call upd_inventory_all(?, ?, ?, ?)}"; //§ó·s²£«~
+	private static final String NEW_PRODUCT = "insert into product_information values(?, ?, ?, ?, ?, 0)"; //·s¼W°Ó«~
 	private static final String PRODUCT_LIST = "SELECT productNo, productName, category, price,rfid FROM product_information";
-	private static final String INSERT_PRODUCTTOSTORAGE = "insert into inventory_list values(?, 0, 0, 0)"; //ï¿½Nï¿½sï¿½Wï¿½Ó«~ï¿½[ï¿½Jï¿½wï¿½sï¿½Aï¿½wï¿½s=0
+	private static final String INSERT_PRODUCTTOSTORAGE = "insert into inventory_list values(?, 0, 0, 0)"; //±N·s¼W°Ó«~¥[¤J®w¦s¡A®w¦s=0
 	private static final String DEL_PRODUCT = "delete from product_information where productNo= ?";
 	private static final String DEL_PRODUCTINVEN = "delete from inventory_list where productNo= ?";
 	private static final String Update_Get_PRODUCT = "SELECT * FROM product_information WHERE productNo = ?";
 	private static final String Update_PRODUCT = "{call upd_product_information(?, ?, ?)}";
-	private static int pagesize = 11;
+	private static final String GET_PRODUCTNO ="SELECT productNo FROM product_information";
+	private static int pagesize = 11;  //¤@­¶Åã¥Ü11µ§
 	Connection conn;
 
 	public SmartSalesDAOImpl() {
@@ -51,7 +52,7 @@ public class SmartSalesDAOImpl implements SmartSalesDAO {
 		}
 	}
 
-	public List<MemberBean> getAllMembers(int pageNo) { // ï¿½|ï¿½ï¿½ï¿½`ï¿½ï¿½
+	public List<MemberBean> getAllMembers(int pageNo) { // ·|­ûÁ`Äý
 		List<MemberBean> members = null;
 		int begin = (pageNo-1)*pagesize;
 		int end = pagesize;
@@ -103,7 +104,7 @@ public class SmartSalesDAOImpl implements SmartSalesDAO {
 			ResultSet rs = stmt.executeQuery();
 			if(rs.next()){
 				totalCount = Integer.valueOf(rs.getString("number"));
-				totalPage = (totalCount-1)/pagesize+1;
+                totalPage = (totalCount-1)/pagesize+1;
 			}
 			stmt.close();
 		}  catch (SQLException e) {
@@ -591,7 +592,32 @@ public class SmartSalesDAOImpl implements SmartSalesDAO {
 
 	
 	
-	
+	public List<InventoryBean> getPurchaseRatio() {
+		List<InventoryBean> products = null;
+		try {
+			PreparedStatement stmt = conn.prepareStatement(GET_PRODUCTNO);
+			ResultSet rs = stmt.executeQuery();
+			products = new ArrayList<>();
+			InventoryBean product = null;
+			while (rs.next()) {
+				product = new InventoryBean();
+				product.setProductNo(rs.getString("productNo"));
+				products.add(product);
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return products;
+	}
 	
 
 //	public void addImage() {
@@ -607,10 +633,10 @@ public class SmartSalesDAOImpl implements SmartSalesDAO {
 //			stmt.setBinaryStream(1, is, is.available());
 //			stmt.setString(2,"1");
 //			System.out.println("test4");
-//			// ï¿½ï¿½kï¿½ï¿½ï¿½ï¿½ï¿½GPreparedStatement.setBinaryStream(int parameterIndex, InputStream x, int
+//			// ¤èªk»¡©ú¡GPreparedStatement.setBinaryStream(int parameterIndex, InputStream x, int
 //			// length)
 //			stmt.executeUpdate();
-//			System.out.println("ï¿½Ï¤ï¿½ï¿½sï¿½Wï¿½ï¿½ï¿½\ï¿½I");
+//			System.out.println("¹Ï¤ù·s¼W¦¨¥\¡I");
 //
 //		} catch (Exception e) {
 //			e.printStackTrace();

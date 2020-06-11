@@ -104,8 +104,6 @@
 
 												for (int i = 0; i < members.size(); i++) {
 											%>
-
-
 											<tr class="datarow">
 												<td class="text-center"><%=(members.get(i)).getMemberNo()%></td>
 												<td class="text-center"><%=(members.get(i)).getMemberLevel()%></td>
@@ -115,6 +113,7 @@
 														<img
 															src="../assets/images/member_photo/<%=(members.get(i)).getMemberNo()%>.jpg"
 															style="height: 60px" />
+															<!-- window的路徑為 /member_photo -->
 													</button>
 												</td>
 												<td class="text-center"><%=(members.get(i)).getMemberName()%></td>
@@ -136,35 +135,38 @@
 														onclick="delMember('<%=(members.get(i)).getMemberNo()%>')">
 														<i class="pe-7s-trash btn-icon-wrapper"> </i>
 													</button>
-
 												</td>
 											</tr>
-
 											<%
 												}
 											%>
-
-
 										</tbody>
-
 									</table>
-
+									<div class="text-center">
 									<c:if test="${currentpageno>1 && currentpageno<totalPage}">
-										<a href="GetAllMembers?currentpageno=1">首頁</a>
+										<!--  <a href="GetAllMembers?currentpageno=1">首頁</a>
 										<a href="GetAllMembers?currentpageno=${currentpageno-1}">上一頁</a>
 										<a href="GetAllMembers?currentpageno=${currentpageno+1}">下一頁</a>
-										<a href="GetAllMembers?currentpageno=${totalPage}">尾頁</a>
+										<a href="GetAllMembers?currentpageno=${totalPage}">尾頁</a>-->
+										<button class="mb-2 mr-2 btn btn-dark" onclick="MakeID()">首頁</button>
+   	                                    <button class="mb-2 mr-2 btn btn-dark" onclick="MakeID_Prev()">上一頁</button>
+   	                                    <button class="mb-2 mr-2 btn btn-dark" onclick="MakeID_Next()">下一頁</button>
+   	                                    <button class="mb-2 mr-2 btn btn-dark" onclick="MakeID_Last()">尾頁</button>
 									</c:if>
-									<c:if test="${currentpageno==totalPage}">
-										<a href="GetAllMembers?currentpageno=1">首頁</a>
-										<a href="GetAllMembers?currentpageno=${currentpageno-1}">上一頁</a>
+									<c:if test="${currentpageno==totalPage  && totalPage!=1}">
+								     	<button class="mb-2 mr-2 btn btn-dark" onclick="MakeID()">首頁</button>
+   	                                    <button class="mb-2 mr-2 btn btn-dark" onclick="MakeID_Prev()">上一頁</button>
+									<!-- 	<a href="GetAllMembers?currentpageno=1">首頁</a>
+										<a href="GetAllMembers?currentpageno=${currentpageno-1}">上一頁</a>-->
 									</c:if>
-									<c:if test="${currentpageno==1}">
-										<a href="GetAllMembers?currentpageno=${currentpageno+1}">下一頁</a>
-										<a href="GetAllMembers?currentpageno=${totalPage}">尾頁</a>
+									<c:if test="${currentpageno==1 && totalPage!=1}">
+										<button class="mb-2 mr-2 btn btn-dark" onclick="MakeID_Next()">下一頁</button>
+   	                                    <button class="mb-2 mr-2 btn btn-dark" onclick="MakeID_Last()">尾頁</button>
+									<!-- 	<a href="GetAllMembers?currentpageno=${currentpageno+1}">下一頁</a>
+										<a href="GetAllMembers?currentpageno=${totalPage}">尾頁</a>-->
 									</c:if>
-
-
+									<a>第${currentpageno}頁/共${totalPage}頁</a>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -182,6 +184,36 @@
 		setInterval(function() {
 			memberOnSiteCount();
 		}, 3000);
+		
+		 function MakeID_Next(){
+		    	var text = "";
+		    	var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+		    	for (var i = 0; i < 5; i++)
+		    		text += possible.charAt(Math.floor(Math.random() * possible.length));
+		    	
+		    	window.location.href=('../member/GetAllMembers?'+text+"&currentpageno="+${currentpageno+1})
+		    } //下一頁
+		    
+		   function MakeID_Prev(){
+		    	var text = "";
+		    	var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+		    	for (var i = 0; i < 5; i++)
+		    		text += possible.charAt(Math.floor(Math.random() * possible.length));
+		    	
+		    	window.location.href=('../member/GetAllMembers?'+text+"&currentpageno="+${currentpageno-1})
+		    } //上一頁  
+		    
+		    function MakeID_Last(){
+		    	var text = "";
+		    	var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+		    	for (var i = 0; i < 5; i++)
+		    		text += possible.charAt(Math.floor(Math.random() * possible.length));
+		    	
+		    	window.location.href=('../member/GetAllMembers?'+text+"&currentpageno="+${totalPage})
+		    } // 尾頁 
 	</script>
 </body>
 

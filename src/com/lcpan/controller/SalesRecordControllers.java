@@ -50,9 +50,19 @@ public class SalesRecordControllers extends HttpServlet {
 		request.getRequestDispatcher("/LogIn/CheckLogIn").include(request, response);
 		checkLogIn = (String) request.getAttribute("checkLogIn");
 		if (checkLogIn.equals("true")) {
+			String currentPageNo = request.getParameter("currentpageno");
+			int pageNo = 1;
+			if(currentPageNo!=null){
+				pageNo = Integer.parseInt(currentPageNo);
+			}
+			System.out.println("NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
 			SalesRecordDAO dao = new SalesRecordDAOImpl();
-			List<SalesRecordBean> salesrecords = dao.getAllSalesRecord();
+			List<SalesRecordBean> salesrecords = dao.getAllSalesRecord(pageNo);
+			SalesRecordDAO dao1 = new SalesRecordDAOImpl();
+			int totalSalesPage = dao1.getTotalSalesPage();
 			request.setAttribute("salesrecords", salesrecords);
+			request.setAttribute("currentpageno", pageNo);  
+			request.setAttribute("totalSalesPage", totalSalesPage);
 			request.getRequestDispatcher("/sales_records.jsp").forward(request, response);
 		}
 		else
