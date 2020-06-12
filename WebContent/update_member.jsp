@@ -17,17 +17,6 @@
 <meta name="description"
 	content="This is an example dashboard created using build-in elements and components.">
 <meta name="msapplication-tap-highlight" content="no">
-
-<!--
-    =========================================================
-    * ArchitectUI HTML Theme Dashboard - v1.0.0
-    =========================================================
-    * Product Page: https://dashboardpack.com
-    * Copyright 2019 DashboardPack (https://dashboardpack.com)
-    * Licensed under MIT (https://github.com/DashboardPack/architectui-html-theme-free/blob/master/LICENSE)
-    =========================================================
-    * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-    -->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <link rel="stylesheet"
 	href="http://code.jquery.com/ui/1.11.4/themes/cupertino/jquery-ui.min.css">
@@ -140,6 +129,8 @@
 		</div>
 	</div>
 	<script type="text/javascript" src="../assets/scripts/main.js"></script>
+	<script type="text/javascript" src="../assets/scripts/others.js"></script>
+	<script type="text/javascript" src="../assets/scripts/datepicker.js"></script>
 	<script>
       
     	const level = "<%=member.getMemberLevel()%>";

@@ -112,23 +112,10 @@
 		</div>
 	</div>
 	<script type="text/javascript" src="../assets/scripts/main.js"></script>
+	<script type="text/javascript" src="../assets/scripts/others.js"></script>
 	<script>
 		memberOnSiteCount();
-		setInterval(function() {
-			scanNewRFID();
-		}, 1000);
-		
-		function scanNewRFID(){
-			 loadXMLDoc1("../Ajax/scanNewRFID",
-					 function(){
-						  	if (xmlhttp1.readyState==4 && xmlhttp1.status==200)
-						    {	
-						  		//$("#newProductRFID").html("");
-						  		var RFID = xmlhttp1.responseText;
-					            $("#newProductRFID").append("<input class='text-center' value='"+RFID+"' style='width: 100px' type='text' name='rfid' readonly>");
-						  		}
-						});
-		 }
+		scanNewRFID();
 	</script>
 
 </body>

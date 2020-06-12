@@ -33,7 +33,6 @@
 </head>
 
 <body>
-<!--  <img src="http://192.168.10.128:8000/stream.mjpg" width="640" height="480">-->
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 	<div
 		class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
@@ -177,6 +176,7 @@
 		</div>
 	</div>
 	<script type="text/javascript" src="../assets/scripts/main.js"></script>
+	<script type="text/javascript" src="../assets/scripts/others.js"></script>
 	<script>
 		memberOnSiteCount();
 		
