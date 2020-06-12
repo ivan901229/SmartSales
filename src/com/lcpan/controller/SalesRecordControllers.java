@@ -40,6 +40,9 @@ public class SalesRecordControllers extends HttpServlet {
 		case "/SmartSales/salesrecord/UpdateSalesRecord":
 			updateSalesRecord(request, response);
 			break; // 銷售紀錄更新
+		default :
+			request.getRequestDispatcher("../member/GetOnsiteMembers").forward(request, response);
+			break; // 錯誤網址-返回首頁
 		}
 
 	} // end of doGet()

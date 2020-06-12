@@ -31,7 +31,10 @@ public class AnalysisController extends HttpServlet {
 		case "/SmartSales/analysis/GetPurchaseRatio":getPurchaseRatio(request, response);   //取得購買比例
 			break;
 		case "/SmartSales/analysis/GetFootfall":getFootfall(request, response);   //取得客流量
-		break;
+		    break;
+		default :
+			request.getRequestDispatcher("../member/GetOnsiteMembers").forward(request, response);
+			break; // 錯誤網址-返回首頁
 		}
 	}
 	

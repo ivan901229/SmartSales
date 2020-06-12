@@ -51,7 +51,9 @@ public class InventoryController extends HttpServlet {
 //			response.sendRedirect("../new_product.jsp");
 			request.getRequestDispatcher("../new_product.jsp").forward(request, response);
 			break; // 刪除產品!!
-
+		default :
+			request.getRequestDispatcher("../member/GetOnsiteMembers").forward(request, response);
+			break; // 錯誤網址-返回首頁
 		}
 
 	}

@@ -1,7 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <web-app version="4.0" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee                       http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd">
-  
+  <!-- =======================================錯誤頁配置開始====================================== -->
+	<!-- 400錯誤 -->
+	<error-page>
+		<error-code>400</error-code>
+		<location>/error.jsp</location>
+	</error-page>
+	<!-- 403錯誤 -->
+	<error-page>
+		<error-code>403</error-code>
+		<location>/error_403.jsp</location>
+	</error-page>
+	<!-- 404 頁面不存在錯誤 -->
+	<error-page>
+		<error-code>404</error-code>
+		<location>/error_404.jsp</location>
+	</error-page>
+	<!-- 500 伺服器內部錯誤 -->
+	<error-page>
+		<error-code>500</error-code>
+		<location>/error_500.jsp</location>
+	</error-page>
+	<!-- java.lang.Exception異常錯誤,依據這個標記可定義多個類似錯誤提示 -->
+	<error-page>
+		<exception-type>java.lang.Exception</exception-type>
+		<location>/error.jsp</location>
+	</error-page>
+	<error-page>
+		<exception-type>javax.servlet.ServletException</exception-type>
+		<location>/error.jsp</location>
+	</error-page>
+<!-- =======================================錯誤頁配置結束====================================== -->
 
     <welcome-file-list>
         <welcome-file>login.jsp</welcome-file>

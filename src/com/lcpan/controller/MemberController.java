@@ -53,6 +53,9 @@ public class MemberController extends HttpServlet {
 			getOnsiteMembers(request, response);
 			break; // 首頁-現場會員OK
 //		case "/SmartSales/member/AddImage": addImage(request, response); break;   				  // 上傳會員照片
+		default :
+			getOnsiteMembers(request, response);
+			break; // 錯誤網址-返回首頁
 		}
 
 	} // end of doGet()
