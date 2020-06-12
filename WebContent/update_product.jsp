@@ -91,7 +91,7 @@
 													<td class="text-center"><input type="text"
 														value="<%=inventory.getPrice()%>" name="price"
 														class="text-center" style="width: 150px"></td>
-													<td class="text-center"><input type="text"
+													<td class="text-center"><input type="text" readonly
 														value="<%=inventory.getRfid()%>" name="rfid"
 														class="text-center" style="width: 150px"></td>
 

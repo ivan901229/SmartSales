@@ -60,9 +60,9 @@ var xmlhttp1;  //for memberonsitelist & scanNewRFID
 			 function(){
 				  	if (xmlhttp1.readyState==4 && xmlhttp1.status==200)
 				    {	
-				  		//$("#newProductRFID").html("");
+				  		$("#newProductRFID").html("");
 				  		var RFID = xmlhttp1.responseText;
-			            $("#newProductRFID").append("<input class='text-center' value='"+RFID+"' style='width: 100px' type='text' name='rfid' readonly>");
+			            $("#newProductRFID").append("<input class='text-center' readonly value='"+RFID+"' style='width: 100px' type='text' name='rfid' readonly>");
 				  		}
 				});
 	 setTimeout(function() {scanNewRFID();},1000);
