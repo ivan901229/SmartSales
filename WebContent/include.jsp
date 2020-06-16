@@ -97,8 +97,8 @@
 						</div>
 					</div>
 				</div>
-				<a href="../pay.jsp">
-					<button class="mb-2 mr-2 btn btn-danger">結帳</button>
+				<a href="../salesrecord/paytest">
+					<button class="mb-2 mr-2 btn btn-danger" >結帳</button>
 				</a>
 			</div>
 		</div>
