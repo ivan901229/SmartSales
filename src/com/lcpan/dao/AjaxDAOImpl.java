@@ -16,7 +16,7 @@ public class AjaxDAOImpl implements AjaxDAO {
 	private static final String Get_ONSITE_MEMBERS = "SELECT number,memberLevel,name,birthday,age,gender,preferences,phone,email,site,photoURL FROM member_overview WHERE site = 'T'";
 	private static final String Get_RFID_TMP = "SELECT rfid FROM rfid_tmp";
 	private static final String Get_PAY_INFO = "SELECT * FROM product_information where picked != 0";
-	private static final String DEL_PAY_INFO = "UPDATE product_information SET picked = 0 WHERE product_information.productNo = ?";
+	
 	private static final String CLEAN_PAY_INFO = "UPDATE product_information SET picked = 0 WHERE product_information.picked != 0";
 
 	Connection conn;
@@ -109,7 +109,7 @@ public class AjaxDAOImpl implements AjaxDAO {
 			PreparedStatement stmt = conn.prepareStatement(Get_PAY_INFO);
 			ResultSet rs = stmt.executeQuery();
 			rsString = JSONTools.resultSetToJSON(rs).toString();
-			System.out.print(rsString);
+			//System.out.print(rsString);
 			stmt.close();
 		} catch (SQLException e) {
 			e.printStackTrace();

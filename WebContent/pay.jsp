@@ -58,8 +58,7 @@
 							<div class="main-card mb-3 card">
 								<div class="card-header"></div>
 								<div class="table-responsive">
-									<form method="post" action="../member/InsertMember"
-									onSubmit="return CheckSubmit();" enctype="multipart/form-data">
+									
 									<table
 										class="align-middle mb-0 table table-borderless table-striped table-hover"
 										id="table3">
@@ -83,7 +82,7 @@
 										</tbody>
 
 									</table>
-								</form>
+								
 								</div>
 							</div>
 						</div>
