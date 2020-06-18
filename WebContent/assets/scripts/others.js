@@ -55,6 +55,8 @@ var xmlhttp1;  //for memberonsitelist & scanNewRFID
 		setTimeout(function() {	memberOnSiteList();},3000); 
  }
  
+ 
+ 
  function scanNewRFID(){
 	 loadXMLDoc1("../Ajax/scanNewRFID",
 			 function(){
@@ -261,7 +263,7 @@ $(document).ready(
 						if (month){
 							$("#table3 .datarow").hide().filter(
 									":contains("+year+'-'+month+'-'+")").show();  // 年+"-"+月
-//console.log(month)
+							//console.log(month)
 						}// 找月
 					});
 			$("#getday").click(
@@ -275,9 +277,60 @@ $(document).ready(
 							$("#table3 .datarow").hide().filter(
 									":contains("+year+'-'+month+'-'+day+")").show();   // //
 																						// 年+"-"+月+"-"+日
-//console.log(day)
+							//console.log(day)
 						}// 找日
 					});
 			
 		
 		});
+
+function paylist(){
+	 loadXMLDoc1("../Ajax/pay",function()
+				{
+				  	if (xmlhttp1.readyState==4 && xmlhttp1.status==200)
+				    {
+				  		$("#paylist").html("");
+				  		var productNo,productName,price,picked;
+				  		var totalamount = 0;
+				  		var totalprice = 0;
+				  		var rsString =eval('(' + xmlhttp1.responseText + ')');
+				  		
+				  		for(let i=0;i<rsString.length;i++){
+				  			productNo = rsString[i].productNo;
+				  			productName = rsString[i].productName;
+				  			price = rsString[i].price;
+				  			picked = rsString[i].picked;
+				  			totalamount += parseInt(picked);
+				  			totalprice += parseInt(picked)*parseInt(price);
+				  			
+				  			
+				  			
+				  			// console.log(number);
+			           		$("#paylist").append("<tr class='datarow'>" +
+			           				"<td class='text-center' name='productNo'>"+productNo+"</td>" +
+			           				"<td class='text-center' name='productName'>"+productName+"</td>" +
+			           				"<td class='text-center' name='price'>"+price+"</td>" +
+			           				"<td class='text-center' name='picked'>"+picked+"</td>"+
+			           				"<td class='text-center'><i class='fas fa-trash'></i></td>"+
+			           				"</tr>");
+				  		}
+				  		
+				  		$("#paylist").append("<tr class='datarow'>" +
+				  				"<td class='text-center'></td>" +
+				  				"<td class='text-center'></td>" +
+				  				"<td class='text-center'></td>" +
+				  				"<td class='text-center'>總數量</td>" +
+				  				"<td class='text-center' style='font-weight:bold'>總價</td>" +
+				  				"</tr>");
+				  		$("#paylist").append("<tr class='datarow'>" +
+				  				"<td class='text-center'></td>" +
+				  				"<td class='text-center'></td>" +
+				  				"<td class='text-center'></td>" +
+				  				"<td class='text-center'>"+totalamount+"</td>" +
+				  				"<td class='text-center'>"+totalprice+"</td>" +
+				  				"</tr>");
+				  		
+				    }
+				});
+		setTimeout(function() {	paylist();},3000); 
+}

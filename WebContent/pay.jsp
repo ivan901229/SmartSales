@@ -58,114 +58,32 @@
 							<div class="main-card mb-3 card">
 								<div class="card-header"></div>
 								<div class="table-responsive">
+									<form method="post" action="../member/InsertMember"
+									onSubmit="return CheckSubmit();" enctype="multipart/form-data">
 									<table
 										class="align-middle mb-0 table table-borderless table-striped table-hover"
 										id="table3">
+									
 										<thead>
 											<tr>
 												<th class="text-center">編號</th>
 												<th class="text-center">商品名稱</th>
 												<th class="text-center">單價</th>
 												<th class="text-center">數量</th>
-												<th class="text-center">小計</th>
-
 												<th class="text-center">刪除</th>
 											</tr>
 										</thead>
-										<tbody>
-											<tr>
-												<td class=text-center>A01</td>
-												<td class=text-center>上衣</td>
-												<td class=text-center>$1000</td>
-												<td class=text-center>2</td>
-												<td class=text-center>$2000</td>
-												<td class=text-center>
-													<button>
-														<i class="pe-7s-trash btn-icon-wrapper"> </i>
-													</button>
-												</td>
-											</tr>
-											<tr>
-												<td class=text-center>A02</td>
-												<td class=text-center>上衣</td>
-												<td class=text-center>$1500</td>
-												<td class=text-center>3</td>
-												<td class=text-center>$3500</td>
-												<td class=text-center>
-													<button>
-														<i class="pe-7s-trash btn-icon-wrapper"> </i>
-													</button>
-												</td>
-											</tr>
-											<tr>
-												<td class=text-center>A03</td>
-												<td class=text-center>上衣</td>
-												<td class=text-center>$2000</td>
-												<td class=text-center>4</td>
-												<td class=text-center>$8000</td>
-												<td class=text-center>
-													<button>
-														<i class="pe-7s-trash btn-icon-wrapper"> </i>
-													</button>
-												</td>
-											</tr>
-											<tr>
-												<td class=text-center>A04</td>
-												<td class=text-center>上衣</td>
-												<td class=text-center>$2500</td>
-												<td class=text-center>5</td>
-												<td class=text-center>$12500</td>
-												<td class=text-center>
-													<button>
-														<i class="pe-7s-trash btn-icon-wrapper"> </i>
-													</button>
-												</td>
-											</tr>
-											<tr>
-												<td class=text-center>A05</td>
-												<td class=text-center>上衣</td>
-												<td class=text-center>$3000</td>
-												<td class=text-center>6</td>
-												<td class=text-center>$18000</td>
-												<td class=text-center>
-													<button>
-														<i class="pe-7s-trash btn-icon-wrapper"> </i>
-													</button>
-												</td>
-											</tr>
-											<tr>
-												<td class=text-center></td>
-												<td class=text-center></td>
-												<td class=text-center></td>
-												<td class=text-center></td>
-												<td class=text-center></td>
-												<td class=text-center></td>
-											</tr>
+										<tbody id="paylist">
 
-											<tr>
-												<td class=text-center></td>
-												<td class=text-center></td>
-												<td class=text-center></td>
-												<td class=text-center>總數</td>
-												<td class=text-center>總金額</td>
-												<td class=text-center>結帳</td>
-											</tr>
-											<tr>
-												<td class=text-center></td>
-												<td class=text-center></td>
-												<td class=text-center></td>
-												<td class=text-center>20</td>
-												<td class=text-center>$44000</td>
-												<td class=text-center>
-													<button>
-														<i class="pe-7s-gift btn-icon-wrapper"> </i>
-													</button>
-												</td>
-											</tr>
+
+										</tbody>
+										<tbody>
+
 
 										</tbody>
 
 									</table>
+								</form>
 								</div>
 							</div>
 						</div>
@@ -177,9 +95,10 @@
 	</div>
 	<script type="text/javascript" src="../assets/scripts/main.js"></script>
 	<script type="text/javascript" src="../assets/scripts/others.js"></script>
-	
+
 	<script>
 		memberOnSiteCount();
+		paylist();
 	</script>
 </body>
 

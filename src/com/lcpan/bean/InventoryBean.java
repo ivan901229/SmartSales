@@ -12,8 +12,16 @@ public class InventoryBean implements java.io.Serializable {
 	private String category;
 	private String price;
 	private String rfid;
+	private String picked;
+	
 	public String getProductNo() {
 		return productNo;
+	}
+	public String getPicked() {
+		return picked;
+	}
+	public void setPicked(String picked) {
+		this.picked = picked;
 	}
 	public void setProductNo(String productNo) {
 		this.productNo = productNo;
