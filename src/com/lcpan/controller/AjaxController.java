@@ -29,7 +29,10 @@ public class AjaxController extends HttpServlet {
 			break; 
 		case "/SmartSales/Ajax/scanNewRFID":  // 現場會員清單
 			scanNewRFID(request, response);
-			break; 	
+			break;
+		case "/SmartSales/Ajax/pay":  // 結帳測試
+			pay(request, response);
+			break;
 		}
 	}
 
@@ -69,6 +72,16 @@ public class AjaxController extends HttpServlet {
 //		System.out.println(rsString);
 		out.println(newProductRFID);
 		
+	}
+	
+	private void pay(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		PrintWriter out = response.getWriter();
+		AjaxDAO dao = new AjaxDAOImpl();
+		String rsString = dao.pay();
+//		System.out.println(rsString)
+		out.println(rsString);
 	}
 
 }

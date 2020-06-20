@@ -1,3 +1,19 @@
+ var xmlhttp;  //for getOnSiteMemberCount
+ function loadXMLDoc(url,cfunc)
+ {
+ 	if (window.XMLHttpRequest)
+ 	{// IE7+, Firefox, Chrome, Opera, Safari 代码
+ 		xmlhttp=new XMLHttpRequest();
+ 	}
+ 	else
+ 	{// IE6, IE5 代码
+ 		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+ 	}
+ 	xmlhttp.onreadystatechange=cfunc;
+ 	xmlhttp.open("GET",url,true);
+ 	xmlhttp.send();
+ }
+
 var xmlhttp1;  //for memberonsitelist & scanNewRFID
  function loadXMLDoc1(url,cfunc)
  {
@@ -12,6 +28,22 @@ var xmlhttp1;  //for memberonsitelist & scanNewRFID
  	xmlhttp1.onreadystatechange=cfunc;
  	xmlhttp1.open("GET",url,true);
  	xmlhttp1.send();
+ }
+ 
+ var xmlhttp2;  //for paylist
+ function loadXMLDoc2(url,cfunc)
+ {
+ 	if (window.XMLHttpRequest)
+ 	{// IE7+, Firefox, Chrome, Opera, Safari 代码
+ 		xmlhttp2=new XMLHttpRequest();
+ 	}
+ 	else
+ 	{// IE6, IE5 代码
+ 		xmlhttp2=new ActiveXObject("Microsoft.XMLHTTP");
+ 	}
+ 	xmlhttp2.onreadystatechange=cfunc;
+ 	xmlhttp2.open("GET",url,true);
+ 	xmlhttp2.send();
  }
  
  function memberOnSiteList(){
@@ -55,6 +87,8 @@ var xmlhttp1;  //for memberonsitelist & scanNewRFID
 		setTimeout(function() {	memberOnSiteList();},3000); 
  }
  
+ 
+ 
  function scanNewRFID(){
 	 loadXMLDoc1("../Ajax/scanNewRFID",
 			 function(){
@@ -67,22 +101,7 @@ var xmlhttp1;  //for memberonsitelist & scanNewRFID
 				});
 	 setTimeout(function() {scanNewRFID();},1000);
  }
- 
- var xmlhttp;  //for getOnSiteMemberCount
- function loadXMLDoc(url,cfunc)
- {
- 	if (window.XMLHttpRequest)
- 	{// IE7+, Firefox, Chrome, Opera, Safari 代码
- 		xmlhttp=new XMLHttpRequest();
- 	}
- 	else
- 	{// IE6, IE5 代码
- 		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
- 	}
- 	xmlhttp.onreadystatechange=cfunc;
- 	xmlhttp.open("GET",url,true);
- 	xmlhttp.send();
- }
+
  
  function memberOnSiteCount(){
 	 loadXMLDoc("../Ajax/OnSiteMemberCount",function()
@@ -261,7 +280,7 @@ $(document).ready(
 						if (month){
 							$("#table3 .datarow").hide().filter(
 									":contains("+year+'-'+month+'-'+")").show();  // 年+"-"+月
-//console.log(month)
+							//console.log(month)
 						}// 找月
 					});
 			$("#getday").click(
@@ -275,9 +294,68 @@ $(document).ready(
 							$("#table3 .datarow").hide().filter(
 									":contains("+year+'-'+month+'-'+day+")").show();   // //
 																						// 年+"-"+月+"-"+日
-//console.log(day)
+							//console.log(day)
 						}// 找日
 					});
 			
 		
 		});
+
+function paylist(){
+	 loadXMLDoc2("../Ajax/pay",function()
+				{
+				  	if (xmlhttp2.readyState==4 && xmlhttp2.status==200)
+				    {
+				  		$("#paylist").html("");
+				  		var productNo,productName,price,picked;
+				  		var totalamount = 0;
+				  		var totalprice = 0;
+				  		var rsString =eval('(' + xmlhttp2.responseText + ')');
+				  		
+				  		for(let i=0;i<rsString.length;i++){
+				  			productNo = rsString[i].productNo;
+				  			productName = rsString[i].productName;
+				  			price = rsString[i].price;
+				  			picked = rsString[i].picked;
+				  			totalamount += parseInt(picked);
+				  			totalprice += parseInt(picked)*parseInt(price);
+				  		
+				  			 console.log(productNo);
+			           		$("#paylist").append("<tr class='datarow'>" +
+			           				"<td class='text-center' name='productNo'>"+productNo+
+			           				"</td><td class='text-center' name='productName'>"+productName+
+			           				"</td><td class='text-center' name='price'>"+price+
+			           				"</td><td class='text-center' name='picked'>"+picked+
+			           				"</td><td class='text-center'><button onclick=\"delPay(\'"+productNo+
+			           				"\')\"></button></td></tr>");
+				  		}
+				  		
+				  		$("#paylist").append("<tr class='datarow'>" +
+				  				"<td class='text-center'></td>" +
+				  				"<td class='text-center'></td>" +
+				  				"<td class='text-center'></td>" +
+				  				"<td class='text-center'>總數量</td>" +
+				  				"<td class='text-center' style='font-weight:bold'>總價</td>" +
+				  				"</tr>");
+				  		$("#paylist").append("<tr class='datarow'>" +
+				  				"<td class='text-center'></td>" +
+				  				"<td class='text-center'></td>" +
+				  				"<td class='text-center'></td>" +
+				  				"<td class='text-center'>"+totalamount+"</td>" +
+				  				"<td class='text-center'>"+totalprice+"</td>" +
+				  				"</tr>");
+				  		
+				    }
+				});
+		setTimeout(function() {	paylist();},3000); 
+}
+
+
+function delPay(productNo) {
+	console.log(productNo);
+	if(confirm("確認刪除？")){ 
+		window.location.href = "../salesrecord/DelPay?productNo="+productNo;
+		console.log(ProductNo);
+	}
+}
+
