@@ -100,7 +100,7 @@
 										<tbody>
 											<%
 												List<MemberBean> members = (ArrayList<MemberBean>) request.getAttribute("members");
-
+												int p = (Integer) request.getAttribute("totalPage");
 												for (int i = 0; i < members.size(); i++) {
 											%>
 											<tr class="datarow">
@@ -112,7 +112,7 @@
 														<img
 															src="../assets/images/member_photo/<%=(members.get(i)).getMemberNo()%>.jpg"
 															style="height: 60px" />
-															<!-- window的路徑為 /member_photo -->
+														<!-- window的路徑為 /member_photo -->
 													</button>
 												</td>
 												<td class="text-center"><%=(members.get(i)).getMemberName()%></td>
@@ -142,29 +142,66 @@
 										</tbody>
 									</table>
 									<div class="text-center">
-									<c:if test="${currentpageno>1 && currentpageno<totalPage}">
-										<!--  <a href="GetAllMembers?currentpageno=1">首頁</a>
+										<c:if test="${currentpageno>1 && currentpageno<totalPage}">
+											<!--  <a href="GetAllMembers?currentpageno=1">首頁</a>
 										<a href="GetAllMembers?currentpageno=${currentpageno-1}">上一頁</a>
 										<a href="GetAllMembers?currentpageno=${currentpageno+1}">下一頁</a>
 										<a href="GetAllMembers?currentpageno=${totalPage}">尾頁</a>-->
-										<button class="mb-2 mr-2 btn btn-dark" onclick="MakeID()">首頁</button>
-   	                                    <button class="mb-2 mr-2 btn btn-dark" onclick="MakeID_Prev()">上一頁</button>
-   	                                    <button class="mb-2 mr-2 btn btn-dark" onclick="MakeID_Next()">下一頁</button>
-   	                                    <button class="mb-2 mr-2 btn btn-dark" onclick="MakeID_Last()">尾頁</button>
-									</c:if>
-									<c:if test="${currentpageno==totalPage  && totalPage!=1}">
-								     	<button class="mb-2 mr-2 btn btn-dark" onclick="MakeID()">首頁</button>
-   	                                    <button class="mb-2 mr-2 btn btn-dark" onclick="MakeID_Prev()">上一頁</button>
-									<!-- 	<a href="GetAllMembers?currentpageno=1">首頁</a>
+											<button class="mb-2 mr-2 btn btn-dark" onclick="MakeID()">首頁</button>
+											<button class="mb-2 mr-2 btn btn-dark"
+												onclick="MakeID_Prev()">上一頁</button>
+											<%
+												for (int a = 0; a < p; a++) {
+													int b=a+1;
+											%>
+											<button class="btn-pill btn-wide btn btn-outline-alternate btn-sm show"
+												onclick="MakeID_page1(<%=b%>)"><%=a+1%></button>
+											<%
+												}
+											%>
+											<button class="mb-2 mr-2 btn btn-dark"
+												onclick="MakeID_Next()">下一頁</button>
+											<button class="mb-2 mr-2 btn btn-dark"
+												onclick="MakeID_Last()">尾頁</button>
+										</c:if>
+										<c:if test="${currentpageno==totalPage  && totalPage!=1}">
+											<button class="mb-2 mr-2 btn btn-dark" onclick="MakeID()">首頁</button>
+											<%
+												for (int a = 0; a < p; a++) {
+													int b=a+1;
+											%>
+								
+												<button class="btn-pill btn-wide btn btn-outline-alternate btn-sm show"
+												onclick="MakeID_page1(<%=b%>)"><%=a+1%></button>
+											<%
+												}
+											%>
+											<button class="mb-2 mr-2 btn btn-dark"
+												onclick="MakeID_Prev()">上一頁</button>
+											<!-- 	<a href="GetAllMembers?currentpageno=1">首頁</a>
 										<a href="GetAllMembers?currentpageno=${currentpageno-1}">上一頁</a>-->
-									</c:if>
-									<c:if test="${currentpageno==1 && totalPage!=1}">
-										<button class="mb-2 mr-2 btn btn-dark" onclick="MakeID_Next()">下一頁</button>
-   	                                    <button class="mb-2 mr-2 btn btn-dark" onclick="MakeID_Last()">尾頁</button>
-									<!-- 	<a href="GetAllMembers?currentpageno=${currentpageno+1}">下一頁</a>
+										</c:if>
+										<c:if test="${currentpageno==1 && totalPage!=1}">
+											<button class="mb-2 mr-2 btn btn-dark"
+												onclick="MakeID_Next()">下一頁</button>
+											<%
+												for (int a = 0; a < p; a++) {
+													int b=a+1;
+											%>
+											<button class="btn-pill btn-wide btn btn-outline-alternate btn-sm show"
+												onclick="MakeID_page1(<%=b%>)"><%=a+1%></button>
+											<%
+												}
+											%>
+											<button class="mb-2 mr-2 btn btn-dark"
+												onclick="MakeID_Last()">尾頁</button>
+											<!-- 	<a href="GetAllMembers?currentpageno=${currentpageno+1}">下一頁</a>
 										<a href="GetAllMembers?currentpageno=${totalPage}">尾頁</a>-->
-									</c:if>
-									<a>第${currentpageno}頁/共${totalPage}頁</a>
+										</c:if>
+										<c:if test="${currentpageno>totalPage}">
+											<script>document.location.href="javascript: MakeID_Last()";</script>
+										</c:if>
+										<a>第${currentpageno}頁/共${totalPage}頁</a>
 									</div>
 								</div>
 							</div>
@@ -209,6 +246,40 @@
 		    	
 		    	window.location.href=('../member/GetAllMembers?'+text+"&currentpageno="+${totalPage})
 		    } // 尾頁 
+		    
+		    function MakeID_Last(){
+		    	var text = "";
+		    	var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+		    	for (var i = 0; i < 5; i++)
+		    		text += possible.charAt(Math.floor(Math.random() * possible.length));
+		    	
+		    	window.location.href=('../member/GetAllMembers?'+text+"&currentpageno="+${totalPage})
+		    } // 尾頁 
+		   
+
+		function MakeID_page(){
+	    	var text = "";
+	    	var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+	    	for (var i = 0; i < 5; i++)
+	    		text += possible.charAt(Math.floor(Math.random() * possible.length));
+	    	
+	    	window.location.href=('../member/GetAllMembers?'+text+"&currentpageno="+<%=1%>)
+	    	
+	    } // 分頁
+	    
+	    function MakeID_page1(page){
+	    	var text = "";
+	    	var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+	    	for (var i = 0; i < 5; i++)
+	    		text += possible.charAt(Math.floor(Math.random() * possible.length));
+	    	
+	    	window.location.href=('../member/GetAllMembers?'+text+"&currentpageno="+page)
+	    	
+	    } // 分頁
+		    
 	</script>
 </body>
 
