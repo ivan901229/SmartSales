@@ -82,7 +82,7 @@
 						</div>
 					</div>
 				</div>
-				<a href="../salesrecord/paytest">
+				<a href="../salesrecord/payPage">
 					<button class="mb-2 mr-2 btn btn-danger" >結帳</button>
 				</a>
 			</div>

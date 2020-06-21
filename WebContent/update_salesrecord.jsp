@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8"
-	import="java.util.*,com.lcpan.bean.SalesRecordBean,com.lcpan.bean.UserBean"%>
-<%
-	UserBean user = (UserBean) session.getAttribute("user");
-%>
+	import="java.util.*,com.lcpan.bean.SalesRecordBean"%>
+
 <html lang="zh-Hant-TW">
 
 <head>

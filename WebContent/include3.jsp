@@ -1,9 +1,7 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8"
-	import="java.util.*,com.lcpan.bean.MemberBean,com.lcpan.bean.UserBean"%>
+	import="java.util.*,com.lcpan.bean.MemberBean"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%
-	UserBean user = (UserBean) session.getAttribute("user");
-%>
+
 <body>
 	<div class="row">
 		<div class="col-md-6 col-xl-4">

@@ -1,9 +1,6 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8"
-	import="java.util.*,com.lcpan.bean.MemberBean,com.lcpan.bean.UserBean"%>
+	import="java.util.*,com.lcpan.bean.MemberBean"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%
-	UserBean user = (UserBean) session.getAttribute("user");
-%>
 <body>
 	<div class="app-sidebar sidebar-shadow bg-heavy-rain sidebar-text-dark">
 		<div class="app-header__logo">

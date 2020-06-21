@@ -16,6 +16,7 @@ public class MemberBean implements java.io.Serializable {
 	private String memberEmail;
 	private String memberOnsite;
 	private String memberPhotoURL;
+	private String memberDiscount;
 	
 	public String getMemberNo() { return memberNo; }
 	public String getMemberLevel() { return memberLevel; }
@@ -29,6 +30,7 @@ public class MemberBean implements java.io.Serializable {
 	public String getMemberEmail() { return memberEmail; }
 	public String getMemberOnsite() { return memberOnsite; }
 	public String getMemberPhotoURL() { return memberPhotoURL; }
+	public String getMemberDiscount() { return memberDiscount; }
 	
 	public void setMemberNo(String memberNo) {this.memberNo = memberNo;}
 	public void setMemberLevel(String memberLevel) {this.memberLevel = memberLevel;}
@@ -41,5 +43,6 @@ public class MemberBean implements java.io.Serializable {
 	public void setMemberPhone(String memberPhone) {this.memberPhone = memberPhone;}
 	public void setMemberEmail(String memberEmail) {this.memberEmail = memberEmail;}
 	public void setMemberOnsite(String memberOnsite) {this.memberOnsite = memberOnsite;}
-	public void setMemberPhotoURL(String memberPhotoURL) { this.memberPhotoURL = memberPhotoURL; }
+	public void setMemberPhotoURL(String memberPhotoURL) {this.memberPhotoURL = memberPhotoURL;}
+	public void setMemberDiscount(String memberDiscount) {this.memberDiscount = memberDiscount;}
 }

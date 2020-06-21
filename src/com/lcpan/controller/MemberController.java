@@ -52,6 +52,9 @@ public class MemberController extends HttpServlet {
 		case "/SmartSales/member/GetOnsiteMembers":
 			getOnsiteMembers(request, response);
 			break; // 首頁-現場會員OK
+		case "/SmartSales/member/SearchMemberPhone":
+			searchMemberPhone(request, response);
+			break; // 搜尋會員OK
 //		case "/SmartSales/member/AddImage": addImage(request, response); break;   				  // 上傳會員照片
 		default :
 			getOnsiteMembers(request, response);
@@ -368,5 +371,26 @@ public class MemberController extends HttpServlet {
 			}
 		}
 		return sb.toString();
+	}
+	
+	private void searchMemberPhone(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String checkLogIn = ""; // 判斷是否有log in
+		request.getRequestDispatcher("/LogIn/CheckLogIn").include(request, response);
+		checkLogIn = (String) request.getAttribute("checkLogIn");
+		if (checkLogIn.equals("true")) {
+			String memberPhone = request.getParameter("memberPhone");
+			System.out.println(memberPhone);
+			SmartSalesDAO dao = new SmartSalesDAOImpl();
+			MemberBean member = dao.searchMemberPhone(memberPhone);
+			if(member!=null) {
+				request.setAttribute("check", "ok");
+				request.setAttribute("member", member);
+			}
+			else request.setAttribute("check", "null");
+			request.getRequestDispatcher("../pay.jsp").forward(request, response);
+		}
+		else
+			response.sendRedirect("../relogin.jsp");
 	}
 }

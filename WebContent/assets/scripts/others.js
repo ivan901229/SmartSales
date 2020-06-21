@@ -116,10 +116,10 @@ var xmlhttp1;  //for memberonsitelist & scanNewRFID
 		}, 3000);
  }
  
- var updateMember=function (memberNo) {
- 	
+var updateMember=function (memberNo) {
+	if(confirm("確認修改？")){
 		window.location.href = "../member/UpdateGetMemberNo?memberNo="+memberNo;
-	
+	}
 }
 
 var delMember=function (memberNo) {
@@ -307,9 +307,21 @@ function paylist(){
 				  	if (xmlhttp2.readyState==4 && xmlhttp2.status==200)
 				    {
 				  		$("#paylist").html("");
+				  		var memberName = $("#memberName").html();
+				  		var memberLevel = $("#memberLevel").html();
+				  		var memberDiscount = $("#memberDiscount").html();
+				  		if(memberName == undefined){
+				  			memberName="";
+				  			memberLevel="";
+				  			memberDiscount="";
+				  		}
+				  		$("#pricelist").html("");
+				  		$("#totalPrice").html("");
+				  		
 				  		var productNo,productName,price,picked;
 				  		var totalamount = 0;
-				  		var totalprice = 0;
+				  		var defaultprice = 0;
+				  		var totalPrice = 0;
 				  		var rsString =eval('(' + xmlhttp2.responseText + ')');
 				  		
 				  		for(let i=0;i<rsString.length;i++){
@@ -318,38 +330,37 @@ function paylist(){
 				  			price = rsString[i].price;
 				  			picked = rsString[i].picked;
 				  			totalamount += parseInt(picked);
-				  			totalprice += parseInt(picked)*parseInt(price);
+				  			defaultprice += parseInt(picked)*parseInt(price);
 				  		
-				  			 console.log(productNo);
+				  			// console.log(productNo);
 			           		$("#paylist").append("<tr class='datarow'>" +
 			           				"<td class='text-center' name='productNo'>"+productNo+
 			           				"</td><td class='text-center' name='productName'>"+productName+
-			           				"</td><td class='text-center' name='price'>"+price+
 			           				"</td><td class='text-center' name='picked'>"+picked+
-			           				"</td><td class='text-center'><button onclick=\"delPay(\'"+productNo+
-			           				"\')\"></button></td></tr>");
+			           				"</td><td class='text-center' name='price'>"+price+
+			           				"</td><td class='text-center'><a href=\"javascript: delPay(\'"+productNo+
+			           				"\')\"><i class='fas fa-trash'></i></a></td></tr>");
 				  		}
 				  		
-				  		$("#paylist").append("<tr class='datarow'>" +
-				  				"<td class='text-center'></td>" +
-				  				"<td class='text-center'></td>" +
-				  				"<td class='text-center'></td>" +
-				  				"<td class='text-center'>總數量</td>" +
-				  				"<td class='text-center' style='font-weight:bold'>總價</td>" +
+				  		$("#pricelist").append("<tr class='datarow'>" +
+				  				"<td class='text-center' id='memberName'>"+memberName+"</td>" +
+				  				"<td class='text-center' id='memberLevel'>"+memberLevel+"</td>" +
+				  				"<td class='text-center' id='totalamount'>"+totalamount+"</td>" +
+				  				"<td class='text-center' id='defaultprice'>"+defaultprice+"</td>" +
+				  				"<td class='text-center' id='memberDiscount'>"+memberDiscount+"</td>" +
 				  				"</tr>");
-				  		$("#paylist").append("<tr class='datarow'>" +
-				  				"<td class='text-center'></td>" +
-				  				"<td class='text-center'></td>" +
-				  				"<td class='text-center'></td>" +
-				  				"<td class='text-center'>"+totalamount+"</td>" +
-				  				"<td class='text-center'>"+totalprice+"</td>" +
-				  				"</tr>");
-				  		
+				  		//console.log("折扣為:"+memberDiscount);
+				  		if(memberDiscount==''){
+				  			// console.log("非會員");
+				  			memberDiscount=1;
+				  		}
+				  		totalPrice = defaultprice*parseFloat(memberDiscount);
+				  		console.log(totalPrice);
+				  		$("#totalPrice").append("總計："+totalPrice);
 				    }
 				});
-		setTimeout(function() {	paylist();},3000); 
+		//setTimeout(function() {	paylist();},1000); 
 }
-
 
 function delPay(productNo) {
 	console.log(productNo);
@@ -358,4 +369,3 @@ function delPay(productNo) {
 		console.log(ProductNo);
 	}
 }
-

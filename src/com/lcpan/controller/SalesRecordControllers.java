@@ -8,13 +8,9 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
-import com.lcpan.bean.InventoryBean;
-import com.lcpan.bean.MemberBean;
 import com.lcpan.bean.SalesRecordBean;
 import com.lcpan.dao.SalesRecordDAO;
 import com.lcpan.dao.SalesRecordDAOImpl;
-import com.lcpan.dao.SmartSalesDAO;
-import com.lcpan.dao.SmartSalesDAOImpl;
 
 @WebServlet("/salesrecord/*")
 @MultipartConfig
@@ -44,8 +40,8 @@ public class SalesRecordControllers extends HttpServlet {
 		case "/SmartSales/salesrecord/UpdateSalesRecord":
 			updateSalesRecord(request, response);
 			break; // 銷售紀錄更新
-		case "/SmartSales/salesrecord/paytest":
-			request.getRequestDispatcher("../pay.jsp").forward(request, response);
+		case "/SmartSales/salesrecord/payPage":
+			pay(request, response);
 			break; // pay 頁面進servlet
 		case "/SmartSales/salesrecord/DelPay":
 			delPay(request, response);
@@ -183,6 +179,18 @@ public class SalesRecordControllers extends HttpServlet {
 			response.sendRedirect("../relogin.jsp");
 	}
 	
+	private void pay(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String checkLogIn = ""; // 檢查是否有log in
+		request.getRequestDispatcher("/LogIn/CheckLogIn").include(request, response);
+		checkLogIn = (String) request.getAttribute("checkLogIn");
+		if (checkLogIn.equals("true")) {
+			request.getRequestDispatcher("../pay.jsp").forward(request, response);
+		}
+		else
+			response.sendRedirect("../relogin.jsp");
+	}
+	
 	private void delPay(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String checkLogIn = ""; // 檢查是否有log in
@@ -193,7 +201,7 @@ public class SalesRecordControllers extends HttpServlet {
 			System.out.println(productNo);
 			SalesRecordDAO dao = new SalesRecordDAOImpl();
 			dao.delPay(productNo);
-			response.sendRedirect("../salesrecord/paytest");
+			response.sendRedirect("../salesrecord/payPage");
 		}
 		else
 			response.sendRedirect("../relogin.jsp");

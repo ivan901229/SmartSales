@@ -9,7 +9,6 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import com.lcpan.bean.SalesRecordBean;
-import com.lcpan.bean.InventoryBean;
 
 public class SalesRecordDAOImpl implements SalesRecordDAO {
 //	private static final String GET_ALL = "SELECT * FROM member_overview";
@@ -270,13 +269,14 @@ public class SalesRecordDAOImpl implements SalesRecordDAO {
 	}
 	
 	
-	public InventoryBean delPay(String productNo) {
-		InventoryBean inventory = new InventoryBean();
+	public boolean delPay(String productNo) {
+		boolean delStatus = false;
 		try {
 			PreparedStatement stmt = conn.prepareStatement(DEL_PAY_INFO);
 			stmt.setString(1, productNo);
-			ResultSet rs = stmt.executeQuery();
+			stmt.execute();
 			stmt.close();
+			delStatus = true;
 		}  catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -287,7 +287,7 @@ public class SalesRecordDAOImpl implements SalesRecordDAO {
 					e.printStackTrace();
 				}
 		}
-		return inventory;
+		return delStatus;
 	}
 	
 }

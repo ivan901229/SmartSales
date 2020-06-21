@@ -1,9 +1,7 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8"
-	import="java.util.*,com.lcpan.bean.MemberBean,com.lcpan.bean.UserBean"%>
+	import="java.util.*,com.lcpan.bean.MemberBean"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%
-	UserBean user = (UserBean) session.getAttribute("user");
-%>
+
 <%!@SuppressWarnings("unchecked")%>
 <html lang="zh-Hant-TW">
 
@@ -124,16 +122,12 @@
 												<td class="text-center"><%=(members.get(i)).getMemberEmail()%></td>
 												<td class="text-center"><%=(members.get(i)).getMemberOnsite()%></td>
 												<td class="text-center">
-													<button
-														onclick="updateMember('<%=(members.get(i)).getMemberNo()%>')">
-														<i class="pe-7s-config btn-icon-wrapper"> </i>
-													</button>
+													<a href="javascript: updateMember(<%=(members.get(i)).getMemberNo()%>)">
+														<i class="fas fa-edit btn-icon-wrapper"> </i></a>
 												</td>
 												<td class="text-center">
-													<button
-														onclick="delMember('<%=(members.get(i)).getMemberNo()%>')">
-														<i class="pe-7s-trash btn-icon-wrapper"> </i>
-													</button>
+													<a href="javascript: delMember(<%=(members.get(i)).getMemberNo()%>)">
+														<i class="fas fa-trash btn-icon-wrapper"> </i></a>
 												</td>
 											</tr>
 											<%

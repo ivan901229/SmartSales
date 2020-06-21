@@ -1,8 +1,5 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8"
-	import="java.util.*,com.lcpan.bean.MemberBean,com.lcpan.bean.InventoryBean,com.lcpan.bean.UserBean"%>
-<%
-	UserBean user = (UserBean) session.getAttribute("user");
-%>
+	import="java.util.*,com.lcpan.bean.MemberBean,com.lcpan.bean.InventoryBean"%>
 <%!@SuppressWarnings("unchecked")%>
 <html lang="zh-Hant-TW">
 

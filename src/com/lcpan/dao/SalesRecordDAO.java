@@ -3,8 +3,6 @@ package com.lcpan.dao;
 import java.util.List;
 
 import com.lcpan.bean.SalesRecordBean;
-import com.lcpan.bean.InventoryBean;
-
 public interface SalesRecordDAO {
 	public List<SalesRecordBean> getAllSalesRecord(int pageNo);
 	
@@ -19,7 +17,7 @@ public interface SalesRecordDAO {
 	public int insertGetSalesRecord();
 	public void insertSalesRecord(String date, String orderNumber, String productNo, String amount, String price,
 			 String totalPrice, String gender, String number);
-	public InventoryBean delPay(String productNo);
+	public boolean delPay(String productNo);
 	
 }
 

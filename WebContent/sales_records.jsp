@@ -1,10 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
-	import="java.util.*,com.lcpan.bean.SalesRecordBean,com.lcpan.bean.UserBean"%>
+	import="java.util.*,com.lcpan.bean.SalesRecordBean"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%
-	UserBean user = (UserBean) session.getAttribute("user");
-%>
+
 <%!@SuppressWarnings("unchecked")%>
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">

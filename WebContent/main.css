@@ -25724,3 +25724,15 @@ a.fc-more:hover {
 	width:50px;
 	text-align: center;
 }
+
+.totalPrice{
+	font-size: 1.5em;
+	margin-top: 10px;
+	margin-left: 1100px;
+	color: black;
+}
+
+.totalPriceButton{
+	margin-top: 10px;
+	margin-left: 1100px;
+}

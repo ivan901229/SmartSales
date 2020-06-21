@@ -53,6 +53,7 @@
 	<div class="row"></div>
 	<script src="http://maps.google.com/maps/api/js?sensor=true"></script>
 	<script type="text/javascript" src="../assets/scripts/main.js"></script>
+	<script type="text/javascript" src="../assets/scripts/others.js"></script>
 	<script>
 		memberOnSiteCount();
 	</script>

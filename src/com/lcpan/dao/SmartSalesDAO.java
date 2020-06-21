@@ -28,6 +28,7 @@ public interface SmartSalesDAO {
 	public void updateProduct(String productNo, String productName, String category, String price, String rfid);
 	public void deleteProduct(String productNo);
 	public List<InventoryBean> productList(); //°Ó«~¦Cªí
+	public MemberBean searchMemberPhone(String memberPhone); 
 //	public void addImage();
 
 }
