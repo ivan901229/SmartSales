@@ -30,7 +30,10 @@ public class SalesRecordControllers extends HttpServlet {
 			break; // 讀取最大銷售編號
 		case "/SmartSales/salesrecord/InsertSalesRecord":
 			insertSalesRecord(request, response);
-			break; // 新增銷售紀錄
+			break; // 手動新增銷售紀錄
+		case "/SmartSales/salesrecord/PayPageInsertSalesRecord":
+			payPageInsertSalesRecord(request, response);
+			break; // 結帳新增銷售紀錄
 		case "/SmartSales/salesrecord/DleteSalesRecord":
 			deleteSalesRecord(request, response);
 			break; // 銷售紀錄刪除
@@ -52,6 +55,11 @@ public class SalesRecordControllers extends HttpServlet {
 		}
 
 	} // end of doGet()
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doGet(request, response);
+	} // end of doPost()
 
 	private void getAllSalesRecord(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException { // 銷售紀錄總覽
@@ -162,7 +170,6 @@ public class SalesRecordControllers extends HttpServlet {
 			request.setCharacterEncoding("UTF-8");
 			response.setCharacterEncoding("UTF-8");
 			response.setContentType("text/html;charset=UTF-8");
-//		System.out.print("有");
 			String orderNumber = request.getParameter("orderNumber");
 			String date = request.getParameter("date");
 			String productNo = request.getParameter("productNo");
@@ -174,6 +181,35 @@ public class SalesRecordControllers extends HttpServlet {
 			SalesRecordDAO dao = new SalesRecordDAOImpl();
 			dao.insertSalesRecord(date, orderNumber, productNo, amount, price, totalPrice, gender, number);
 			response.sendRedirect("../salesrecord/GetAllSalesRecord");
+		}
+		else
+			response.sendRedirect("../relogin.jsp");
+	}
+	
+	private void payPageInsertSalesRecord(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String checkLogIn = ""; // 判斷是否有log in
+		request.getRequestDispatcher("/LogIn/CheckLogIn").include(request, response);
+		checkLogIn = (String) request.getAttribute("checkLogIn");
+		if (checkLogIn.equals("true")) {
+			request.setCharacterEncoding("UTF-8");
+			response.setCharacterEncoding("UTF-8");
+			response.setContentType("text/html;charset=UTF-8");
+			String memberNumber = request.getParameter("memberNumber");
+			String memberName = request.getParameter("memberName");
+			String memberDiscount = request.getParameter("memberDiscount");
+			String memberGender = request.getParameter("memberGender");
+			String totalPrice = request.getParameter("totalPrice");
+			String payListJSON = request.getParameter("payListJSON");
+			System.out.println(memberNumber);
+			System.out.println(memberName);
+			System.out.println(memberDiscount);
+			System.out.println(memberGender);
+			System.out.println(totalPrice);
+			System.out.println(payListJSON);
+//			SalesRecordDAO dao = new SalesRecordDAOImpl();
+//			dao.insertSalesRecord(date, orderNumber, productNo, amount, price, totalPrice, gender, number);
+//			response.sendRedirect("../salesrecord/GetAllSalesRecord");
 		}
 		else
 			response.sendRedirect("../relogin.jsp");

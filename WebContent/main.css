@@ -1,4 +1,4 @@
-/*!
+﻿/*!
  =========================================================
  * ArchitectUI HTML Theme Dashboard - v1.0.0
  =========================================================
@@ -25728,11 +25728,13 @@ a.fc-more:hover {
 .totalPrice{
 	font-size: 1.5em;
 	margin-top: 10px;
-	margin-left: 1100px;
+	margin-right: 105px;
+	text-align:right;
 	color: black;
 }
 
 .totalPriceButton{
 	margin-top: 10px;
-	margin-left: 1100px;
+	margin-right: 98px;
+	text-align:right;
 }

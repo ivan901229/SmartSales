@@ -89,8 +89,9 @@
 										id="table3">
 										<thead>
 											<tr>
-												<th class="text-center" width="252">會員名稱</th>
-												<th class="text-center" width="252">會員等級</th>
+												<th class="text-center" width="168">會員編號</th>
+												<th class="text-center" width="168">會員名稱</th>
+												<th class="text-center" width="168">會員等級</th>
 												<th class="text-center" width="252">總數</th>
 												<th class="text-center" width="252">原價</th>
 												<th class="text-center" width="252">折扣</th>
@@ -101,7 +102,7 @@
 								</div>
 								<div class="totalPrice" id="totalPrice"></div>
 								<div class="totalPriceButton">
-									<button type="button" class="btn-wide btn btn-success" >送出</button>
+									<button type="button" class="btn-wide btn btn-success" onclick="payListToJSON()">送出</button>
 									<button type="button" class="mr-2 btn-icon btn-icon-only btn btn-outline-danger" >清除</button>
 								</div>
 							</div>
@@ -119,46 +120,15 @@
 		memberOnSiteCount();
 		paylist();
 		setTimeout(function() {	memberCheck();},200);
-		setInterval(function() {paylist();},500);
-		
-		var keysArr = new Array("productNo", "productName", "amount","price");
-		setTimeout(function() {	payListToJSON();},1000)
-		function payListToJSON(){
-			var rows = $("#paylist > tr").length; //獲得行數(包括tbody)
-			var colums = document.getElementById("table3").rows[0].cells.length; //獲得列數
-			//console.log(rows);
-			//console.log(colums);
-			var json = "[";
-			var tdValue;
-			for (var i = 0; i < rows; i++) { //每行
-				json += "{";
-				for (var j = 0; j < colums-1; j++) { //colums-1 不要包含刪除欄位
-					tdName = keysArr[j]; //Json資料的鍵
-					json += "\"";
-					json += tdName;
-					json += "\"";
-					json += ":";
-					tdValue = document.getElementById('paylist').rows[i].cells[j].innerHTML;//Json資料的值
-						json += "\"";
-						json += tdValue;
-						json += "\"";
-						json += ",";
-					}
-					json = json.substring(0, json.length - 1);
-					json += "}";
-					json += ",";
-				}
-				json = json.substring(0, json.length - 1);
-				json += "]";
-				console.log(json);
-				return json;
-			}
+		// setInterval(function() {paylist();},500);
 		
 		function memberCheck(){
 			if('<%=request.getAttribute("check")%>'=='ok'){
+				$("#memberNumber").append("<%=member.getMemberNo()%>");
 				$("#memberName").append("<%=member.getMemberName()%>");
 				$("#memberLevel").append("<%=member.getMemberLevel()%>");
 				$("#memberDiscount").append("<%=member.getMemberDiscount()%>");
+				$("#memberGender").append("<%=member.getMemberGender()%>");
 			}
 		}
 		
