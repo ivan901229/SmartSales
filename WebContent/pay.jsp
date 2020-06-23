@@ -120,7 +120,7 @@
 		memberOnSiteCount();
 		paylist();
 		setTimeout(function() {	memberCheck();},200);
-		// setInterval(function() {paylist();},500);
+		setInterval(function() {paylist();},500);
 		
 		function memberCheck(){
 			if('<%=request.getAttribute("check")%>'=='ok'){
