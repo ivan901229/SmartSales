@@ -127,7 +127,7 @@
 				$("#memberNumber").append("<%=member.getMemberNo()%>");
 				$("#memberName").append("<%=member.getMemberName()%>");
 				$("#memberLevel").append("<%=member.getMemberLevel()%>");
-				$("#memberDiscount").append("<%=member.getMemberDiscount()%>");
+				$("#memberDiscount").html("").append("<%=member.getMemberDiscount()%>");
 				$("#memberGender").append("<%=member.getMemberGender()%>");
 			}
 		}

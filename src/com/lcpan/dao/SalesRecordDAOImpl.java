@@ -200,7 +200,7 @@ public class SalesRecordDAOImpl implements SalesRecordDAO {
 			ResultSet rs = stmt.executeQuery();
 			if (rs.next()) {
 				max = Integer.valueOf(rs.getString("max")) + 1;
-				System.out.println(max+1);
+				System.out.println(max);
 			}
 			stmt.close();
 
@@ -297,13 +297,12 @@ public class SalesRecordDAOImpl implements SalesRecordDAO {
 		return delStatus;
 	}
 	
-	public long getMaxOrderNumber() { //新增銷售紀錄 -取最大編號再+1
+	public long getMaxOrderNumber() { //結帳送出銷售紀錄 -取最大編號再+1
 		long orderNumber = 0;
 		SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy/MM/dd");
 		Date date = new Date();
 		orderNumber = Long.valueOf(sdFormat.format(date).replaceAll("/",""));
 		
-		System.out.println(orderNumber);
 		try {
 			PreparedStatement stmt = conn.prepareStatement(GET_ORDER_NUMBER);
 			stmt.setString(1, orderNumber + "%");
@@ -330,6 +329,46 @@ public class SalesRecordDAOImpl implements SalesRecordDAO {
 			}
 		}
 		return orderNumber;
+	}
+	
+	public void payPageInsertSalesRecord(String orderNumber,String currentTime,String productNo,String amount, 
+			String price, String memberDiscount, String totalPrice, String memberGender, String memberNumber) { //結帳新增銷售紀錄
+
+	        try {
+//				System.out.println(orderNumber);
+//	        	System.out.println(currentTime);
+//	        	System.out.println(productNo);
+//	        	System.out.println(amount);
+//	        	System.out.println(price);
+//	        	System.out.println(memberDiscount);
+//	        	System.out.println(totalPrice);
+//	        	System.out.println(memberGender);
+//	        	System.out.println(memberNumber);
+	        	CallableStatement cstmt = conn.prepareCall(INSERT_SALES);
+				cstmt.setString(1, orderNumber);
+				cstmt.setString(2, currentTime);
+				cstmt.setString(3, productNo);
+				cstmt.setString(4, amount);
+				cstmt.setString(5, price);
+				cstmt.setString(6, memberDiscount);
+				cstmt.setString(7, totalPrice);
+				cstmt.setString(8, memberGender);
+				cstmt.setString(9, memberNumber);
+				cstmt.execute();
+				System.out.println("insert Stored Procedure successful!");
+				cstmt.close();
+	        
+			} catch (SQLException e) {
+				e.printStackTrace();
+				System.out.println("insert Stored Procedure fail!");
+			} finally {
+				if (conn != null)
+					try {
+						conn.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+			}
 	}
 }
 

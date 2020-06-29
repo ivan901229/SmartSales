@@ -327,7 +327,12 @@ function paylist(){
 				  		var defaultprice = 0;
 				  		var totalPrice = 0;
 				  		var rsString =eval('(' + xmlhttp2.responseText + ')');
+				  		if(memberDiscount==''){
+				  			// console.log("非會員");
+				  			memberDiscount=1;
+				  		}
 				  		
+				  		console.log(totalPrice);
 				  		for(let i=0;i<rsString.length;i++){
 				  			productNo = rsString[i].productNo;
 				  			productName = rsString[i].productName;
@@ -335,6 +340,7 @@ function paylist(){
 				  			picked = rsString[i].picked;
 				  			totalamount += parseInt(picked);
 				  			defaultprice += parseInt(picked)*parseInt(price);
+				  			totalPrice += Math.round(parseInt(picked)*parseInt(price)*parseFloat(memberDiscount));
 				  		
 			           		$("#paylist").append("<tr class='datarow'>" +
 			           				"<td class='text-center' name='productNo'>"+productNo+
@@ -355,12 +361,8 @@ function paylist(){
 				  				"<td class='text-center' id='memberGender' style='display:none'>"+memberGender+"</td>" +
 				  				"</tr>");
 				  		//console.log("折扣為:"+memberDiscount);
-				  		if(memberDiscount==''){
-				  			// console.log("非會員");
-				  			memberDiscount=1;
-				  		}
-				  		totalPrice = defaultprice*parseFloat(memberDiscount);
-				  		console.log(totalPrice);
+				  		
+
 				  		$("#totalPrice").append("總計："+totalPrice);
 				    }
 				});
@@ -375,19 +377,22 @@ function delPay(productNo) {
 	}
 }
 
-var keysArr = new Array("productNo", "productName", "amount","price");
+var keysArr = new Array("productNo","","amount","price");
 
 function payListToJSON(){
-	var rows = $("#paylist > tr").length; //獲得行數(包括tbody)
-	var colums = document.getElementById("table3").rows[0].cells.length; //獲得列數
+	var rows = $("#paylist > tr").length; //獲得列數
+	var colums = document.getElementById("table3").rows[0].cells.length; //獲得行數
 	console.log(rows);
 	console.log(colums);
 	var json = "[";
 	var tdValue;
-	for (var i = 0; i < rows; i++) { //每行
+	for (var i = 0; i < rows; i++) { //每列
 		json += "{";
 		for (var j = 0; j < colums-1; j++) { //colums-1 不要包含刪除欄位
 			tdName = keysArr[j]; //Json資料的鍵
+			if(j==1){
+				continue;
+			}
 			json += "\"";
 			json += tdName;
 			json += "\"";
@@ -412,6 +417,7 @@ function payListToJSON(){
   		var memberDiscount = $("#memberDiscount").html();
   		var memberGender = $("#memberGender").html();
   		var totalPrice = $("#totalPrice").html();
+  		
 		
 		if(confirm("確認送出？")){ 
 			
