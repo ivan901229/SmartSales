@@ -336,7 +336,6 @@ function paylist(){
 				  			totalamount += parseInt(picked);
 				  			defaultprice += parseInt(picked)*parseInt(price);
 				  		
-				  			// console.log(productNo);
 			           		$("#paylist").append("<tr class='datarow'>" +
 			           				"<td class='text-center' name='productNo'>"+productNo+
 			           				"</td><td class='text-center' name='productName'>"+productName+
@@ -415,7 +414,6 @@ function payListToJSON(){
   		var totalPrice = $("#totalPrice").html();
 		
 		if(confirm("確認送出？")){ 
-			// window.location.href = "../salesrecord/PayPageInsertSalesRecord?payListJSON="+json;
 			
 			$.ajax({
 				type: "POST", 								    //訪問方式

@@ -203,13 +203,16 @@ public class SalesRecordControllers extends HttpServlet {
 			String memberGender = request.getParameter("memberGender");
 			String totalPrice = request.getParameter("totalPrice");
 			String payListJSON = request.getParameter("payListJSON");
+			String orderNumber = "";
 			System.out.println(memberNumber);
 			System.out.println(memberName);
 			System.out.println(memberDiscount);
 			System.out.println(memberGender);
 			System.out.println(totalPrice);
 			System.out.println(payListJSON);
-//			SalesRecordDAO dao = new SalesRecordDAOImpl();
+			SalesRecordDAO dao = new SalesRecordDAOImpl();
+			orderNumber=String.valueOf(dao.getMaxOrderNumber());
+			System.out.println(orderNumber);
 //			dao.insertSalesRecord(date, orderNumber, productNo, amount, price, totalPrice, gender, number);
 //			response.sendRedirect("../salesrecord/GetAllSalesRecord");
 		}
