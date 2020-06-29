@@ -65,9 +65,14 @@
 													class="form-control" name="memberPhone">
 												<button type="submit" class="btn-wide btn btn-success">查詢</button>
 										</div>
-										
 									</form>
+									<div id="memberGender" class="text-center" style="margin-left: 26px;">
+											客戶性別： 
+											<input id="genderMale" class="text-center" type=radio name=SEX value=male>男 
+											<input id="genderFemale" class="text-center" type=radio name=SEX value=female>女<br>
+									</div>
 								</div>
+								
 								<div class="table-responsive">
 									<table
 										class="align-middle mb-0 table table-borderless table-striped table-hover"
@@ -128,7 +133,14 @@
 				$("#memberName").append("<%=member.getMemberName()%>");
 				$("#memberLevel").append("<%=member.getMemberLevel()%>");
 				$("#memberDiscount").html("").append("<%=member.getMemberDiscount()%>");
-				$("#memberGender").append("<%=member.getMemberGender()%>");
+				if("<%=member.getMemberGender()%>"=="male"){
+					$('#genderMale').attr('checked', true);
+					$('#genderFemale').attr('disabled', true);
+				}
+				else if("<%=member.getMemberGender()%>"=="female"){
+					$('#genderFemale').attr('checked', true);
+					$('#genderMale').attr('disabled', true);
+				}
 			}
 		}
 		
