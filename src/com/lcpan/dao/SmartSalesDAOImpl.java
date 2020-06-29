@@ -132,7 +132,7 @@ public class SmartSalesDAOImpl implements SmartSalesDAO {
 			ResultSet rs = stmt.executeQuery();
 			if (rs.next()) {
 				max = Integer.valueOf(rs.getString("max")) + 1;
-//				System.out.println(max+1);
+//				System.out.println(max);
 			}
 			stmt.close();
 

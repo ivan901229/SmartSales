@@ -2,7 +2,9 @@ package com.lcpan.dao;
 
 
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.Date;
 import javax.sql.DataSource;
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -20,6 +22,7 @@ public class SalesRecordDAOImpl implements SalesRecordDAO {
 //	private static final String GET_ALL_SALES = "SELECT * FROM sales_record";  //取得全部資料
 	private static final String GET_GENDER ="SELECT gender FROM member_overview"; //取得性別欄位
 	private static final String DEL_PAY_INFO = "UPDATE product_information SET picked = 0 WHERE product_information.productNo = ?";
+	private static final String GET_ORDER_NUMBER = "SELECT MAX(OrderNumber) max FROM sales_record WHERE OrderNumber LIKE ?";
 	
 	private static int pagesize = 15;  //一頁顯示15筆
 
@@ -290,4 +293,40 @@ public class SalesRecordDAOImpl implements SalesRecordDAO {
 		return delStatus;
 	}
 	
+	public long getMaxOrderNumber() { //新增銷售紀錄 -取最大編號再+1
+		long orderNumber = 0;
+		SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy/MM/dd");
+		Date date = new Date();
+		orderNumber = Long.valueOf(sdFormat.format(date).replaceAll("/",""));
+		
+		System.out.println(orderNumber);
+		try {
+			PreparedStatement stmt = conn.prepareStatement(GET_ORDER_NUMBER);
+			stmt.setString(1, orderNumber + "%");
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next()) {
+				orderNumber = Long.valueOf(rs.getString("max")) + 1;
+				System.out.println("Today's record has already exited");
+			}
+			else {
+				orderNumber=Long.valueOf(String.valueOf(orderNumber)+"001");
+				System.out.println("There is no today's record");
+			}
+			stmt.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return orderNumber;
+	}
 }
+
+
