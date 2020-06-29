@@ -78,7 +78,6 @@ public class SalesRecordDAOImpl implements SalesRecordDAO {
 	}
 
 	public int getTotalSalesPage() {
-		// TODO Auto-generated method stub
 		int totalCount = 0;
 		int totalPage = 0;
 		try {
@@ -193,13 +192,13 @@ public class SalesRecordDAOImpl implements SalesRecordDAO {
 		}
 	}
 
-	public int insertGetSalesRecord() { //新增銷售紀錄 -取最大編號再+1
-		int max = 0;
+	public long insertGetSalesRecord() { //新增銷售紀錄 -取最大編號再+1
+		long max = 0;
 		try {
 			PreparedStatement stmt = conn.prepareStatement(GET_MAX_ONUM);
 			ResultSet rs = stmt.executeQuery();
 			if (rs.next()) {
-				max = Integer.valueOf(rs.getString("max")) + 1;
+				max = Long.valueOf(rs.getString("max")) + 1;
 				System.out.println(max);
 			}
 			stmt.close();
