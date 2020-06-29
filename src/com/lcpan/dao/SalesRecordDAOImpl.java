@@ -15,10 +15,10 @@ import com.lcpan.bean.SalesRecordBean;
 public class SalesRecordDAOImpl implements SalesRecordDAO {
 //	private static final String GET_ALL = "SELECT * FROM member_overview";
 	private static final String GET_MAX_ONUM = "SELECT MAX(orderNumber) max FROM sales_record"; //取得最大筆
-	private static final String INSERT_SALES = "{call insert_salesrecord(?, ?, ?, ?, ?, ?, ?, ?)}"; 
+	private static final String INSERT_SALES = "{call insert_salesrecord(?, ?, ?, ?, ?, ?, ?, ?, ?)}"; 
 	private static final String DEL_SALES = "DELETE FROM sales_record WHERE orderNumber= ?";
 	private static final String Update_Get_SALES = "SELECT * FROM sales_record WHERE OrderNumber = ?"; //取得最大筆數
-	private static final String Update_SALES = "{call upd_salesrecord_all(?, ?, ?, ?, ?, ?, ?, ?)}";
+	private static final String Update_SALES = "{call upd_salesrecord_all(?, ?, ?, ?, ?, ?, ?, ?, ?)}";
 //	private static final String GET_ALL_SALES = "SELECT * FROM sales_record";  //取得全部資料
 	private static final String GET_GENDER ="SELECT gender FROM member_overview"; //取得性別欄位
 	private static final String DEL_PAY_INFO = "UPDATE product_information SET picked = 0 WHERE product_information.productNo = ?";
@@ -45,7 +45,7 @@ public class SalesRecordDAOImpl implements SalesRecordDAO {
 		int begin = (pageNo-1)*pagesize;  
 		int end = pagesize; 
 		try {
-			PreparedStatement stmt = conn.prepareStatement("SELECT orderNumber,date,productNo,amount,price,totalPrice,gender,number FROM sales_record LIMIT "+ begin+","+end);
+			PreparedStatement stmt = conn.prepareStatement("SELECT orderNumber,date,productNo,amount,price,discount,totalPrice,gender,number FROM sales_record LIMIT "+ begin+","+end);
 			ResultSet rs = stmt.executeQuery();
 			salesrecords = new ArrayList<>();
 			SalesRecordBean salesrecord = null;
@@ -55,7 +55,8 @@ public class SalesRecordDAOImpl implements SalesRecordDAO {
 				salesrecord.setDate(rs.getString("date"));
 				salesrecord.setProductNo(rs.getString("productNo"));
 				salesrecord.setAmount(rs.getString("amount"));
-				salesrecord.setPrice(rs.getString("price"));
+				salesrecord.setPrice(rs.getString("price")); 
+				salesrecord.setDiscount(rs.getString("discount")); 
 				salesrecord.setTotalPrice(rs.getString("totalPrice"));
 				salesrecord.setGender(rs.getString("gender"));
 				salesrecord.setNumber(rs.getString("number"));
@@ -89,7 +90,7 @@ public class SalesRecordDAOImpl implements SalesRecordDAO {
 			}
 			stmt.close();
 		}  catch (SQLException e) {
-			System.out.println("NOOOOOOOOOOOOOOOOOOO");
+			System.out.println("getTotalSalesPage fail!");
 			e.printStackTrace();
 		} finally {
 			if (conn != null) {
@@ -119,6 +120,7 @@ public class SalesRecordDAOImpl implements SalesRecordDAO {
 				salesrecord.setProductNo(rs.getString("productNo"));
 				salesrecord.setAmount(rs.getString("amount"));
 				salesrecord.setPrice(rs.getString("price"));
+				salesrecord.setDiscount(rs.getString("discount")); 
 				salesrecord.setTotalPrice(rs.getString("totalPrice"));
 				salesrecord.setGender(rs.getString("gender"));
 				salesrecord.setNumber(rs.getString("number"));
@@ -138,7 +140,7 @@ public class SalesRecordDAOImpl implements SalesRecordDAO {
 	}
 
 	public void updateSalesRecord(String date, String orderNumber, String productNo, String amount, String price,
-			 String totalPrice, String gender, String number) {  //更新銷售紀錄
+			 String discount, String totalPrice, String gender, String number) {  //更新銷售紀錄
 		try {
 			CallableStatement cstmt = conn.prepareCall(Update_SALES);
 			cstmt.setString(1, orderNumber);
@@ -146,9 +148,10 @@ public class SalesRecordDAOImpl implements SalesRecordDAO {
 			cstmt.setString(3, productNo);
 			cstmt.setString(4, amount);
 			cstmt.setString(5, price);
-			cstmt.setString(6, totalPrice);
-			cstmt.setString(7, gender);
-			cstmt.setString(8, number);
+			cstmt.setString(6, discount);
+			cstmt.setString(7, totalPrice);
+			cstmt.setString(8, gender);
+			cstmt.setString(9, number);
 			cstmt.execute();
 			System.out.println("Update Stored Procedure successful!");
 			cstmt.close();
@@ -216,7 +219,7 @@ public class SalesRecordDAOImpl implements SalesRecordDAO {
 	}
 
 	public void insertSalesRecord(String date, String orderNumber, String productNo, String amount, String price,
-			 String totalPrice, String gender, String number) { //新增銷售紀錄
+			String discount, String totalPrice, String gender, String number) { //新增銷售紀錄
 		try {
 			CallableStatement cstmt = conn.prepareCall(INSERT_SALES);
 			cstmt.setString(1, orderNumber);
@@ -225,9 +228,10 @@ public class SalesRecordDAOImpl implements SalesRecordDAO {
 			cstmt.setString(3, productNo);
 			cstmt.setString(4, amount);
 			cstmt.setString(5, price);
-			cstmt.setString(6, totalPrice);
-			cstmt.setString(7, gender);
-			cstmt.setString(8, number);
+			cstmt.setString(6, discount);
+			cstmt.setString(7, totalPrice);
+			cstmt.setString(8, gender);
+			cstmt.setString(9, number);
 			cstmt.execute();
 			System.out.println("insert Stored Procedure successful!");
 			cstmt.close();

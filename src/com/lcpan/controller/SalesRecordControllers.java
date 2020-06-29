@@ -24,13 +24,13 @@ public class SalesRecordControllers extends HttpServlet {
 		switch (path) {
 		case "/SmartSales/salesrecord/GetAllSalesRecord":
 			getAllSalesRecord(request, response);
-			break; // 取得銷售紀錄
+			break; // 取得銷售紀錄 v
 		case "/SmartSales/salesrecord/InsertGetSalesRecord":
 			insertGetSalesRecord(request, response);
 			break; // 讀取最大銷售編號
 		case "/SmartSales/salesrecord/InsertSalesRecord":
 			insertSalesRecord(request, response);
-			break; // 手動新增銷售紀錄
+			break; // 手動新增銷售紀錄 v
 		case "/SmartSales/salesrecord/PayPageInsertSalesRecord":
 			payPageInsertSalesRecord(request, response);
 			break; // 結帳新增銷售紀錄
@@ -39,10 +39,10 @@ public class SalesRecordControllers extends HttpServlet {
 			break; // 銷售紀錄刪除
 		case "/SmartSales/salesrecord/UpdateGetSalesRecordNo":
 			updateGetSalesRecordNo(request, response);
-			break; // 取得銷售紀錄更新
+			break; // 取得銷售紀錄更新 v
 		case "/SmartSales/salesrecord/UpdateSalesRecord":
 			updateSalesRecord(request, response);
-			break; // 銷售紀錄更新
+			break; // 銷售紀錄更新 v
 		case "/SmartSales/salesrecord/payPage":
 			pay(request, response);
 			break; // pay 頁面進servlet
@@ -72,7 +72,7 @@ public class SalesRecordControllers extends HttpServlet {
 			if(currentPageNo!=null){
 				pageNo = Integer.parseInt(currentPageNo);
 			}
-			System.out.println("NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+//			System.out.println("yesssssssssssssssss");
 			SalesRecordDAO dao = new SalesRecordDAOImpl();
 			List<SalesRecordBean> salesrecords = dao.getAllSalesRecord(pageNo);
 			SalesRecordDAO dao1 = new SalesRecordDAOImpl();
@@ -119,11 +119,12 @@ public class SalesRecordControllers extends HttpServlet {
 			String productNo = request.getParameter("productNo");
 			String amount = request.getParameter("amount");
 			String price = request.getParameter("price");
+			String discount = request.getParameter("discount");
 			String totalPrice = request.getParameter("totalPrice");
 			String gender = request.getParameter("gender");
 			String number = request.getParameter("number");
 			SalesRecordDAO dao = new SalesRecordDAOImpl();
-			dao.updateSalesRecord(date, orderNumber, productNo, amount, price, totalPrice, gender, number);
+			dao.updateSalesRecord(date, orderNumber, productNo, amount, price, discount, totalPrice, gender, number);
 			response.sendRedirect("../salesrecord/GetAllSalesRecord");
 		}
 		else
@@ -175,11 +176,12 @@ public class SalesRecordControllers extends HttpServlet {
 			String productNo = request.getParameter("productNo");
 			String amount = request.getParameter("amount");
 			String price = request.getParameter("price");
+			String discount = request.getParameter("discount");
 			String totalPrice = request.getParameter("totalPrice");
 			String gender = request.getParameter("gender");
 			String number = request.getParameter("number");
 			SalesRecordDAO dao = new SalesRecordDAOImpl();
-			dao.insertSalesRecord(date, orderNumber, productNo, amount, price, totalPrice, gender, number);
+			dao.insertSalesRecord(date, orderNumber, productNo, amount, price,  discount,totalPrice, gender, number);
 			response.sendRedirect("../salesrecord/GetAllSalesRecord");
 		}
 		else

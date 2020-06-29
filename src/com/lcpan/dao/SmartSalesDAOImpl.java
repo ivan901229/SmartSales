@@ -68,6 +68,7 @@ public class SmartSalesDAOImpl implements SmartSalesDAO {
 //				System.out.println(rs.getString("number"));
 				if(!rs.getString("number").equals("-1")) {
 					member = new MemberBean();
+					member.setMemberNo(rs.getString("number"));
 					member.setMemberLevel(rs.getString("memberLevel"));
 //					member.setImagePath(rs.getString("photo"));
 					member.setMemberName(rs.getString("name"));

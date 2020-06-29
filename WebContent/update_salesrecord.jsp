@@ -60,6 +60,7 @@
 													<th class="text-center">商品名稱</th>
 													<th class="text-center">數量</th>
 													<th class="text-center">價格</th>
+													<th class="text-center">折扣</th>
 													<th class="text-center">總價</th>
 													<th class="text-center">性別</th>
 													<th class="text-center">會員</th>
@@ -84,6 +85,10 @@
 													<td class="text-center"><input type="text"
 														value="<%=salesrecords.getPrice()%>" name="price"
 														class="text-center" style="width: 150px"></td>
+													<td class="text-center"><input type="text"
+														value="<%=salesrecords.getDiscount()%>"
+														name="discount" class="text-center" style="width: 150px">
+													</td>
 													<td class="text-center"><input type="text"
 														value="<%=salesrecords.getTotalPrice()%>"
 														name="totalPrice" class="text-center" style="width: 150px">
