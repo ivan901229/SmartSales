@@ -46,7 +46,6 @@
 					<li><a href="../analysis/GetPurchaseRatio"> <i
 							class="metismenu-icon pe-7s-graph"></i> 銷售分析
 					</a></li>
-					<!-- <li><a href="../sales_analysis.jsp"> <i -->
 					<li><a href="../analysis/GetFootfall"> <i
 							class="metismenu-icon pe-7s-graph2"></i> 客流分析
 					</a></li>
@@ -81,5 +80,6 @@
 		</div>
 	</div>
 </body>
-
+<script>
+</script>
 </html>

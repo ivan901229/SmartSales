@@ -24,13 +24,13 @@ public class SalesRecordControllers extends HttpServlet {
 		switch (path) {
 		case "/SmartSales/salesrecord/GetAllSalesRecord":
 			getAllSalesRecord(request, response);
-			break; // 取得銷售紀錄 v
+			break; // 取得銷售紀錄
 		case "/SmartSales/salesrecord/InsertGetSalesRecord":
 			insertGetSalesRecord(request, response);
 			break; // 讀取最大銷售編號
 		case "/SmartSales/salesrecord/InsertSalesRecord":
 			insertSalesRecord(request, response);
-			break; // 手動新增銷售紀錄 v
+			break; // 手動新增銷售紀錄
 		case "/SmartSales/salesrecord/PayPageInsertSalesRecord":
 			payPageInsertSalesRecord(request, response);
 			break; // 結帳新增銷售紀錄
@@ -39,10 +39,10 @@ public class SalesRecordControllers extends HttpServlet {
 			break; // 銷售紀錄刪除
 		case "/SmartSales/salesrecord/UpdateGetSalesRecordNo":
 			updateGetSalesRecordNo(request, response);
-			break; // 取得銷售紀錄更新 v
+			break; // 取得銷售紀錄更新
 		case "/SmartSales/salesrecord/UpdateSalesRecord":
 			updateSalesRecord(request, response);
-			break; // 銷售紀錄更新 v
+			break; // 銷售紀錄更新
 		case "/SmartSales/salesrecord/payPage":
 			pay(request, response);
 			break; // pay 頁面進servlet
@@ -153,7 +153,7 @@ public class SalesRecordControllers extends HttpServlet {
 		checkLogIn = (String) request.getAttribute("checkLogIn");
 		if (checkLogIn.equals("true")) {
 			SalesRecordDAO dao = new SalesRecordDAOImpl();
-			int max = dao.insertGetSalesRecord();
+			long max = dao.insertGetSalesRecord();
 			request.setAttribute("max", max);
 			request.getRequestDispatcher("../insert_salesrecord.jsp").forward(request, response);
 		}
