@@ -221,7 +221,9 @@ public class SalesRecordDAOImpl implements SalesRecordDAO {
 	public void insertSalesRecord(String date, String orderNumber, String productNo, String amount, String price,
 			String discount, String totalPrice, String gender, String number) { //·s¼W¾P°â¬ö¿ý
 		try {
+			System.out.println("1");
 			CallableStatement cstmt = conn.prepareCall(INSERT_SALES);
+			System.out.println("2");
 			cstmt.setString(1, orderNumber);
 			System.out.println(orderNumber);
 			cstmt.setString(2, date);
