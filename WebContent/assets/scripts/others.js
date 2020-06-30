@@ -311,7 +311,7 @@ function paylist(){
 				  		var memberName = $("#memberName").html();
 				  		var memberLevel = $("#memberLevel").html();
 				  		var memberDiscount = $("#memberDiscount").html();
-				  		var memberGender = $("#memberGender").html();
+				  		var memberGender =$('input[name=SEX]:checked').val();
 				  		if(memberName == undefined){
 				  			memberNumber="";
 				  			memberName="";
@@ -327,7 +327,12 @@ function paylist(){
 				  		var defaultprice = 0;
 				  		var totalPrice = 0;
 				  		var rsString =eval('(' + xmlhttp2.responseText + ')');
+				  		if(memberDiscount==''){
+				  			// console.log("非會員");
+				  			memberDiscount=1;
+				  		}
 				  		
+				  		console.log(totalPrice);
 				  		for(let i=0;i<rsString.length;i++){
 				  			productNo = rsString[i].productNo;
 				  			productName = rsString[i].productName;
@@ -335,8 +340,8 @@ function paylist(){
 				  			picked = rsString[i].picked;
 				  			totalamount += parseInt(picked);
 				  			defaultprice += parseInt(picked)*parseInt(price);
+				  			totalPrice += Math.round(parseInt(picked)*parseInt(price)*parseFloat(memberDiscount));
 				  		
-				  			// console.log(productNo);
 			           		$("#paylist").append("<tr class='datarow'>" +
 			           				"<td class='text-center' name='productNo'>"+productNo+
 			           				"</td><td class='text-center' name='productName'>"+productName+
@@ -356,12 +361,8 @@ function paylist(){
 				  				"<td class='text-center' id='memberGender' style='display:none'>"+memberGender+"</td>" +
 				  				"</tr>");
 				  		//console.log("折扣為:"+memberDiscount);
-				  		if(memberDiscount==''){
-				  			// console.log("非會員");
-				  			memberDiscount=1;
-				  		}
-				  		totalPrice = defaultprice*parseFloat(memberDiscount);
-				  		console.log(totalPrice);
+				  		
+
 				  		$("#totalPrice").append("總計："+totalPrice);
 				    }
 				});
@@ -377,6 +378,7 @@ function delPay(productNo) {
 	}
 }
 
+
 //結帳頁面-清除結帳
 function cleanPayAll() {
 	if(confirm("確認刪除？")){ 
@@ -385,19 +387,24 @@ function cleanPayAll() {
 	}
 }
 
-var keysArr = new Array("productNo", "productName", "amount","price");
+//var keysArr = new Array("productNo", "productName", "amount","price");
+var keysArr = new Array("productNo","","amount","price");
+
 
 function payListToJSON(){
-	var rows = $("#paylist > tr").length; //獲得行數(包括tbody)
-	var colums = document.getElementById("table3").rows[0].cells.length; //獲得列數
+	var rows = $("#paylist > tr").length; //獲得列數
+	var colums = document.getElementById("table3").rows[0].cells.length; //獲得行數
 	console.log(rows);
 	console.log(colums);
 	var json = "[";
 	var tdValue;
-	for (var i = 0; i < rows; i++) { //每行
+	for (var i = 0; i < rows; i++) { //每列
 		json += "{";
 		for (var j = 0; j < colums-1; j++) { //colums-1 不要包含刪除欄位
 			tdName = keysArr[j]; //Json資料的鍵
+			if(j==1){
+				continue;
+			}
 			json += "\"";
 			json += tdName;
 			json += "\"";
@@ -420,34 +427,40 @@ function payListToJSON(){
   		var memberName = $("#memberName").html();
   		var memberLevel = $("#memberLevel").html();
   		var memberDiscount = $("#memberDiscount").html();
-  		var memberGender = $("#memberGender").html();
+  		var memberGender = $('input[name=SEX]:checked').val();
   		var totalPrice = $("#totalPrice").html();
-		
-		if(confirm("確認送出？")){ 
-			// window.location.href = "../salesrecord/PayPageInsertSalesRecord?payListJSON="+json;
-			
-			$.ajax({
-				type: "POST", 								    //訪問方式
-	            url: "../salesrecord/PayPageInsertSalesRecord", //訪問路徑
-	            //contentType: "application/json;charset=utf-8",
-	            async: 'false',
-	            data: 'memberNumber='+memberNumber+'&'+
-	                  'memberName='+memberName+'&'+
-	                  'memberDiscount='+memberDiscount+'&'+
-	                  'memberGender='+memberGender+'&'+
-	                  'totalPrice='+totalPrice+'&'+
-	            	  'payListJSON='+json ,                       //傳入服務端的資料
-	            success: function(data) { 
-	            	alert('送出成功');
-	            	$("#memberNumber").html(""); 
-	            	$("#memberName").html("");                   //清除會員資料
-			  		$("#memberLevel").html("");
-			  		$("#memberDiscount").html("");
-			  		$("#memberGender").html("");
-	            }, 
-	            error: function(data) { 
-	            	alert('送出失敗'); 
-	            } 
-	        }); 
+  		if(memberNumber==""){                // 如果非會員，填入-1
+  			memberNumber="-1";
+  		}
+		if(memberGender=="male" || memberGender=="female"){
+			if(confirm("確認送出？")){ 
+				$.ajax({
+					type: "POST", 								    //訪問方式
+	            	url: "../salesrecord/PayPageInsertSalesRecord", //訪問路徑
+	            	//contentType: "application/json;charset=utf-8",
+	            	async: 'false',
+	            	data: 'memberNumber='+memberNumber+'&'+
+	                  	'memberName='+memberName+'&'+
+	                  	'memberDiscount='+memberDiscount+'&'+
+	                  	'memberGender='+memberGender+'&'+
+	                  	'totalPrice='+totalPrice+'&'+
+	            	  	'payListJSON='+json ,                       //傳入服務端的資料
+	            	  success: function(data) { 
+	            		alert('送出成功');
+	            		$("#memberNumber").html(""); 
+	            		$("#memberName").html("");                   //清除會員資料
+			  			$("#memberLevel").html("");
+			  			$("#memberDiscount").html("");
+			  			$('#genderMale').prop( "checked", false );
+						$('#genderFemale').prop( "checked", false );
+	            	}, 
+	            	error: function(data) { 
+	            		alert('送出失敗'); 
+	            	} 
+				}); 
+			}
+		}
+		else{
+			alert("此客戶非會員，請勾選客戶性別!");
 		}
 	}

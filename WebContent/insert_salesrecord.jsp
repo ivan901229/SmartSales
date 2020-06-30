@@ -69,6 +69,7 @@
 													<th class="text-center">商品名稱</th>
 													<th class="text-center">數量</th>
 													<th class="text-center">價格</th>
+													<th class="text-center">折扣</th>
 													<th class="text-center">總價</th>
 													<th class="text-center">性別</th>
 													<th class="text-center">會員</th>
@@ -89,6 +90,8 @@
 														style="width: 100px" name="amount" /><br></td>
 													<td class="text-center"><input class="text-center"
 														style="width: 100px" name="price"></td>
+														<td class="text-center"><input class="text-center"
+														style="width: 100px" name="discount"></td>
 													<td class="text-center"><input class="text-center"
 														style="width: 100px" name="totalPrice"></td>
 													<td class="text-center"><select class="text-center"

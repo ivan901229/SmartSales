@@ -82,6 +82,7 @@
 												<th class="text-center">商品名稱</th>
 												<th class="text-center">數量</th>
 												<th class="text-center">價格</th>
+												<th class="text-center">折扣</th>
 												<th class="text-center">總價</th>
 												<th class="text-center">性別</th>
 												<th class="text-center">會員</th>
@@ -101,6 +102,7 @@
 												<td class="text-center"><%=(salesrecords.get(i)).getProductNo()%></td>
 												<td class="text-center"><%=(salesrecords.get(i)).getAmount()%></td>
 												<td class="text-center"><%=(salesrecords.get(i)).getPrice()%></td>
+												<td class="text-center"><%=(salesrecords.get(i)).getDiscount()%></td>
 												<td class="text-center"><%=(salesrecords.get(i)).getTotalPrice()%></td>
 												<td class="text-center"><%=(salesrecords.get(i)).getGender()%></td>
 												<td class="text-center"><%=(salesrecords.get(i)).getNumber()%></td>

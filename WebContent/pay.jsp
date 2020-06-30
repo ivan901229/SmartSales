@@ -66,10 +66,19 @@
 												<button type="submit" class="btn-wide btn btn-success">查詢</button>
 												
 										</div>
+<<<<<<< HEAD
 										
 										
+=======
+>>>>>>> 9f719bd9ead9ce39d760eecab4e83c8df96a78f6
 									</form>
+									<div id="memberGender" class="text-center" style="margin-left: 26px;">
+											客戶性別： 
+											<input id="genderMale" class="text-center" type=radio name=SEX value=male>男 
+											<input id="genderFemale" class="text-center" type=radio name=SEX value=female>女<br>
+									</div>
 								</div>
+								
 								<div class="table-responsive">
 									<table
 										class="align-middle mb-0 table table-borderless table-striped table-hover"
@@ -131,8 +140,15 @@
 				$("#memberNumber").append("<%=member.getMemberNo()%>");
 				$("#memberName").append("<%=member.getMemberName()%>");
 				$("#memberLevel").append("<%=member.getMemberLevel()%>");
-				$("#memberDiscount").append("<%=member.getMemberDiscount()%>");
-				$("#memberGender").append("<%=member.getMemberGender()%>");
+				$("#memberDiscount").html("").append("<%=member.getMemberDiscount()%>");
+				if("<%=member.getMemberGender()%>"=="male"){
+					$('#genderMale').attr('checked', true);
+					$('#genderFemale').attr('disabled', true);
+				}
+				else if("<%=member.getMemberGender()%>"=="female"){
+					$('#genderFemale').attr('checked', true);
+					$('#genderMale').attr('disabled', true);
+				}
 			}
 		}
 		

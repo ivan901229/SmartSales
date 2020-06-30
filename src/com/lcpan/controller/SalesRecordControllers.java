@@ -1,12 +1,17 @@
 package com.lcpan.controller;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.*;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
+import java.lang.Math;
+
+import org.json.*;
 
 import com.lcpan.bean.SalesRecordBean;
 import com.lcpan.dao.SalesRecordDAO;
@@ -75,7 +80,7 @@ public class SalesRecordControllers extends HttpServlet {
 			if(currentPageNo!=null){
 				pageNo = Integer.parseInt(currentPageNo);
 			}
-			System.out.println("NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+//			System.out.println("yesssssssssssssssss");
 			SalesRecordDAO dao = new SalesRecordDAOImpl();
 			List<SalesRecordBean> salesrecords = dao.getAllSalesRecord(pageNo);
 			SalesRecordDAO dao1 = new SalesRecordDAOImpl();
@@ -122,11 +127,12 @@ public class SalesRecordControllers extends HttpServlet {
 			String productNo = request.getParameter("productNo");
 			String amount = request.getParameter("amount");
 			String price = request.getParameter("price");
+			String discount = request.getParameter("discount");
 			String totalPrice = request.getParameter("totalPrice");
 			String gender = request.getParameter("gender");
 			String number = request.getParameter("number");
 			SalesRecordDAO dao = new SalesRecordDAOImpl();
-			dao.updateSalesRecord(date, orderNumber, productNo, amount, price, totalPrice, gender, number);
+			dao.updateSalesRecord(date, orderNumber, productNo, amount, price, discount, totalPrice, gender, number);
 			response.sendRedirect("../salesrecord/GetAllSalesRecord");
 		}
 		else
@@ -155,7 +161,7 @@ public class SalesRecordControllers extends HttpServlet {
 		checkLogIn = (String) request.getAttribute("checkLogIn");
 		if (checkLogIn.equals("true")) {
 			SalesRecordDAO dao = new SalesRecordDAOImpl();
-			int max = dao.insertGetSalesRecord();
+			long max = dao.insertGetSalesRecord();
 			request.setAttribute("max", max);
 			request.getRequestDispatcher("../insert_salesrecord.jsp").forward(request, response);
 		}
@@ -178,11 +184,12 @@ public class SalesRecordControllers extends HttpServlet {
 			String productNo = request.getParameter("productNo");
 			String amount = request.getParameter("amount");
 			String price = request.getParameter("price");
+			String discount = request.getParameter("discount");
 			String totalPrice = request.getParameter("totalPrice");
 			String gender = request.getParameter("gender");
 			String number = request.getParameter("number");
 			SalesRecordDAO dao = new SalesRecordDAOImpl();
-			dao.insertSalesRecord(date, orderNumber, productNo, amount, price, totalPrice, gender, number);
+			dao.insertSalesRecord(date, orderNumber, productNo, amount, price,  discount,totalPrice, gender, number);
 			response.sendRedirect("../salesrecord/GetAllSalesRecord");
 		}
 		else
@@ -199,19 +206,40 @@ public class SalesRecordControllers extends HttpServlet {
 			response.setCharacterEncoding("UTF-8");
 			response.setContentType("text/html;charset=UTF-8");
 			String memberNumber = request.getParameter("memberNumber");
-			String memberName = request.getParameter("memberName");
 			String memberDiscount = request.getParameter("memberDiscount");
 			String memberGender = request.getParameter("memberGender");
-			String totalPrice = request.getParameter("totalPrice");
+//			String totalPrice = request.getParameter("totalPrice");
+//			totalPrice = totalPrice.substring(3,totalPrice.length());
 			String payListJSON = request.getParameter("payListJSON");
-			System.out.println(memberNumber);
-			System.out.println(memberName);
-			System.out.println(memberDiscount);
-			System.out.println(memberGender);
-			System.out.println(totalPrice);
-			System.out.println(payListJSON);
-//			SalesRecordDAO dao = new SalesRecordDAOImpl();
-//			dao.insertSalesRecord(date, orderNumber, productNo, amount, price, totalPrice, gender, number);
+			
+			String orderNumber = "";
+//			System.out.println(memberNumber);
+//			System.out.println(memberName);
+//			System.out.println(memberDiscount);
+//			System.out.println(memberGender);
+//			System.out.println(totalPrice);
+//			System.out.println(payListJSON);
+//			System.out.println("資料比數:"+rows);             // 資料比數
+			
+			SalesRecordDAO dao = new SalesRecordDAOImpl();
+			orderNumber=String.valueOf(dao.getMaxOrderNumber());
+//			System.out.println(orderNumber);  該筆資料的orderNumber
+			JSONArray array = new JSONArray(payListJSON);
+			for (int i = 0; i < array.length(); i++) {
+		        JSONObject jsonObject = array.getJSONObject(i);
+		        String productNo = jsonObject.getString("productNo");
+		        String amount = jsonObject.getString("amount");
+		        String price = jsonObject.getString("price");
+		        if(memberDiscount.equals("")) {
+		        	memberDiscount="1";
+		        }
+		        String totalPrice = String.valueOf(Math.round(Integer.valueOf(amount)*Integer.valueOf(price)*Float.valueOf(memberDiscount)));
+		        SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+				Date date = new Date();
+				String currentTime=(sdFormat.format(date).replaceAll("/","-"));
+				SalesRecordDAO dao1 = new SalesRecordDAOImpl();
+				dao1.payPageInsertSalesRecord(orderNumber, currentTime, productNo, amount, price, memberDiscount, totalPrice, memberGender, memberNumber);
+			}
 //			response.sendRedirect("../salesrecord/GetAllSalesRecord");
 		}
 		else
