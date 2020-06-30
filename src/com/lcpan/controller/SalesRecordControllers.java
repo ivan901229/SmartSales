@@ -239,6 +239,7 @@ public class SalesRecordControllers extends HttpServlet {
 				String currentTime=(sdFormat.format(date).replaceAll("/","-"));
 				SalesRecordDAO dao1 = new SalesRecordDAOImpl();
 				dao1.payPageInsertSalesRecord(orderNumber, currentTime, productNo, amount, price, memberDiscount, totalPrice, memberGender, memberNumber);
+			    
 			}
 //			response.sendRedirect("../salesrecord/GetAllSalesRecord");
 		}

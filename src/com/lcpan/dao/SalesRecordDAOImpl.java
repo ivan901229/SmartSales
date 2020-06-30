@@ -328,14 +328,18 @@ public class SalesRecordDAOImpl implements SalesRecordDAO {
 			PreparedStatement stmt = conn.prepareStatement(GET_ORDER_NUMBER);
 			stmt.setString(1, orderNumber + "%");
 			ResultSet rs = stmt.executeQuery();
-			if (rs.next()) {
-				orderNumber = Long.valueOf(rs.getString("max")) + 1;
-				System.out.println("Today's record has already exited");
+			while (rs.next()) {
+				String max = rs.getString("max");
+				if (max != null) {
+					orderNumber = Long.valueOf(max) + 1;
+					System.out.println("Today's record has already exited");
+				}
+				else {
+					orderNumber=Long.valueOf(String.valueOf(orderNumber)+"001");
+					System.out.println("There is no today's record");
+				}
 			}
-			else {
-				orderNumber=Long.valueOf(String.valueOf(orderNumber)+"001");
-				System.out.println("There is no today's record");
-			}
+			
 			stmt.close();
 
 		} catch (Exception e) {
@@ -356,15 +360,15 @@ public class SalesRecordDAOImpl implements SalesRecordDAO {
 			String price, String memberDiscount, String totalPrice, String memberGender, String memberNumber) { //µ²±b·s¼W¾P°â¬ö¿ý
 
 	        try {
-				System.out.println(orderNumber);
-	        	System.out.println(currentTime);
-	        	System.out.println(productNo);
-	        	System.out.println(amount);
-	        	System.out.println(price);
-	        	System.out.println(memberDiscount);
-	        	System.out.println(totalPrice);
-	        	System.out.println(memberGender);
-	        	System.out.println(memberNumber);
+//				System.out.println(orderNumber);
+//	        	System.out.println(currentTime);
+//	        	System.out.println(productNo);
+//	        	System.out.println(amount);
+//	        	System.out.println(price);
+//	        	System.out.println(memberDiscount);
+//	        	System.out.println(totalPrice);
+//	        	System.out.println(memberGender);
+//	        	System.out.println(memberNumber);
 	        	CallableStatement cstmt = conn.prepareCall(INSERT_SALES);
 				cstmt.setString(1, orderNumber);
 				cstmt.setString(2, currentTime);
@@ -378,6 +382,10 @@ public class SalesRecordDAOImpl implements SalesRecordDAO {
 				cstmt.execute();
 				System.out.println("insert Stored Procedure successful!");
 				cstmt.close();
+				PreparedStatement stmt = conn.prepareStatement(CLEAN_PAY_ALL);
+				stmt.execute();
+				System.out.println("clean successful!");
+				stmt.close();
 	        
 			} catch (SQLException e) {
 				e.printStackTrace();

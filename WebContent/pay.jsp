@@ -66,11 +66,7 @@
 												<button type="submit" class="btn-wide btn btn-success">查詢</button>
 												
 										</div>
-<<<<<<< HEAD
-										
-										
-=======
->>>>>>> 9f719bd9ead9ce39d760eecab4e83c8df96a78f6
+
 									</form>
 									<div id="memberGender" class="text-center" style="margin-left: 26px;">
 											客戶性別： 

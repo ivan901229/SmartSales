@@ -451,8 +451,8 @@ function payListToJSON(){
 	            		$("#memberName").html("");                   //清除會員資料
 			  			$("#memberLevel").html("");
 			  			$("#memberDiscount").html("");
-			  			$('#genderMale').prop( "checked", false );
-						$('#genderFemale').prop( "checked", false );
+			  			$('#genderMale').prop( "checked", false ).prop( "disabled", false );
+						$('#genderFemale').prop( "checked", false ).prop( "disabled", false );
 	            	}, 
 	            	error: function(data) { 
 	            		alert('送出失敗'); 
