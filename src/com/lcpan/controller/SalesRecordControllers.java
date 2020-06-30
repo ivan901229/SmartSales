@@ -48,7 +48,10 @@ public class SalesRecordControllers extends HttpServlet {
 			break; // pay 頁面進servlet
 		case "/SmartSales/salesrecord/DelPay":
 			delPay(request, response);
-			break;
+			break; //刪除結帳單項
+		case "/SmartSales/salesrecord/CleanPayAll":
+			cleanPayAll(request, response);
+			break; //清除整筆結帳
 		default :
 			request.getRequestDispatcher("../member/GetOnsiteMembers").forward(request, response);
 			break; // 錯誤網址-返回首頁
@@ -237,6 +240,23 @@ public class SalesRecordControllers extends HttpServlet {
 			System.out.println(productNo);
 			SalesRecordDAO dao = new SalesRecordDAOImpl();
 			dao.delPay(productNo);
+			response.sendRedirect("../salesrecord/payPage");
+		}
+		else
+			response.sendRedirect("../relogin.jsp");
+	}
+	
+	private void cleanPayAll(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String checkLogIn = ""; // 檢查是否有log in
+		request.getRequestDispatcher("/LogIn/CheckLogIn").include(request, response);
+		checkLogIn = (String) request.getAttribute("checkLogIn");
+		if (checkLogIn.equals("true")) {
+			SalesRecordDAO dao = new SalesRecordDAOImpl();
+			dao.cleanPayAll();
+			System.out.println("Clean");
+			HttpSession session = request.getSession();
+			session.setAttribute("success", "Clean successful");
 			response.sendRedirect("../salesrecord/payPage");
 		}
 		else

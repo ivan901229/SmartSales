@@ -64,7 +64,9 @@
 												<input placeholder="請輸入會員電話" type="text" id="memberPhone"
 													class="form-control" name="memberPhone">
 												<button type="submit" class="btn-wide btn btn-success">查詢</button>
+												
 										</div>
+										
 										
 									</form>
 								</div>
@@ -102,8 +104,10 @@
 								</div>
 								<div class="totalPrice" id="totalPrice"></div>
 								<div class="totalPriceButton">
+									
 									<button type="button" class="btn-wide btn btn-success" onclick="payListToJSON()">送出</button>
-									<button type="button" class="mr-2 btn-icon btn-icon-only btn btn-outline-danger" >清除</button>
+									<button type="button" class="mr-2 btn-icon btn-icon-only btn btn-outline-danger" onclick="cleanPayAll()">清除</button>
+									<h5 class="text-center">${success}</h5>
 								</div>
 							</div>
 						</div>

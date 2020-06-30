@@ -20,6 +20,7 @@ public class SalesRecordDAOImpl implements SalesRecordDAO {
 //	private static final String GET_ALL_SALES = "SELECT * FROM sales_record";  //取得全部資料
 	private static final String GET_GENDER ="SELECT gender FROM member_overview"; //取得性別欄位
 	private static final String DEL_PAY_INFO = "UPDATE product_information SET picked = 0 WHERE product_information.productNo = ?";
+	private static final String CLEAN_PAY_ALL = "UPDATE product_information SET picked = 0 WHERE product_information.picked != 0";
 	
 	private static int pagesize = 15;  //一頁顯示15筆
 
@@ -274,6 +275,26 @@ public class SalesRecordDAOImpl implements SalesRecordDAO {
 		try {
 			PreparedStatement stmt = conn.prepareStatement(DEL_PAY_INFO);
 			stmt.setString(1, productNo);
+			stmt.execute();
+			stmt.close();
+			delStatus = true;
+		}  catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+		}
+		return delStatus;
+	}
+	
+	public boolean cleanPayAll() {
+		boolean delStatus = false;
+		try {
+			PreparedStatement stmt = conn.prepareStatement(CLEAN_PAY_ALL);
 			stmt.execute();
 			stmt.close();
 			delStatus = true;

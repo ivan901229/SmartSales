@@ -368,11 +368,20 @@ function paylist(){
 		//setTimeout(function() {	paylist();},1000); 
 }
 
+//結帳頁面-刪除單筆
 function delPay(productNo) {
 	console.log(productNo);
 	if(confirm("確認刪除？")){ 
 		window.location.href = "../salesrecord/DelPay?productNo="+productNo;
 		console.log(ProductNo);
+	}
+}
+
+//結帳頁面-清除結帳
+function cleanPayAll() {
+	if(confirm("確認刪除？")){ 
+		window.location.href = "../salesrecord/CleanPayAll";
+		console.log("clean");
 	}
 }
 

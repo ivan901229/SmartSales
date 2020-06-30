@@ -324,6 +324,8 @@ public class MemberController extends HttpServlet {
 			SmartSalesDAO dao = new SmartSalesDAOImpl();
 			List<MemberBean> members = dao.getOnsiteMembers();
 			request.setAttribute("members", members);
+			HttpSession session=request.getSession();
+			session.removeAttribute("success");
 			request.getRequestDispatcher("/home.jsp").forward(request, response);
 		}
 		else
