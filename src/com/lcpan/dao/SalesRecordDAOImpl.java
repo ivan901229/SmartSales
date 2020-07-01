@@ -369,6 +369,7 @@ public class SalesRecordDAOImpl implements SalesRecordDAO {
 //	        	System.out.println(totalPrice);
 //	        	System.out.println(memberGender);
 //	        	System.out.println(memberNumber);
+	        	
 	        	CallableStatement cstmt = conn.prepareCall(INSERT_SALES);
 				cstmt.setString(1, orderNumber);
 				cstmt.setString(2, currentTime);
