@@ -362,15 +362,15 @@ public class SalesRecordDAOImpl implements SalesRecordDAO {
 			String price, String memberDiscount, String totalPrice, String memberGender, String memberNumber) { //µ²±b·s¼W¾P°â¬ö¿ý
 
 	        try {
-//				System.out.println(orderNumber);
-//	        	System.out.println(currentTime);
-//	        	System.out.println(productNo);
-//	        	System.out.println(amount);
-//	        	System.out.println(price);
-//	        	System.out.println(memberDiscount);
-//	        	System.out.println(totalPrice);
-//	        	System.out.println(memberGender);
-//	        	System.out.println(memberNumber);
+				System.out.println(orderNumber);
+	        	System.out.println(currentTime);
+	        	System.out.println(productNo);
+	        	System.out.println(amount);
+	        	System.out.println(price);
+	        	System.out.println(memberDiscount);
+	        	System.out.println(totalPrice);
+	        	System.out.println(memberGender);
+	        	System.out.println(memberNumber);
 	        	CallableStatement cstmt = conn.prepareCall(INSERT_SALES);
 				cstmt.setString(1, orderNumber);
 				cstmt.setString(2, currentTime);

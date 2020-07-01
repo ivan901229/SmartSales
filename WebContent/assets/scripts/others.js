@@ -474,6 +474,10 @@ function salesTotalPrice(){
 				    	document.getElementById("salesTotalPrice").innerHTML=xmlhttp3.responseText;
 				    }
 				});
+	 setTimeout(function() {
+		 salesTotalPrice();
+		}, 3000);
+ 
 }
 
 var xmlhttp3;  //for salesTotalPrice
