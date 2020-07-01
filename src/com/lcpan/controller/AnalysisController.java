@@ -32,6 +32,9 @@ public class AnalysisController extends HttpServlet {
 			break;
 		case "/SmartSales/analysis/GetFootfall":getFootfall(request, response);   //取得客流量
 		    break;
+		case "/SmartSales/analysis/live":
+			request.getRequestDispatcher("../live_streaming.jsp").forward(request, response);
+			break; // 影像串流
 		default :
 			request.getRequestDispatcher("../member/GetOnsiteMembers").forward(request, response);
 			break; // 錯誤網址-返回首頁

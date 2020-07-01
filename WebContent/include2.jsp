@@ -74,6 +74,10 @@
 					<li><a href="../salesrecord/GetAllSalesRecord?currentpageno=1"> <i
 							class="metismenu-icon pe-7s-note2"></i> 銷售紀錄
 					</a></li>
+					<li class="app-sidebar__heading">影像</li>
+					<li><a href="../analysis/live"> <i
+							class="metismenu-icon pe-7s-note2"></i> 影像串流
+					</a></li>
 				</ul>
 				<!-- class="mm-active" -->
 			</div>
