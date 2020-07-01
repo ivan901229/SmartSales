@@ -22,7 +22,9 @@ public class SalesRecordDAOImpl implements SalesRecordDAO {
 //	private static final String GET_ALL_SALES = "SELECT * FROM sales_record";  //取得全部資料
 	private static final String GET_GENDER ="SELECT gender FROM member_overview"; //取得性別欄位
 	private static final String DEL_PAY_INFO = "UPDATE product_information SET picked = 0 WHERE product_information.productNo = ?";
+	private static final String CLEAN_PAY_ALL = "UPDATE product_information SET picked = 0 WHERE product_information.picked != 0";
 	private static final String GET_ORDER_NUMBER = "SELECT MAX(OrderNumber) max FROM sales_record WHERE OrderNumber LIKE ?";
+
 	
 	private static int pagesize = 15;  //一頁顯示15筆
 
@@ -78,7 +80,6 @@ public class SalesRecordDAOImpl implements SalesRecordDAO {
 	}
 
 	public int getTotalSalesPage() {
-		// TODO Auto-generated method stub
 		int totalCount = 0;
 		int totalPage = 0;
 		try {
@@ -299,25 +300,48 @@ public class SalesRecordDAOImpl implements SalesRecordDAO {
 		return delStatus;
 	}
 	
-	public long getMaxOrderNumber() { //新增銷售紀錄 -取最大編號再+1
+
+	public boolean cleanPayAll() {
+		boolean delStatus = false;
+		try {
+			PreparedStatement stmt = conn.prepareStatement(CLEAN_PAY_ALL);
+			stmt.execute();
+			stmt.close();
+			delStatus = true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+		}
+		return delStatus;
+	}
+
+	public long getMaxOrderNumber() { //結帳送出銷售紀錄 -取最大編號再+1
 		long orderNumber = 0;
 		SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy/MM/dd");
 		Date date = new Date();
 		orderNumber = Long.valueOf(sdFormat.format(date).replaceAll("/",""));
-		
-		System.out.println(orderNumber);
 		try {
 			PreparedStatement stmt = conn.prepareStatement(GET_ORDER_NUMBER);
 			stmt.setString(1, orderNumber + "%");
 			ResultSet rs = stmt.executeQuery();
-			if (rs.next()) {
-				orderNumber = Long.valueOf(rs.getString("max")) + 1;
-				System.out.println("Today's record has already exited");
+			while (rs.next()) {
+				String max = rs.getString("max");
+				if (max != null) {
+					orderNumber = Long.valueOf(max) + 1;
+					System.out.println("Today's record has already exited");
+				}
+				else {
+					orderNumber=Long.valueOf(String.valueOf(orderNumber)+"001");
+					System.out.println("There is no today's record");
+				}
 			}
-			else {
-				orderNumber=Long.valueOf(String.valueOf(orderNumber)+"001");
-				System.out.println("There is no today's record");
-			}
+			
 			stmt.close();
 
 		} catch (Exception e) {
@@ -329,10 +353,55 @@ public class SalesRecordDAOImpl implements SalesRecordDAO {
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
-			}
 		}
-		return orderNumber;
 	}
+	return orderNumber;
+	}
+	
+	public void payPageInsertSalesRecord(String orderNumber,String currentTime,String productNo,String amount, 
+			String price, String memberDiscount, String totalPrice, String memberGender, String memberNumber) { //結帳新增銷售紀錄
+
+	        try {
+//				System.out.println(orderNumber);
+//	        	System.out.println(currentTime);
+//	        	System.out.println(productNo);
+//	        	System.out.println(amount);
+//	        	System.out.println(price);
+//	        	System.out.println(memberDiscount);
+//	        	System.out.println(totalPrice);
+//	        	System.out.println(memberGender);
+//	        	System.out.println(memberNumber);
+	        	CallableStatement cstmt = conn.prepareCall(INSERT_SALES);
+				cstmt.setString(1, orderNumber);
+				cstmt.setString(2, currentTime);
+				cstmt.setString(3, productNo);
+				cstmt.setString(4, amount);
+				cstmt.setString(5, price);
+				cstmt.setString(6, memberDiscount);
+				cstmt.setString(7, totalPrice);
+				cstmt.setString(8, memberGender);
+				cstmt.setString(9, memberNumber);
+				cstmt.execute();
+				System.out.println("insert Stored Procedure successful!");
+				cstmt.close();
+				PreparedStatement stmt = conn.prepareStatement(CLEAN_PAY_ALL);
+				stmt.execute();
+				System.out.println("clean successful!");
+				stmt.close();
+	        
+			} catch (SQLException e) {
+				e.printStackTrace();
+				System.out.println("insert Stored Procedure fail!");
+			} finally {
+				if (conn != null)
+					try {
+						conn.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+			}
+	}
+
 }
 
 

@@ -64,10 +64,17 @@
 												<input placeholder="請輸入會員電話" type="text" id="memberPhone"
 													class="form-control" name="memberPhone">
 												<button type="submit" class="btn-wide btn btn-success">查詢</button>
+												
 										</div>
-										
+
 									</form>
+									<div id="memberGender" class="text-center" style="margin-left: 26px;">
+											客戶性別： 
+											<input id="genderMale" class="text-center" type=radio name=SEX value=male>男 
+											<input id="genderFemale" class="text-center" type=radio name=SEX value=female>女<br>
+									</div>
 								</div>
+								
 								<div class="table-responsive">
 									<table
 										class="align-middle mb-0 table table-borderless table-striped table-hover"
@@ -102,8 +109,10 @@
 								</div>
 								<div class="totalPrice" id="totalPrice"></div>
 								<div class="totalPriceButton">
-									<button type="button" class="btn-wide btn btn-success" onclick="payListToJSON()">送出</button>
-									<button type="button" class="mr-2 btn-icon btn-icon-only btn btn-outline-danger" >清除</button>
+									
+									<button type="button" class=" btn-wide btn btn-success" onclick="payListToJSON()">送出</button>
+									<button type="button" class="mr-2 btn-icon btn-icon-only btn btn-outline-danger" onclick="cleanPayAll()">清除</button>
+									<h5 class="text-center">${success}</h5>
 								</div>
 							</div>
 						</div>
@@ -127,8 +136,15 @@
 				$("#memberNumber").append("<%=member.getMemberNo()%>");
 				$("#memberName").append("<%=member.getMemberName()%>");
 				$("#memberLevel").append("<%=member.getMemberLevel()%>");
-				$("#memberDiscount").append("<%=member.getMemberDiscount()%>");
-				$("#memberGender").append("<%=member.getMemberGender()%>");
+				$("#memberDiscount").html("").append("<%=member.getMemberDiscount()%>");
+				if("<%=member.getMemberGender()%>"=="male"){
+					$('#genderMale').attr('checked', true);
+					$('#genderFemale').attr('disabled', true);
+				}
+				else if("<%=member.getMemberGender()%>"=="female"){
+					$('#genderFemale').attr('checked', true);
+					$('#genderMale').attr('disabled', true);
+				}
 			}
 		}
 		

@@ -18,7 +18,11 @@ public interface SalesRecordDAO {
 	public void insertSalesRecord(String date, String orderNumber, String productNo, String amount, String price,
 			String discount, String totalPrice, String gender, String number);
 	public boolean delPay(String productNo);
+	public boolean cleanPayAll();
 	public long getMaxOrderNumber();
+	public void payPageInsertSalesRecord(String orderNumber,String currentTime,String productNo,String amount, 
+			String price, String memberDiscount, String totalPrice, String memberGender, String memberNumber);
+
 	
 }
 
