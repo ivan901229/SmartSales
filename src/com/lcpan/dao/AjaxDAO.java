@@ -5,4 +5,5 @@ public interface AjaxDAO {
 	public String getOnSiteMembers();
 	public String scanNewRFID();
 	public String pay();
+	public String getSalesRecordTotalPrice();
 }

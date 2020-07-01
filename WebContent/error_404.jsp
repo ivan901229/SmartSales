@@ -56,6 +56,7 @@
 	<script type="text/javascript" src="../assets/scripts/others.js"></script>
 	<script>
 		memberOnSiteCount();
+		salesTotalPrice();
 	</script>
 </body>
 </html>

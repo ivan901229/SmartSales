@@ -88,6 +88,7 @@
 	<script type="text/javascript" src="../assets/scripts/others.js"></script>
 	<script>
 		memberOnSiteList();
+		salesTotalPrice();
 	</script>
 </body>
 

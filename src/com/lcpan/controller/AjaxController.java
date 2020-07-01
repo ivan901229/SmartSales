@@ -33,6 +33,9 @@ public class AjaxController extends HttpServlet {
 		case "/SmartSales/Ajax/pay":  // 結帳測試
 			pay(request, response);
 			break;
+		case "/SmartSales/Ajax/SalesRecordTotalPrice":  //當日營業額
+			salesRecordTotalPrice(request, response);
+			break;
 		}
 	}
 
@@ -49,6 +52,18 @@ public class AjaxController extends HttpServlet {
 		AjaxDAO dao = new AjaxDAOImpl();
 		String onSiteMemberCount = dao.getOnSiteMemberCount();
 		out.println(onSiteMemberCount);
+
+	}
+	
+	
+	
+	private void salesRecordTotalPrice(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException { 
+
+		PrintWriter out = response.getWriter();
+		AjaxDAO dao = new AjaxDAOImpl();
+		String salesRecordTotalPrice = dao.getSalesRecordTotalPrice();
+		out.println(salesRecordTotalPrice);
 
 	}
 	

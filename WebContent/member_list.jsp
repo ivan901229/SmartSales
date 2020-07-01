@@ -209,8 +209,9 @@
 	<script type="text/javascript" src="../assets/scripts/main.js"></script>
 	<script type="text/javascript" src="../assets/scripts/others.js"></script>
 	<script>
-		memberOnSiteCount();
-		
+	memberOnSiteCount();
+	salesTotalPrice();
+	
 		 function MakeID_Next(){
 		    	var text = "";
 		    	var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";

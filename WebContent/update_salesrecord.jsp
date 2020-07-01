@@ -153,6 +153,7 @@
 		}).val(setDateTest);
 
 		memberOnSiteCount();
+		salesTotalPrice();
 	</script>
 </body>
 

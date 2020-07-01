@@ -107,16 +107,13 @@
 												<td class="text-center"><%=(salesrecords.get(i)).getGender()%></td>
 												<td class="text-center"><%=(salesrecords.get(i)).getNumber()%></td>
 												<td class="text-center">
-													<button
-														onclick="updateSalesRecord('<%=(salesrecords.get(i)).getOrderNumber()%>')">
-														<i class="pe-7s-config btn-icon-wrapper"> </i>
-													</button>
+														<a href="javascript:updateSalesRecord('<%=(salesrecords.get(i)).getOrderNumber()%>')">
+														<i class="fas fa-edit btn-icon-wrapper"> </i></a>
 												</td>
 												<td class="text-center">
-													<button
-														onclick="delSalesRecord('<%=(salesrecords.get(i)).getOrderNumber()%>')">
-														<i class="pe-7s-trash btn-icon-wrapper"> </i>
-													</button>
+														<a href="javascript:delSalesRecord('<%=(salesrecords.get(i)).getOrderNumber()%>')">
+														<i class="fas fa-trash btn-icon-wrapper"> </i></a>
+
 												</td>
 											</tr>
 											<%
@@ -180,6 +177,7 @@
 	<script type="text/javascript" src="../assets/scripts/others.js"></script>
 	<script>
 		memberOnSiteCount();
+		salesTotalPrice();
 	</script>
 </body>
 

@@ -125,6 +125,7 @@
 	<script type="text/javascript" src="../assets/scripts/datepicker.js"></script>
 	<script>
 		memberOnSiteCount();
+		salesTotalPrice();
 	</script>
 
 </body>
