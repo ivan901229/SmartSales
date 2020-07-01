@@ -52,10 +52,8 @@ public class AjaxController extends HttpServlet {
 		AjaxDAO dao = new AjaxDAOImpl();
 		String onSiteMemberCount = dao.getOnSiteMemberCount();
 		out.println(onSiteMemberCount);
-
+		
 	}
-	
-	
 	
 	private void salesRecordTotalPrice(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException { 
