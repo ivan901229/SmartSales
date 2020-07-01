@@ -111,6 +111,7 @@ var xmlhttp1;  //for memberonsitelist & scanNewRFID
 				    	document.getElementById("memberOnSiteCount").innerHTML=xmlhttp.responseText;
 				    }
 				});
+	 
 	 setTimeout(function() {
 		 memberOnSiteCount();
 		}, 3000);
@@ -464,3 +465,29 @@ function payListToJSON(){
 			alert("此客戶非會員，請勾選客戶性別!");
 		}
 	}
+
+function salesTotalPrice(){
+	 loadXMLDoc3("../Ajax/SalesRecordTotalPrice",function()
+				{
+				  	if (xmlhttp3.readyState==4 && xmlhttp3.status==200)
+				    {
+				    	document.getElementById("salesTotalPrice").innerHTML=xmlhttp3.responseText;
+				    }
+				});
+}
+
+var xmlhttp3;  //for salesTotalPrice
+function loadXMLDoc3(url,cfunc)
+{
+	if (window.XMLHttpRequest)
+	{// IE7+, Firefox, Chrome, Opera, Safari 代码
+		xmlhttp3=new XMLHttpRequest();
+	}
+	else
+	{// IE6, IE5 代码
+		xmlhttp3=new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	xmlhttp3.onreadystatechange=cfunc;
+	xmlhttp3.open("GET",url,true);
+	xmlhttp3.send();
+}

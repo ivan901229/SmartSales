@@ -18,7 +18,7 @@ public class AjaxDAOImpl implements AjaxDAO {
 	private static final String Get_PAY_INFO = "SELECT * FROM product_information where picked != 0";
 	
 	private static final String CLEAN_PAY_INFO = "UPDATE product_information SET picked = 0 WHERE product_information.picked != 0";
-
+	private static final String Get_TOTALPRICE_NOW = "SELECT SUM(totalPrice) FROM sales_record where date >= date(now()) and date < DATE_ADD(date(now()),INTERVAL 1 DAY)";
 	Connection conn;
 	
 	public AjaxDAOImpl() {                                   
@@ -54,6 +54,40 @@ public class AjaxDAOImpl implements AjaxDAO {
 		}
 		return onSiteMemberCount;
 	}
+	
+	
+	public String getSalesRecordTotalPrice() {						
+		String salesRecordTotalPrice="";
+		try {
+			PreparedStatement stmt = conn.prepareStatement(Get_TOTALPRICE_NOW);
+			ResultSet rs= stmt.executeQuery();
+			while (rs.next()) {
+				salesRecordTotalPrice = rs.getString("SUM(totalPrice)");
+			}
+			rs.close();
+			stmt.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return salesRecordTotalPrice;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	public String getOnSiteMembers() {                            // 現場會員清單
 		String rsString = "";

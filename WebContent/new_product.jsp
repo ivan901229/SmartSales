@@ -113,6 +113,7 @@
 	<script>
 		memberOnSiteCount();
 		scanNewRFID();
+		salesTotalPrice();
 	</script>
 
 </body>

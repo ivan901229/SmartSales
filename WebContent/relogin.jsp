@@ -31,7 +31,6 @@
 	<div>
       <a class="hiddenanchor" id="signup"></a>
       <a class="hiddenanchor" id="signin"></a>
-
       <div class="login_wrapper">
         <div class="animate form login_form">
           <section class="login_content">
@@ -49,20 +48,13 @@
               	<button type="submit" class="btn btn-default submit">Log in</button><br>
               	<h2 style="color:white">${error}</h2>
               	<h2 style="color:white">${relogin}</h2>
-                <!--  <a class="" href="./logintest.jsp">Log in</a> -->
-                
+                <!--  <a class="" href="./logintest.jsp">Log in</a> --> 
               </div>
-
               <div class="clearfix"></div>
-
-              
             </form>
           </section>
         </div>
-
-        
       </div>
     </div>
-
 </body>
 </html>

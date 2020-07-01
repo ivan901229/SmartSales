@@ -94,6 +94,7 @@
 	<script type="text/javascript" src="../assets/scripts/others.js"></script>
 	<script>
 		memberOnSiteCount();
+		salesTotalPrice();
 	</script>
 	<script type="text/javascript">
       var player = videojs('my-player',{

@@ -128,6 +128,7 @@
 	<script>
 		memberOnSiteCount();
 		paylist();
+		salesTotalPrice();
 		setTimeout(function() {	memberCheck();},200);
 		setInterval(function() {paylist();},500);
 		

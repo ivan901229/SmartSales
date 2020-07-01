@@ -43,7 +43,7 @@
 					</div>
 					<div class="widget-content-right">
 						<div class="widget-numbers text-white">
-							<span>$66600</span>
+							$<span id="salesTotalPrice"></span>元
 						</div>
 					</div>
 				</div>
