@@ -25,6 +25,10 @@
     * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
     -->
 <link href="../main.css" rel="stylesheet">
+<link href="https://unpkg.com/video.js@6.11.0/dist/video-js.min.css" rel="stylesheet">
+<script src="https://unpkg.com/video.js@6.11.0/dist/video.min.js"></script>
+<script src="https://unpkg.com/videojs-flash/dist/videojs-flash.js"></script>
+<script src="https://unpkg.com/videojs-contrib-hls/dist/videojs-contrib-hls.js"></script>
 </head>
 
 <body>
@@ -49,19 +53,22 @@
 					</div>
 					<div class="row">
 						<div class="col-md-12 col-lg-6">
-							<div class="mb-3 card">
+							<div class="mb-3 card" >
 								<div class="card-header-tab card-header">
 									<div class="card-header-title">
 										<i
 											class="header-icon lnr-rocket icon-gradient bg-tempting-azure">
-										</i> 串流
+										</i> 串流1
 									</div>
-
 								</div>
 								<div class="tab-content">
 									<div class="tab-pane fade active show" id="tab-eg-55">
 										<div class="widget-chart p-3">
-											<div style="height: 350px">
+											<div style="height: 270px;">
+												<video id="my-player1" class="video-js" controls style="margin:auto;">
+													<source src="rtmp://35.229.214.198:8000/live/test"
+														type="rtmp/flv">
+												</video>
 											</div>
 										</div>
 									</div>
@@ -98,14 +105,17 @@
 									<div class="card-header-title">
 										<i
 											class="header-icon lnr-rocket icon-gradient bg-tempting-azure">
-										</i> 串流
+										</i> 串流2
 									</div>
-
 								</div>
 								<div class="tab-content">
 									<div class="tab-pane fade active show" id="tab-eg-55">
 										<div class="widget-chart p-3">
-											<div style="height: 350px">
+											<div style="height: 270px;">
+												<video id="my-player2" class="video-js" controls style="margin:auto;">
+													<source src="rtmp://35.229.214.198:8000/live/test"
+														type="rtmp/flv">
+												</video>
 											</div>
 										</div>
 									</div>
@@ -149,6 +159,20 @@
 		memberOnSiteCount();
 		salesTotalPrice();
 	</script>
+	<script type="text/javascript">
+      var player = videojs('my-player1',{
+        autoplay: true,
+        width:576,
+        heigh:432
+      });
+    </script>
+    <script type="text/javascript">
+      var player = videojs('my-player2',{
+        autoplay: true,
+        width:576,
+        heigh:432
+      });
+    </script>
 </body>
 
 </html>
