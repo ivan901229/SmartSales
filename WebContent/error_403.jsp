@@ -45,7 +45,7 @@
 							</div>
 						</div>
 					</div>
-					<div>error message1</div>
+					<div>error message</div>
 				</div>
 			</div>
 		</div>
