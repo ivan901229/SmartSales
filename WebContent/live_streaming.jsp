@@ -25,14 +25,16 @@
     * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
     -->
 <link href="../main.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <link href="https://unpkg.com/video.js@6.11.0/dist/video-js.min.css" rel="stylesheet">
 <script src="https://unpkg.com/video.js@6.11.0/dist/video.min.js"></script>
 <script src="https://unpkg.com/videojs-flash/dist/videojs-flash.js"></script>
 <script src="https://unpkg.com/videojs-contrib-hls/dist/videojs-contrib-hls.js"></script>
+
 </head>
 
 <body>
-	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	
 	<div
 		class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
 		<jsp:include page="include.jsp" />
@@ -58,7 +60,12 @@
 									<div class="card-header-title">
 										<i
 											class="header-icon lnr-rocket icon-gradient bg-tempting-azure">
-										</i> 串流1
+										</i> 影像1
+										<span style="position:absolute;right:75px;">off</span>
+										<div class="custom-control custom-switch" style="position:absolute;right:10px;">
+  											<input type="checkbox" class="custom-control-input" id="customSwitch1">
+  											<label class="custom-control-label" for="customSwitch1">on</label>
+  										</div>
 									</div>
 								</div>
 								<div class="tab-content">
@@ -105,7 +112,12 @@
 									<div class="card-header-title">
 										<i
 											class="header-icon lnr-rocket icon-gradient bg-tempting-azure">
-										</i> 串流2
+										</i> 影像2
+										<span style="position:absolute;right:75px;">off</span>
+										<div class="custom-control custom-switch" style="position:absolute;right:10px;">
+  											<input type="checkbox" class="custom-control-input" id="customSwitch2" checked>
+  											<label class="custom-control-label" for="customSwitch2">on</label>
+  										</div>
 									</div>
 								</div>
 								<div class="tab-content">
@@ -158,6 +170,13 @@
 	<script>
 		memberOnSiteCount();
 		salesTotalPrice();
+		$("#customSwitch1, #customSwitch2").click(function () {
+	        if ($(this).prop("checked")) {
+	            console.log("on");
+	        } else {
+	        	console.log("off");
+	        }
+	    });
 	</script>
 	<script type="text/javascript">
       var player = videojs('my-player1',{
