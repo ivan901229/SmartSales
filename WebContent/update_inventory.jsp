@@ -82,7 +82,7 @@
 														value="<%=inventory.getInWarehouse()%>"
 														name="inwareHouse" class="text-center"
 														style="width: 150px"></td>
-													<td class="text-center"><input type="text"
+													<td class="text-center"><input type="text" readonly
 														value="<%=inventory.getTotalAmount()%>"
 														name="totalAmount" class="text-center"
 														style="width: 150px"></td>

@@ -1,5 +1,6 @@
 package com.lcpan.dao;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,6 +20,8 @@ public class AjaxDAOImpl implements AjaxDAO {
 	
 	private static final String CLEAN_PAY_INFO = "UPDATE product_information SET picked = 0 WHERE product_information.picked != 0";
 	private static final String Get_TOTALPRICE_NOW = "SELECT SUM(totalPrice) FROM sales_record where date >= date(now()) and date < DATE_ADD(date(now()),INTERVAL 1 DAY)";
+	private static final String CLEAN_INVENTORY= "UPDATE inventory_list, product_information SET inventory_list.shelves = inventory_list.shelves - product_information.picked WHERE inventory_list.productNo = product_information.productNo AND inventory_list.shelves > 0";
+
 	Connection conn;
 	
 	public AjaxDAOImpl() {                                   
@@ -84,15 +87,6 @@ public class AjaxDAOImpl implements AjaxDAO {
 		return salesRecordTotalPrice;
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	public String getOnSiteMembers() {                            // 現場會員清單
 		String rsString = "";
 		try {
@@ -145,9 +139,11 @@ public class AjaxDAOImpl implements AjaxDAO {
 		String rsString = "";
 		try {
 			PreparedStatement stmt = conn.prepareStatement(Get_PAY_INFO);
+			
 			ResultSet rs = stmt.executeQuery();
 			rsString = JSONTools.resultSetToJSON(rs).toString();
 			//System.out.print(rsString);
+			
 			stmt.close();
 		} catch (SQLException e) {
 			e.printStackTrace();

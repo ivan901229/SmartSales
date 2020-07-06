@@ -48,6 +48,7 @@ public class SmartSalesDAOImpl implements SmartSalesDAO {
 	private static final String GET_TOTAL_DIAMOND = "SELECT COUNT(number) number FROM member_overview WHERE memberLevel = 'Diamond'";
 	private static final String GET_TOTAL_GOLD = "SELECT COUNT(number) number FROM member_overview WHERE memberLevel = 'Gold'";
 	private static final String GET_TOTAL_SILVER= "SELECT COUNT(number) number FROM member_overview WHERE memberLevel = 'Silver'";
+	private static final String TOTALAMOUNT= "{call totalAmount}";
 	Connection conn;
 
 	public SmartSalesDAOImpl() {
@@ -451,6 +452,9 @@ public class SmartSalesDAOImpl implements SmartSalesDAO {
 			cstmt.setString(3, inwareHouse);
 			cstmt.setString(4, totalAmount);
 			cstmt.execute();
+			CallableStatement cstmt1 = conn.prepareCall(TOTALAMOUNT);
+			cstmt1.execute();
+			cstmt1.close();
 			System.out.println("Update Stored Procedure successful!");
 			cstmt.close();
 		}  catch (SQLException e) {

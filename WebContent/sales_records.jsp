@@ -77,7 +77,7 @@
 										id="table3">
 										<thead>
 											<tr>
-												<th class="text-center">商品編號</th>
+												<th class="text-center">訂單編號</th>
 												<th class="text-center">日期</th>
 												<th class="text-center">商品名稱</th>
 												<th class="text-center">數量</th>
