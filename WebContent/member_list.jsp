@@ -67,10 +67,10 @@
 									</div>
 									<div class="btn-actions-pane-right">
 										<div role="group" class="btn-group-sm btn-group">
-											<button class="btn btn-primary" id="remake">&nbsp;&nbsp;All&nbsp;&nbsp;</button>
-											<button class="btn btn-info" id="diamond">Diamond</button>
-											<button class="btn btn-warning" id="gold">Gold</button>
-											<button class="btn btn-light" id="silver">Silver</button>
+											<button class="btn btn-primary" onclick="location.href='javascript: MakeID()'">&nbsp;&nbsp;All&nbsp;&nbsp;</button>
+											<button class="btn btn-info" onclick="location.href='javascript: MakeIDDiamond()'">Diamond</button>
+											<button class="btn btn-warning" onclick="location.href='javascript: MakeIDGold()'">Gold</button>
+											<button class="btn btn-light" onclick="location.href='javascript: MakeIDSilver()'">Silver</button>
 										</div>
 									</div>
 								</div>
@@ -274,7 +274,40 @@
 	    	window.location.href=('../member/GetAllMembers?'+text+"&currentpageno="+page)
 	    	
 	    } // 分頁
-		    
+	    
+	    function MakeIDDiamond(){
+
+	    	var text = "";
+	    	var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+	    	for (var i = 0; i < 5; i++)
+	    		text += possible.charAt(Math.floor(Math.random() * possible.length));
+	    	
+	    	window.location.href=('../member/GetAllMembersDiamond?'+text+"&currentpageno=1")
+	    }
+	    
+	    function MakeIDGold(){
+
+	    	var text = "";
+	    	var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+	    	for (var i = 0; i < 5; i++)
+	    		text += possible.charAt(Math.floor(Math.random() * possible.length));
+	    	
+	    	window.location.href=('../member/GetAllMembersGold?'+text+"&currentpageno=1")
+	    }
+	    
+	    function MakeIDSilver(){
+
+	    	var text = "";
+	    	var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+	    	for (var i = 0; i < 5; i++)
+	    		text += possible.charAt(Math.floor(Math.random() * possible.length));
+	    	
+	    	window.location.href=('../member/GetAllMembersSilver?'+text+"&currentpageno=1")
+	    }
+	    
 	</script>
 </body>
 

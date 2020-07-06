@@ -55,6 +55,15 @@ public class MemberController extends HttpServlet {
 		case "/SmartSales/member/SearchMemberPhone":
 			searchMemberPhone(request, response);
 			break; // 搜尋會員OK
+		case "/SmartSales/member/GetAllMembersDiamond":
+			getAllMembersDiamond(request, response);
+			break;
+		case "/SmartSales/member/GetAllMembersGold":
+			getAllMembersGold(request, response);
+			break;
+		case "/SmartSales/member/GetAllMembersSilver":
+			getAllMembersSilver(request, response);
+			break;
 //		case "/SmartSales/member/AddImage": addImage(request, response); break;   				  // 上傳會員照片
 		default :
 			getOnsiteMembers(request, response);
@@ -395,4 +404,80 @@ public class MemberController extends HttpServlet {
 		else
 			response.sendRedirect("../relogin.jsp");
 	}
+
+
+private void getAllMembersDiamond(HttpServletRequest request, HttpServletResponse response)
+		throws ServletException, IOException { // 會員總覽
+	String checkLogIn = ""; // 判斷是否有log in
+	request.getRequestDispatcher("/LogIn/CheckLogIn").include(request, response);
+	checkLogIn = (String) request.getAttribute("checkLogIn");
+	if (checkLogIn.equals("true")) {
+		String currentPageNo = request.getParameter("currentpageno");
+		int pageNo = 1;
+		if(currentPageNo!=null){
+			pageNo = Integer.parseInt(currentPageNo);
+		}
+		SmartSalesDAO dao = new SmartSalesDAOImpl();
+		List<MemberBean> members = dao.getAllMembersDiamond(pageNo);
+		// list --> json
+		SmartSalesDAO dao1 = new SmartSalesDAOImpl();
+		int totalPage = dao1.getTotalPageDiamond();
+		request.setAttribute("members", members); 
+		request.setAttribute("currentpageno", pageNo);  
+		request.setAttribute("totalPage", totalPage);
+		request.getRequestDispatcher("/member_list_diamond.jsp").forward(request, response);
+	}
+	else
+		response.sendRedirect("../relogin.jsp");
+}
+
+private void getAllMembersGold(HttpServletRequest request, HttpServletResponse response)
+		throws ServletException, IOException { // 會員總覽
+	String checkLogIn = ""; // 判斷是否有log in
+	request.getRequestDispatcher("/LogIn/CheckLogIn").include(request, response);
+	checkLogIn = (String) request.getAttribute("checkLogIn");
+	if (checkLogIn.equals("true")) {
+		String currentPageNo = request.getParameter("currentpageno");
+		int pageNo = 1;
+		if(currentPageNo!=null){
+			pageNo = Integer.parseInt(currentPageNo);
+		}
+		SmartSalesDAO dao = new SmartSalesDAOImpl();
+		List<MemberBean> members = dao.getAllMembersGold(pageNo);
+		// list --> json
+		SmartSalesDAO dao1 = new SmartSalesDAOImpl();
+		int totalPage = dao1.getTotalPageGold();
+		request.setAttribute("members", members); 
+		request.setAttribute("currentpageno", pageNo);  
+		request.setAttribute("totalPage", totalPage);
+		request.getRequestDispatcher("/member_list_gold.jsp").forward(request, response);
+	}
+	else
+		response.sendRedirect("../relogin.jsp");
+}
+
+private void getAllMembersSilver(HttpServletRequest request, HttpServletResponse response)
+		throws ServletException, IOException { // 會員總覽
+	String checkLogIn = ""; // 判斷是否有log in
+	request.getRequestDispatcher("/LogIn/CheckLogIn").include(request, response);
+	checkLogIn = (String) request.getAttribute("checkLogIn");
+	if (checkLogIn.equals("true")) {
+		String currentPageNo = request.getParameter("currentpageno");
+		int pageNo = 1;
+		if(currentPageNo!=null){
+			pageNo = Integer.parseInt(currentPageNo);
+		}
+		SmartSalesDAO dao = new SmartSalesDAOImpl();
+		List<MemberBean> members = dao.getAllMembersSilver(pageNo);
+		// list --> json
+		SmartSalesDAO dao1 = new SmartSalesDAOImpl();
+		int totalPage = dao1.getTotalPageSilver();
+		request.setAttribute("members", members); 
+		request.setAttribute("currentpageno", pageNo);  
+		request.setAttribute("totalPage", totalPage);
+		request.getRequestDispatcher("/member_list_silver.jsp").forward(request, response);
+	}
+	else
+		response.sendRedirect("../relogin.jsp");
+}
 }

@@ -40,7 +40,14 @@ public class SmartSalesDAOImpl implements SmartSalesDAO {
 	private static final String GET_PRODUCTNO ="SELECT productNo FROM product_information";
 	private static final String GET_MEMBERPHONE ="select m.number, m.name, m.memberLevel, m.gender, s.discount from member_overview as m inner join membership_status as s on m.memberLevel = s.memberLevel WHERE m.phone = ?";
 	private static int pagesize = 11;  //一頁顯示11筆
-
+	private static final String GET_MEMBER ="SELECT number,memberLevel,name,birthday,age,gender,preferences,phone,email,site,photoURL FROM member_overview LIMIT ";
+	private static final String GET_DIAMOND = "SELECT number,memberLevel,name,birthday,age,gender,preferences,phone,email,site,photoURL FROM member_overview WHERE memberLevel = 'Diamond' LIMIT ";
+	private static final String GET_GOLD = "SELECT number,memberLevel,name,birthday,age,gender,preferences,phone,email,site,photoURL FROM member_overview WHERE memberLevel = 'Gold' LIMIT ";
+	private static final String GET_SILVER = "SELECT number,memberLevel,name,birthday,age,gender,preferences,phone,email,site,photoURL FROM member_overview WHERE memberLevel = 'Silver' LIMIT ";
+	private static final String GET_TOTAL = "SELECT COUNT(number) number FROM member_overview";
+	private static final String GET_TOTAL_DIAMOND = "SELECT COUNT(number) number FROM member_overview WHERE memberLevel = 'Diamond'";
+	private static final String GET_TOTAL_GOLD = "SELECT COUNT(number) number FROM member_overview WHERE memberLevel = 'Gold'";
+	private static final String GET_TOTAL_SILVER= "SELECT COUNT(number) number FROM member_overview WHERE memberLevel = 'Silver'";
 	Connection conn;
 
 	public SmartSalesDAOImpl() {
@@ -60,7 +67,7 @@ public class SmartSalesDAOImpl implements SmartSalesDAO {
 		int begin = (pageNo-1)*pagesize;
 		int end = pagesize;
 		try {
-			PreparedStatement stmt = conn.prepareStatement("SELECT number,memberLevel,name,birthday,age,gender,preferences,phone,email,site,photoURL FROM member_overview LIMIT "+ begin+","+end);
+			PreparedStatement stmt = conn.prepareStatement(GET_MEMBER+ begin+","+end);
 			ResultSet rs = stmt.executeQuery();
 			members = new ArrayList<>();
 			MemberBean member = null;
@@ -102,7 +109,7 @@ public class SmartSalesDAOImpl implements SmartSalesDAO {
 		int totalCount = 0;
 		int totalPage = 0;
 		try {
-			PreparedStatement stmt = conn.prepareStatement("SELECT COUNT(number) number FROM member_overview");
+			PreparedStatement stmt = conn.prepareStatement(GET_TOTAL);
 			ResultSet rs = stmt.executeQuery();
 			if(rs.next()){
 				totalCount = Integer.valueOf(rs.getString("number"));
@@ -110,7 +117,7 @@ public class SmartSalesDAOImpl implements SmartSalesDAO {
 			}
 			stmt.close();
 		}  catch (SQLException e) {
-			System.out.println("NOOOOOOOOOOOOOOOOOOO");
+			System.out.println("getTotalPage fail!");
 			e.printStackTrace();
 		} finally {
 			if (conn != null) {
@@ -655,6 +662,216 @@ public class SmartSalesDAOImpl implements SmartSalesDAO {
 		return member;
 	}
 
+	public List<MemberBean> getAllMembersDiamond(int pageNo) { // 會員總覽
+		List<MemberBean> members = null;
+		int begin = (pageNo-1)*pagesize;
+		int end = pagesize;
+		try {
+			PreparedStatement stmt = conn.prepareStatement(GET_DIAMOND+ begin+","+end);
+			ResultSet rs = stmt.executeQuery();
+			members = new ArrayList<>();
+			MemberBean member = null;
+			while (rs.next()) {
+//				System.out.println(rs.getString("number"));
+				if(!rs.getString("number").equals("-1")) {
+					member = new MemberBean();
+					member.setMemberNo(rs.getString("number"));
+					member.setMemberLevel(rs.getString("memberLevel"));
+//					member.setImagePath(rs.getString("photo"));
+					member.setMemberName(rs.getString("name"));
+					member.setMemberBirth(rs.getString("birthday"));
+					member.setMemberAge(rs.getString("age"));
+					member.setMemberGender(rs.getString("gender"));
+					member.setMemberPreferences(rs.getString("preferences"));
+					member.setMemberPhone(rs.getString("phone"));
+					member.setMemberEmail(rs.getString("email"));
+					member.setMemberOnsite(rs.getString("site"));
+					member.setMemberPhotoURL(rs.getString("photoURL"));
+					members.add(member);
+				}
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return members;
+	}
+	
+	public List<MemberBean> getAllMembersGold(int pageNo) { // 會員總覽
+		List<MemberBean> members = null;
+		int begin = (pageNo-1)*pagesize;
+		int end = pagesize;
+		try {
+			PreparedStatement stmt = conn.prepareStatement(GET_GOLD+ begin+","+end);
+			ResultSet rs = stmt.executeQuery();
+			members = new ArrayList<>();
+			MemberBean member = null;
+			while (rs.next()) {
+//				System.out.println(rs.getString("number"));
+				if(!rs.getString("number").equals("-1")) {
+					member = new MemberBean();
+					member.setMemberNo(rs.getString("number"));
+					member.setMemberLevel(rs.getString("memberLevel"));
+//					member.setImagePath(rs.getString("photo"));
+					member.setMemberName(rs.getString("name"));
+					member.setMemberBirth(rs.getString("birthday"));
+					member.setMemberAge(rs.getString("age"));
+					member.setMemberGender(rs.getString("gender"));
+					member.setMemberPreferences(rs.getString("preferences"));
+					member.setMemberPhone(rs.getString("phone"));
+					member.setMemberEmail(rs.getString("email"));
+					member.setMemberOnsite(rs.getString("site"));
+					member.setMemberPhotoURL(rs.getString("photoURL"));
+					members.add(member);
+				}
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return members;
+	}
+	
+	public List<MemberBean> getAllMembersSilver	(int pageNo) { // 會員總覽
+		List<MemberBean> members = null;
+		int begin = (pageNo-1)*pagesize;
+		int end = pagesize;
+		try {
+			PreparedStatement stmt = conn.prepareStatement(GET_SILVER+ begin+","+end);
+			ResultSet rs = stmt.executeQuery();
+			members = new ArrayList<>();
+			MemberBean member = null;
+			while (rs.next()) {
+//				System.out.println(rs.getString("number"));
+				if(!rs.getString("number").equals("-1")) {
+					member = new MemberBean();
+					member.setMemberNo(rs.getString("number"));
+					member.setMemberLevel(rs.getString("memberLevel"));
+//					member.setImagePath(rs.getString("photo"));
+					member.setMemberName(rs.getString("name"));
+					member.setMemberBirth(rs.getString("birthday"));
+					member.setMemberAge(rs.getString("age"));
+					member.setMemberGender(rs.getString("gender"));
+					member.setMemberPreferences(rs.getString("preferences"));
+					member.setMemberPhone(rs.getString("phone"));
+					member.setMemberEmail(rs.getString("email"));
+					member.setMemberOnsite(rs.getString("site"));
+					member.setMemberPhotoURL(rs.getString("photoURL"));
+					members.add(member);
+				}
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return members;
+	}
+	
+	public int getTotalPageDiamond() {
+		int totalCount = 0;
+		int totalPage = 0;
+		try {
+			PreparedStatement stmt = conn.prepareStatement(GET_TOTAL_DIAMOND);
+			ResultSet rs = stmt.executeQuery();
+			if(rs.next()){
+				totalCount = Integer.valueOf(rs.getString("number"));
+                totalPage = (totalCount-1)/pagesize+1;
+			}
+			stmt.close();
+		}  catch (SQLException e) {
+			System.out.println("getTotalPage fail!");
+			e.printStackTrace();
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		return totalPage;
+	}
+	public int getTotalPageGold() {
+		int totalCount = 0;
+		int totalPage = 0;
+		try {
+			PreparedStatement stmt = conn.prepareStatement(GET_TOTAL_GOLD);
+			ResultSet rs = stmt.executeQuery();
+			if(rs.next()){
+				totalCount = Integer.valueOf(rs.getString("number"));
+                totalPage = (totalCount-1)/pagesize+1;
+			}
+			stmt.close();
+		}  catch (SQLException e) {
+			System.out.println("getTotalPage fail!");
+			e.printStackTrace();
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		return totalPage;
+	}
+	public int getTotalPageSilver() {
+		int totalCount = 0;
+		int totalPage = 0;
+		try {
+			PreparedStatement stmt = conn.prepareStatement(GET_TOTAL_SILVER);
+			ResultSet rs = stmt.executeQuery();
+			if(rs.next()){
+				totalCount = Integer.valueOf(rs.getString("number"));
+                totalPage = (totalCount-1)/pagesize+1;
+			}
+			stmt.close();
+		}  catch (SQLException e) {
+			System.out.println("getTotalPage fail!");
+			e.printStackTrace();
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		return totalPage;
+	}
+	
+	
+	
 //	public void addImage() {
 //		try
 //		{

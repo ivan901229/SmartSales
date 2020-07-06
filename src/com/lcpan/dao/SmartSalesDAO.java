@@ -30,5 +30,10 @@ public interface SmartSalesDAO {
 	public List<InventoryBean> productList(); //°Ó«~¦Cªí
 	public MemberBean searchMemberPhone(String memberPhone); 
 //	public void addImage();
-
+	public List<MemberBean> getAllMembersSilver(int pageNo);
+	public List<MemberBean> getAllMembersGold(int pageNo);
+	public List<MemberBean> getAllMembersDiamond(int pageNo);
+	public int getTotalPageDiamond();
+	public int getTotalPageGold();
+	public int getTotalPageSilver();
 }
