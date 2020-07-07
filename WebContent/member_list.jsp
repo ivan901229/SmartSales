@@ -28,6 +28,32 @@
     * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
     -->
 <link href="../main.css" rel="stylesheet">
+<style type="text/css">
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+      width: 100%;
+    }
+
+    #github-iframe {
+      position: fixed;
+      left: 32px;
+      top: 32px;
+    }
+
+    #area-render {
+      position: fixed;
+      width: 320px;
+      height: 160px;
+      right: 4px;
+      bottom: 4px;
+      border: dashed 1px #ccc;
+    }
+  </style>
 </head>
 
 <body>
@@ -309,6 +335,8 @@
 	    }
 	    
 	</script>
+<script type="text/javascript" src="../assets/scripts/canvas-nest.js"></script>
+<script type="text/javascript" src="../assets/scripts/canvas-nest.umd.js"></script>	
 </body>
 
 </html>

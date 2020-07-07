@@ -24,7 +24,24 @@
 <link href="./assets/css/animate.min.css" rel="stylesheet">
 <!-- Custom Theme Style -->
 <link href="./assets/css/custom.min.css" rel="stylesheet">
+<style>
+* {
+	margin: 0;
+	padding: 0;
+}
 
+html, body {
+	height: 100%;
+	width: 100%;
+}
+
+#area-render {
+	position: fixed;
+	right: 4px;
+	bottom: 4px;
+	border: dashed 1px #ccc;
+}
+</style>
 </head>
 <body>
 	<%
@@ -67,5 +84,13 @@
 			</div>
 		</div>
 	</div>
+	<script type="text/javascript"
+		src="./assets/scripts/canvas-nest.umd.js"></script>
+	<script>
+		var cn = new CanvasNest(document.getElementById('area-render'), {
+			color : '255,0,255',
+			count : 250,
+		});
+	</script>
 </body>
 </html>

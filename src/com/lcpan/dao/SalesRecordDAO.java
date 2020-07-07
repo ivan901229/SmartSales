@@ -23,6 +23,12 @@ public interface SalesRecordDAO {
 	public void payPageInsertSalesRecord(String orderNumber,String currentTime,String productNo,String amount, 
 			String price, String memberDiscount, String totalPrice, String memberGender, String memberNumber);
 
-	
+	public List<SalesRecordBean> getAllSalesRecordYear(int pageNo);
+	public List<SalesRecordBean> getAllSalesRecordMonth(int pageNo);
+	public List<SalesRecordBean> getAllSalesRecordDay(int pageNo);
+
+	public int getTotalSalesPageYear();
+	public int getTotalSalesPageMonth();
+	public int getTotalSalesPageDay();
 }
 

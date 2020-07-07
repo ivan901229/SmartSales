@@ -57,6 +57,15 @@ public class SalesRecordControllers extends HttpServlet {
 		case "/SmartSales/salesrecord/CleanPayAll":
 			cleanPayAll(request, response);
 			break; //清除整筆結帳
+		case "/SmartSales/salesrecord/GetAllSalesRecordYear":
+			getAllSalesRecordYear(request, response);
+			break; // 取得銷售紀錄年
+		case "/SmartSales/salesrecord/GetAllSalesRecordMonth":
+			getAllSalesRecordMonth(request, response);
+			break; // 取得銷售紀錄月
+		case "/SmartSales/salesrecord/GetAllSalesRecordDay":
+			getAllSalesRecordDay(request, response);
+			break; // 取得銷售紀錄日
 		default :
 			request.getRequestDispatcher("../member/GetOnsiteMembers").forward(request, response);
 			break; // 錯誤網址-返回首頁
@@ -80,7 +89,7 @@ public class SalesRecordControllers extends HttpServlet {
 			if(currentPageNo!=null){
 				pageNo = Integer.parseInt(currentPageNo);
 			}
-//			System.out.println("yesssssssssssssssss");
+//			System.out.println("GetAllSalesRecord is ");
 			SalesRecordDAO dao = new SalesRecordDAOImpl();
 			List<SalesRecordBean> salesrecords = dao.getAllSalesRecord(pageNo);
 			SalesRecordDAO dao1 = new SalesRecordDAOImpl();
@@ -292,4 +301,74 @@ public class SalesRecordControllers extends HttpServlet {
 			response.sendRedirect("../relogin.jsp");
 	}
 
+	private void getAllSalesRecordYear(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException { // 銷售紀錄總覽_年
+		String checkLogIn = ""; // 判斷是否有log in
+		request.getRequestDispatcher("/LogIn/CheckLogIn").include(request, response);
+		checkLogIn = (String) request.getAttribute("checkLogIn");
+		if (checkLogIn.equals("true")) {
+			String currentPageNo = request.getParameter("currentpageno");
+			int pageNo = 1;
+			if(currentPageNo!=null){
+				pageNo = Integer.parseInt(currentPageNo);
+			}
+			SalesRecordDAO dao = new SalesRecordDAOImpl();
+			List<SalesRecordBean> salesrecords = dao.getAllSalesRecordYear(pageNo);
+			SalesRecordDAO dao1 = new SalesRecordDAOImpl();
+			int totalSalesPage = dao1.getTotalSalesPageYear();
+			request.setAttribute("salesrecords", salesrecords);
+			request.setAttribute("currentpageno", pageNo);  
+			request.setAttribute("totalSalesPage", totalSalesPage);
+			request.getRequestDispatcher("/sales_records_y.jsp").forward(request, response);
+		}
+		else
+			response.sendRedirect("../relogin.jsp");
+	}
+	private void getAllSalesRecordMonth(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException { // 銷售紀錄總覽_月
+		String checkLogIn = ""; // 判斷是否有log in
+		request.getRequestDispatcher("/LogIn/CheckLogIn").include(request, response);
+		checkLogIn = (String) request.getAttribute("checkLogIn");
+		if (checkLogIn.equals("true")) {
+			String currentPageNo = request.getParameter("currentpageno");
+			int pageNo = 1;
+			if(currentPageNo!=null){
+				pageNo = Integer.parseInt(currentPageNo);
+			}
+			SalesRecordDAO dao = new SalesRecordDAOImpl();
+			List<SalesRecordBean> salesrecords = dao.getAllSalesRecordMonth(pageNo);
+			SalesRecordDAO dao1 = new SalesRecordDAOImpl();
+			int totalSalesPage = dao1.getTotalSalesPageMonth();
+			request.setAttribute("salesrecords", salesrecords);
+			request.setAttribute("currentpageno", pageNo);  
+			request.setAttribute("totalSalesPage", totalSalesPage);
+			request.getRequestDispatcher("/sales_records_m.jsp").forward(request, response);
+		}
+		else
+			response.sendRedirect("../relogin.jsp");
+	}
+	private void getAllSalesRecordDay(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException { // 銷售紀錄總覽_日
+		String checkLogIn = ""; // 判斷是否有log in
+		request.getRequestDispatcher("/LogIn/CheckLogIn").include(request, response);
+		checkLogIn = (String) request.getAttribute("checkLogIn");
+		if (checkLogIn.equals("true")) {
+			String currentPageNo = request.getParameter("currentpageno");
+			int pageNo = 1;
+			if(currentPageNo!=null){
+				pageNo = Integer.parseInt(currentPageNo);
+			}
+			SalesRecordDAO dao = new SalesRecordDAOImpl();
+			List<SalesRecordBean> salesrecords = dao.getAllSalesRecordDay(pageNo);
+			SalesRecordDAO dao1 = new SalesRecordDAOImpl();
+			int totalSalesPage = dao1.getTotalSalesPageDay();
+			request.setAttribute("salesrecords", salesrecords);
+			request.setAttribute("currentpageno", pageNo);  
+			request.setAttribute("totalSalesPage", totalSalesPage);
+			request.getRequestDispatcher("/sales_records_d.jsp").forward(request, response);
+		}
+		else
+			response.sendRedirect("../relogin.jsp");
+	}
+	
 }

@@ -63,7 +63,7 @@ public class SmartSalesDAOImpl implements SmartSalesDAO {
 		}
 	}
 
-	public List<MemberBean> getAllMembers(int pageNo) { // 會員總覽
+	public List<MemberBean> getAllMembers(int pageNo) {    //會員總覽+分頁
 		List<MemberBean> members = null;
 		int begin = (pageNo-1)*pagesize;
 		int end = pagesize;
@@ -106,7 +106,7 @@ public class SmartSalesDAOImpl implements SmartSalesDAO {
 		return members;
 	}
 	
-	public int getTotalPage() {
+	public int getTotalPage() {    //取得總頁數
 		int totalCount = 0;
 		int totalPage = 0;
 		try {
@@ -134,7 +134,7 @@ public class SmartSalesDAOImpl implements SmartSalesDAO {
 	}
 
 
-	public int insertGetMember() {
+	public int insertGetMember() {    //新增會員+取得最大編號
 		int max = 0;
 		try {
 			PreparedStatement stmt = conn.prepareStatement(GET_MAX_NUM);
@@ -192,7 +192,7 @@ public class SmartSalesDAOImpl implements SmartSalesDAO {
 		}
 	}
 
-	public void deleteMember(String memberNo) {
+	public void deleteMember(String memberNo) {    //刪除會員
 		try {
 			CallableStatement cstmt = conn.prepareCall(DEL_MEMBER);
 			cstmt.setString(1, memberNo);
@@ -212,7 +212,7 @@ public class SmartSalesDAOImpl implements SmartSalesDAO {
 		}
 	}
 
-	public MemberBean updateGetMemberNo(String memberNo) {
+	public MemberBean updateGetMemberNo(String memberNo) {    //修改會員+取得該會員編號
 		MemberBean member = new MemberBean();
 		try {
 			PreparedStatement stmt = conn.prepareStatement(Update_Get_MEMBER);
@@ -608,8 +608,6 @@ public class SmartSalesDAOImpl implements SmartSalesDAO {
 				}
 		}
 	}
-
-	
 	
 	public List<InventoryBean> getPurchaseRatio() {
 		List<InventoryBean> products = null;
@@ -666,7 +664,7 @@ public class SmartSalesDAOImpl implements SmartSalesDAO {
 		return member;
 	}
 
-	public List<MemberBean> getAllMembersDiamond(int pageNo) { // 會員總覽
+	public List<MemberBean> getAllMembersDiamond(int pageNo) { // 會員總覽Diamond
 		List<MemberBean> members = null;
 		int begin = (pageNo-1)*pagesize;
 		int end = pagesize;
@@ -709,7 +707,7 @@ public class SmartSalesDAOImpl implements SmartSalesDAO {
 		return members;
 	}
 	
-	public List<MemberBean> getAllMembersGold(int pageNo) { // 會員總覽
+	public List<MemberBean> getAllMembersGold(int pageNo) {    //會員總覽Gold
 		List<MemberBean> members = null;
 		int begin = (pageNo-1)*pagesize;
 		int end = pagesize;
@@ -752,7 +750,7 @@ public class SmartSalesDAOImpl implements SmartSalesDAO {
 		return members;
 	}
 	
-	public List<MemberBean> getAllMembersSilver	(int pageNo) { // 會員總覽
+	public List<MemberBean> getAllMembersSilver	(int pageNo) {    //會員總覽Silver
 		List<MemberBean> members = null;
 		int begin = (pageNo-1)*pagesize;
 		int end = pagesize;
@@ -795,7 +793,7 @@ public class SmartSalesDAOImpl implements SmartSalesDAO {
 		return members;
 	}
 	
-	public int getTotalPageDiamond() {
+	public int getTotalPageDiamond() {    //取得Diamond會員總頁數
 		int totalCount = 0;
 		int totalPage = 0;
 		try {
@@ -821,7 +819,7 @@ public class SmartSalesDAOImpl implements SmartSalesDAO {
 		
 		return totalPage;
 	}
-	public int getTotalPageGold() {
+	public int getTotalPageGold() {    //取得Gold會員總頁數
 		int totalCount = 0;
 		int totalPage = 0;
 		try {
@@ -847,7 +845,7 @@ public class SmartSalesDAOImpl implements SmartSalesDAO {
 		
 		return totalPage;
 	}
-	public int getTotalPageSilver() {
+	public int getTotalPageSilver() {    //取得Silver會員總頁數
 		int totalCount = 0;
 		int totalPage = 0;
 		try {

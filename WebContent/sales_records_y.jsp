@@ -123,45 +123,45 @@
 									</table>
 									<div class="text-center">
 									<c:if test="${(currentpageno >1) && (currentpageno < totalSalesPage)}">
-										<button class="mb-2 mr-2 btn btn-dark" onclick="location.href='GetAllSalesRecord?currentpageno=1'">首頁</button>
-   	                                    <button class="mb-2 mr-2 btn btn-dark" onclick="location.href='GetAllSalesRecord?currentpageno=${currentpageno-1}'">上一頁</button>
+										<button class="mb-2 mr-2 btn btn-dark" onclick="location.href='GetAllSalesRecordYear?currentpageno=1'">首頁</button>
+   	                                    <button class="mb-2 mr-2 btn btn-dark" onclick="location.href='GetAllSalesRecordYear?currentpageno=${currentpageno-1}'">上一頁</button>
    	                                    	<%
 												for (int a = 0; a < p; a++) {
 													int b=a+1;
 											%>
 											<button class="btn-pill btn-wide btn btn-outline-alternate btn-sm show"
-												onclick="location.href='GetAllSalesRecord?currentpageno=<%=b%>'"><%=a+1%></button>
+												onclick="location.href='GetAllSalesRecordYear?currentpageno=<%=b%>'"><%=a+1%></button>
 											<%
 												}
 											%>
-   	                                    <button class="mb-2 mr-2 btn btn-dark" onclick="location.href='GetAllSalesRecord?currentpageno=${currentpageno+1}'">下一頁</button>
-   	                                    <button class="mb-2 mr-2 btn btn-dark" onclick="location.href='GetAllSalesRecord?currentpageno=${totalSalesPage}'">尾頁</button>
+   	                                    <button class="mb-2 mr-2 btn btn-dark" onclick="location.href='GetAllSalesRecordYear?currentpageno=${currentpageno+1}'">下一頁</button>
+   	                                    <button class="mb-2 mr-2 btn btn-dark" onclick="location.href='GetAllSalesRecordYear?currentpageno=${totalSalesPage}'">尾頁</button>
 									</c:if>
 									<c:if test="${currentpageno==totalSalesPage && totalSalesPage!=1}">
-								     	<button class="mb-2 mr-2 btn btn-dark" onclick="location.href='GetAllSalesRecord?currentpageno=1'">首頁</button>
+								     	<button class="mb-2 mr-2 btn btn-dark" onclick="location.href='GetAllSalesRecordYear?currentpageno=1'">首頁</button>
 								     		<%
 												for (int a = 0; a < p; a++) {
 													int b=a+1;
 											%>
 											<button class="btn-pill btn-wide btn btn-outline-alternate btn-sm show"
-												onclick="location.href='GetAllSalesRecord?currentpageno=<%=b%>'"><%=a+1%></button>
+												onclick="location.href='GetAllSalesRecordYear?currentpageno=<%=b%>'"><%=a+1%></button>
 											<%
 												}
 											%>
-   	                                    <button class="mb-2 mr-2 btn btn-dark" onclick="location.href='GetAllSalesRecord?currentpageno=${currentpageno-1}'">上一頁</button>
+   	                                    <button class="mb-2 mr-2 btn btn-dark" onclick="location.href='GetAllSalesRecordYear?currentpageno=${currentpageno-1}'">上一頁</button>
 									</c:if>
 									<c:if test="${currentpageno==1 && totalSalesPage!=1}">
-										<button class="mb-2 mr-2 btn btn-dark" onclick="location.href='GetAllSalesRecord?currentpageno=${currentpageno+1}'">下一頁</button>
+										<button class="mb-2 mr-2 btn btn-dark" onclick="location.href='GetAllSalesRecordYear?currentpageno=${currentpageno+1}'">下一頁</button>
 											<%
 												for (int a = 0; a < p; a++) {
 													int b=a+1;
 											%>
 											<button class="btn-pill btn-wide btn btn-outline-alternate btn-sm show"
-												onclick="location.href='GetAllSalesRecord?currentpageno=<%=b%>'"><%=a+1%></button>
+												onclick="location.href='GetAllSalesRecordYear?currentpageno=<%=b%>'"><%=a+1%></button>
 											<%
 												}
 											%>
-   	                                    <button class="mb-2 mr-2 btn btn-dark" onclick="location.href='GetAllSalesRecord?currentpageno=${totalSalesPage}'">尾頁</button>
+   	                                    <button class="mb-2 mr-2 btn btn-dark" onclick="location.href='GetAllSalesRecordYear?currentpageno=${totalSalesPage}'">尾頁</button>
 									</c:if>
 									<a>第${currentpageno}頁/共${totalSalesPage}頁</a>
 									</div>

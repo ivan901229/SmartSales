@@ -26,6 +26,14 @@ public class SalesRecordDAOImpl implements SalesRecordDAO {
 	private static final String GET_ORDER_NUMBER = "SELECT MAX(OrderNumber) max FROM sales_record WHERE OrderNumber LIKE ?";
 	private static final String CLEAN_INVENTORY= "UPDATE inventory_list, product_information SET inventory_list.shelves = inventory_list.shelves - product_information.picked WHERE inventory_list.productNo = product_information.productNo AND inventory_list.shelves > 0";
 	private static final String TOTALAMOUNT= "{call totalAmount}";
+	private static final String GET_ALL_SALES= "SELECT orderNumber,date,productNo,amount,price,discount,totalPrice,gender,number FROM sales_record LIMIT ";
+	private static final String GET_SALES_Y= "SELECT * FROM sales_record WHERE date_format(date,'%Y')=date_format(now(),'%Y') LIMIT ";
+	private static final String GET_SALES_M= "SELECT * FROM sales_record WHERE date_format(date,'%Y-%m')=date_format(now(),'%Y-%m') LIMIT ";
+	private static final String GET_SALES_D= "SELECT * FROM sales_record WHERE date_format(date,'%Y-%m-%d')=date_format(now(),'%Y-%m-%d') LIMIT ";
+	private static final String GET_TOTALSALES= "SELECT COUNT(orderNumber) orderNumber FROM sales_record";
+	private static final String GET_TOTALSALES_YEAR= "SELECT COUNT(orderNumber) orderNumber FROM sales_record WHERE date_format(date,'%Y')=date_format(now(),'%Y')";
+	private static final String GET_TOTALSALES_MONTH= "SELECT COUNT(orderNumber) orderNumber FROM sales_record WHERE date_format(date,'%Y-%m')=date_format(now(),'%Y-%m')";
+	private static final String GET_TOTALSALES_DAY= "SELECT COUNT(orderNumber) orderNumber FROM sales_record WHERE date_format(date,'%Y-%m-%d')=date_format(now(),'%Y-%m-%d')";
 	
 	private static int pagesize = 15;  //一頁顯示15筆
 
@@ -48,7 +56,7 @@ public class SalesRecordDAOImpl implements SalesRecordDAO {
 		int begin = (pageNo-1)*pagesize;  
 		int end = pagesize; 
 		try {
-			PreparedStatement stmt = conn.prepareStatement("SELECT orderNumber,date,productNo,amount,price,discount,totalPrice,gender,number FROM sales_record LIMIT "+ begin+","+end);
+			PreparedStatement stmt = conn.prepareStatement(GET_ALL_SALES+ begin+","+end);
 			ResultSet rs = stmt.executeQuery();
 			salesrecords = new ArrayList<>();
 			SalesRecordBean salesrecord = null;
@@ -84,7 +92,7 @@ public class SalesRecordDAOImpl implements SalesRecordDAO {
 		int totalCount = 0;
 		int totalPage = 0;
 		try {
-			PreparedStatement stmt = conn.prepareStatement("SELECT COUNT(orderNumber) orderNumber FROM sales_record");
+			PreparedStatement stmt = conn.prepareStatement(GET_TOTALSALES);
 			ResultSet rs = stmt.executeQuery();
 			if(rs.next()){
 				totalCount = Integer.valueOf(rs.getString("orderNumber"));
@@ -408,7 +416,194 @@ public class SalesRecordDAOImpl implements SalesRecordDAO {
 					}
 			}
 	}
-
+	public List<SalesRecordBean> getAllSalesRecordYear(int pageNo) { // 銷售紀錄總攬
+		List<SalesRecordBean> salesrecords = null;
+		int begin = (pageNo-1)*pagesize;  
+		int end = pagesize; 
+		try {
+			PreparedStatement stmt = conn.prepareStatement(GET_SALES_Y+ begin+","+end);
+			ResultSet rs = stmt.executeQuery();
+			salesrecords = new ArrayList<>();
+			SalesRecordBean salesrecord = null;
+			while (rs.next()) {
+				salesrecord = new SalesRecordBean();
+				salesrecord.setOrderNumber(rs.getString("orderNumber"));
+				salesrecord.setDate(rs.getString("date"));
+				salesrecord.setProductNo(rs.getString("productNo"));
+				salesrecord.setAmount(rs.getString("amount"));
+				salesrecord.setPrice(rs.getString("price")); 
+				salesrecord.setDiscount(rs.getString("discount")); 
+				salesrecord.setTotalPrice(rs.getString("totalPrice"));
+				salesrecord.setGender(rs.getString("gender"));
+				salesrecord.setNumber(rs.getString("number"));
+				salesrecords.add(salesrecord);
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return salesrecords;
+	}
+	
+	public List<SalesRecordBean> getAllSalesRecordMonth(int pageNo) { // 銷售紀錄總攬
+		List<SalesRecordBean> salesrecords = null;
+		int begin = (pageNo-1)*pagesize;  
+		int end = pagesize; 
+		try {
+			PreparedStatement stmt = conn.prepareStatement(GET_SALES_M+ begin+","+end);
+			ResultSet rs = stmt.executeQuery();
+			salesrecords = new ArrayList<>();
+			SalesRecordBean salesrecord = null;
+			while (rs.next()) {
+				salesrecord = new SalesRecordBean();
+				salesrecord.setOrderNumber(rs.getString("orderNumber"));
+				salesrecord.setDate(rs.getString("date"));
+				salesrecord.setProductNo(rs.getString("productNo"));
+				salesrecord.setAmount(rs.getString("amount"));
+				salesrecord.setPrice(rs.getString("price")); 
+				salesrecord.setDiscount(rs.getString("discount")); 
+				salesrecord.setTotalPrice(rs.getString("totalPrice"));
+				salesrecord.setGender(rs.getString("gender"));
+				salesrecord.setNumber(rs.getString("number"));
+				salesrecords.add(salesrecord);
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return salesrecords;
+	}
+	
+	public List<SalesRecordBean> getAllSalesRecordDay(int pageNo) { // 銷售紀錄總攬
+		List<SalesRecordBean> salesrecords = null;
+		int begin = (pageNo-1)*pagesize;  
+		int end = pagesize; 
+		try {
+			PreparedStatement stmt = conn.prepareStatement(GET_SALES_D+ begin+","+end);
+			ResultSet rs = stmt.executeQuery();
+			salesrecords = new ArrayList<>();
+			SalesRecordBean salesrecord = null;
+			while (rs.next()) {
+				salesrecord = new SalesRecordBean();
+				salesrecord.setOrderNumber(rs.getString("orderNumber"));
+				salesrecord.setDate(rs.getString("date"));
+				salesrecord.setProductNo(rs.getString("productNo"));
+				salesrecord.setAmount(rs.getString("amount"));
+				salesrecord.setPrice(rs.getString("price")); 
+				salesrecord.setDiscount(rs.getString("discount")); 
+				salesrecord.setTotalPrice(rs.getString("totalPrice"));
+				salesrecord.setGender(rs.getString("gender"));
+				salesrecord.setNumber(rs.getString("number"));
+				salesrecords.add(salesrecord);
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return salesrecords;
+	}
+	public int getTotalSalesPageYear() {    //取得Year總頁數
+		int totalCount = 0;
+		int totalPage = 0;
+		try {
+			PreparedStatement stmt = conn.prepareStatement(GET_TOTALSALES_YEAR);
+			ResultSet rs = stmt.executeQuery();
+			if(rs.next()){
+				totalCount = Integer.valueOf(rs.getString("orderNumber"));
+                totalPage = (totalCount-1)/pagesize+1;
+			}
+			stmt.close();
+		}  catch (SQLException e) {
+			System.out.println("getTotalPage fail!");
+			e.printStackTrace();
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		return totalPage;
+	}
+	public int getTotalSalesPageMonth() {    //取得Month總頁數
+		int totalCount = 0;
+		int totalPage = 0;
+		try {
+			PreparedStatement stmt = conn.prepareStatement(GET_TOTALSALES_MONTH);
+			ResultSet rs = stmt.executeQuery();
+			if(rs.next()){
+				totalCount = Integer.valueOf(rs.getString("orderNumber"));
+                totalPage = (totalCount-1)/pagesize+1;
+			}
+			stmt.close();
+		}  catch (SQLException e) {
+			System.out.println("getTotalPage fail!");
+			e.printStackTrace();
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		return totalPage;
+	}
+	public int getTotalSalesPageDay() {    //取得Day總頁數
+		int totalCount = 0;
+		int totalPage = 0;
+		try {
+			PreparedStatement stmt = conn.prepareStatement(GET_TOTALSALES_DAY);
+			ResultSet rs = stmt.executeQuery();
+			if(rs.next()){
+				totalCount = Integer.valueOf(rs.getString("orderNumber"));
+                totalPage = (totalCount-1)/pagesize+1;
+			}
+			stmt.close();
+		}  catch (SQLException e) {
+			System.out.println("getTotalPage fail!");
+			e.printStackTrace();
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		return totalPage;
+	}
 }
 
 
