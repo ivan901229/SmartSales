@@ -46,7 +46,7 @@ html, body {
 </head>
 <body
 	onunload="if(event.clientY<0) document.location=document.location.href"
-	id="area-render">
+	id="area-render" style="background: #D9FFFF">
 	<div>
 		<a class="hiddenanchor" id="signup"></a> <a class="hiddenanchor"
 			id="signin"></a>

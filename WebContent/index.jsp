@@ -43,7 +43,7 @@ html, body {
 }
 </style>
 </head>
-<body>
+<body style="background: #D9FFFF" id="area-render">
 	<%
 		if (session.getAttribute("user") != null) {
 			//		request.setAttribute("error", "請輸入帳號密碼");
