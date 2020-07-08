@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="java.util.*,java.io.*"%>
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
 
@@ -115,7 +115,7 @@
 										</i> 影像2
 										<span style="position:absolute;right:75px;">off</span>
 										<div class="custom-control custom-switch" style="position:absolute;right:10px;">
-  											<input type="checkbox" class="custom-control-input" id="customSwitch2" checked>
+  											<input type="checkbox" class="custom-control-input" id="customSwitch2">
   											<label class="custom-control-label" for="customSwitch2">on</label>
   										</div>
 									</div>
@@ -170,13 +170,26 @@
 	<script>
 		memberOnSiteCount();
 		salesTotalPrice();
-		$("#customSwitch1, #customSwitch2").click(function () {
+		$("#customSwitch1").click(function () {
 	        if ($(this).prop("checked")) {
 	            console.log("on");
+	            cameraOn_1();
 	        } else {
 	        	console.log("off");
+	        	cameraOff_1();
 	        }
 	    });
+		/*
+		$("#customSwitch2").click(function () {
+	        if ($(this).prop("checked")) {
+	            console.log("on");
+	            cameraOn_1();
+	        } else {
+	        	console.log("off");
+	        	cameraOff_1();
+	        }
+	    });
+		*/
 	</script>
 	<script type="text/javascript">
       var player = videojs('my-player1',{

@@ -66,7 +66,7 @@ public class AjaxDAOImpl implements AjaxDAO {
 			ResultSet rs= stmt.executeQuery();
 			while (rs.next()) {
 				salesRecordTotalPrice = rs.getString("SUM(totalPrice)");
-				System.out.println(salesRecordTotalPrice);
+//				System.out.println(salesRecordTotalPrice);
 				if(salesRecordTotalPrice == null) {
 					salesRecordTotalPrice=" 0";
 				}

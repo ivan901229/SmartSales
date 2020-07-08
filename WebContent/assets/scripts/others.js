@@ -495,3 +495,33 @@ function loadXMLDoc3(url,cfunc)
 	xmlhttp3.open("GET",url,true);
 	xmlhttp3.send();
 }
+
+function cameraOn_1(){
+	$.ajax({
+		type: "get", 								    //訪問方式
+    	url: "../Ajax/CameraOn_1", //訪問路徑
+    	//contentType: "application/json;charset=utf-8",
+    	async: 'false',
+    	success: function(data) { 
+    		alert('開啟中，請稍後');
+    	}, 
+    	error: function(data) { 
+    		alert('開啟錯誤'); 
+    	} 
+	}); 
+}
+
+function cameraOff_1(){
+	$.ajax({
+		type: "get", 								    //訪問方式
+    	url: "../Ajax/CameraOff_1", //訪問路徑
+    	//contentType: "application/json;charset=utf-8",
+    	async: 'false',
+    	success: function(data) { 
+    		alert('關閉中，請稍後');
+    	}, 
+    	error: function(data) { 
+    		alert('關閉錯誤'); 
+    	} 
+	}); 
+}
