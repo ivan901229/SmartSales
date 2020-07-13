@@ -10,6 +10,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta http-equiv="Content-Language" content="en">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Cache-Control" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
 <title>智能零售v5.6.3-會員總覽</title>
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
@@ -134,7 +137,7 @@
 													<button
 														onclick="showPhoto('<%=(members.get(i)).getMemberNo()%>')">
 														<img
-															src="../assets/images/member_photo/<%=(members.get(i)).getMemberNo()%>.jpg"
+															src="<%=(members.get(i)).getMemberPhotoURL()%>"
 															style="height: 60px" />
 														<!-- window的路徑為 /member_photo -->
 													</button>

@@ -72,8 +72,8 @@ var xmlhttp1;  //for memberonsitelist & scanNewRFID
 			           				number+"</td><td class='text-center'>"+
 			           				memberLevel+"</td><td class='text-center'>"+
 			           				"<button onclick='showPhoto("+number+
-			           				")'><img src='../assets/images/member_photo/"+number+
-			           				".jpg' style='height: 60px' /></button></td><td class='text-center'>"+
+			           				")'><img src='"+photoURL+
+			           				"' style='height: 60px' /></button></td><td class='text-center'>"+
 			           				name+"</td><td class='text-center'>"+
 			           				birthday+"</td><td class='text-center'>"+
 			           				age+"</td><td class='text-center'>"+

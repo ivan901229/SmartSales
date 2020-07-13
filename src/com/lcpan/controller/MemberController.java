@@ -154,9 +154,13 @@ public class MemberController extends HttpServlet {
 //		System.out.println(extension);
 				if (!"".equals(filename)) { // has input
 					InputStream in = memberImage.getInputStream();
+//					OutputStream out = new FileOutputStream(
+//							"D:/Java/workspace/SmartSales/WebContent/assets/images/member_photo/" + memberNo
+//									+ extension);                                //Windows
 					OutputStream out = new FileOutputStream(
-							"D:/Java/workspace/SmartSales/WebContent/assets/images/member_photo/" + memberNo
-									+ extension);
+							"/opt/tomcat/webapps/member_photo/assets/images/member_photo/" + memberNo
+									+ extension);                                //Ubuntu
+					extension = ".jpg";
 					byte[] buf = new byte[512];
 					int length;
 					while ((length = in.read(buf)) != -1) {
@@ -168,11 +172,15 @@ public class MemberController extends HttpServlet {
 					memberImageIn = memberImage.getInputStream();
 				}
 			} else {
+//				memberImageIn = new FileInputStream(
+//						"D:\\Java\\workspace\\SmartSales\\WebContent\\assets\\images\\member_photo\\default_head.jpg"); //Windows
 				memberImageIn = new FileInputStream(
-						"D:\\Java\\workspace\\SmartSales\\WebContent\\assets\\images\\member_photo\\default_head.jpg");
+						"/opt/tomcat/webapps/member_photo/assets/images/member_photo/default_head.jpg");             //Ubuntu
 				extension = ".jpg";
+//				OutputStream out = new FileOutputStream(
+//						"D:/Java/workspace/SmartSales/WebContent/assets/images/member_photo/" + memberNo + extension); //Windows
 				OutputStream out = new FileOutputStream(
-						"D:/Java/workspace/SmartSales/WebContent/assets/images/member_photo/" + memberNo + extension);
+						"/opt/tomcat/webapps/member_photo/assets/images/member_photo/" + memberNo + extension);        //Ubuntu
 				System.out.println(memberNo);
 				System.out.println(extension);
 				byte[] buf = new byte[512];
@@ -183,8 +191,10 @@ public class MemberController extends HttpServlet {
 
 				out.close();
 				System.out.println(memberImageIn);
+//				memberImageIn = new FileInputStream(
+//						"D:\\Java\\workspace\\SmartSales\\WebContent\\assets\\images\\member_photo\\default_head.jpg"); //Windows
 				memberImageIn = new FileInputStream(
-						"D:\\Java\\workspace\\SmartSales\\WebContent\\assets\\images\\member_photo\\default_head.jpg");
+						"/opt/tomcat/webapps/member_photo/assets/images/member_photo/default_head.jpg");                //Ubuntu
 			}
 			String memberName = request.getParameter("memberName");
 			String memberBirth = request.getParameter("memberBirth");
@@ -192,7 +202,7 @@ public class MemberController extends HttpServlet {
 			String memberPreferences = request.getParameter("memberPreferences");
 			String memberPhone = request.getParameter("memberPhone");
 			String memberEmail = request.getParameter("memberEmail");
-			String memberPhotoURL = "../assets/images/member_photo/" + memberNo + extension;
+			String memberPhotoURL = "/member_photo/" + memberNo + extension;
 			System.out.println(memberPhotoURL);
 			SmartSalesDAO dao = new SmartSalesDAOImpl();
 			dao.insertMember(memberNo, memberLevel, memberImageIn, memberName, memberBirth, memberGender,
@@ -212,10 +222,9 @@ public class MemberController extends HttpServlet {
 			String memberNo = request.getParameter("memberNo");
 			SmartSalesDAO dao = new SmartSalesDAOImpl();
 			String photoURL = dao.getPhotoURL(memberNo);
-			System.out.println(photoURL);
-			File memberImage = new File("../SmartSales/assets/images/member_photo/16.jpg");
-			System.out.println(memberImage);
-			System.out.println(memberImage.exists());
+			File memberImage = new File("/opt/tomcat/webapps/member_photo/assets/images"+photoURL); //ubuntu
+//			System.out.println(memberImage);
+//			System.out.println(memberImage.exists());
 			if (memberImage.exists()) {
 				memberImage.delete();
 			}
@@ -269,6 +278,13 @@ public class MemberController extends HttpServlet {
 //		System.out.println("dotIdx:" + dotIdx);
 			String filename;
 			String extension = "";
+			
+			SmartSalesDAO dao = new SmartSalesDAOImpl();    // 確認資料庫的照片路徑
+			String photoURL = dao.getPhotoURL(memberNo);
+			File memberImageURL = new File("/opt/tomcat/webapps/member_photo/assets/images"+photoURL); //ubuntu
+			System.out.println(memberImageURL);
+//			System.out.println(memberImage.exists());
+			
 			if (dotIdx != -1) { // 判斷是否有上傳檔案
 				extension = header.substring(dotIdx, header.length() - 1);
 				if (slashIdx != -1)
@@ -280,11 +296,19 @@ public class MemberController extends HttpServlet {
 
 //		System.out.println(filename);
 //		System.out.println(extension);
+				
+				
 				if (!"".equals(filename)) { // has input
+					if (memberImageURL.exists()) { //如果有上傳檔案，將原本的刪除
+						memberImageURL.delete();
+					}
 					InputStream in = memberImage.getInputStream();
+//					OutputStream out = new FileOutputStream(
+//							"D:/Java/workspace/SmartSales/WebContent/assets/images/member_photo/" + memberNo
+//									+ extension);                              //windows
 					OutputStream out = new FileOutputStream(
-							"D:/Java/workspace/SmartSales/WebContent/assets/images/member_photo/" + memberNo
-									+ extension);
+							"/opt/tomcat/webapps/member_photo/assets/images/member_photo/" + memberNo
+									+ extension);                              //Ubuntu
 					byte[] buf = new byte[512];
 					int length;
 					while ((length = in.read(buf)) != -1) {
@@ -297,9 +321,11 @@ public class MemberController extends HttpServlet {
 					System.out.println(memberImageIn);
 				}
 			} else {
+//				memberImageIn = new FileInputStream(
+//						"D:\\Java\\workspace\\SmartSales\\WebContent\\assets\\images\\member_photo\\" + memberNo
+//								+ ".jpg");									   //windows
 				memberImageIn = new FileInputStream(
-						"D:\\Java\\workspace\\SmartSales\\WebContent\\assets\\images\\member_photo\\" + memberNo
-								+ ".jpg");
+						"/opt/tomcat/webapps/member_photo/assets/images" + memberImageURL);                                     //Ubuntu
 				System.out.println(memberImageIn);
 			}
 			String memberName = request.getParameter("memberName");
@@ -308,10 +334,10 @@ public class MemberController extends HttpServlet {
 			String memberPreferences = request.getParameter("memberPreferences");
 			String memberPhone = request.getParameter("memberPhone");
 			String memberEmail = request.getParameter("memberEmail");
-			String memberPhotoURL = "../assets/images/member_photo/" + memberNo + extension;
+			String memberPhotoURL = "/member_photo/" + memberNo + extension;
 			System.out.println(memberPhotoURL);
-			SmartSalesDAO dao = new SmartSalesDAOImpl();
-			dao.updateMember(memberNo, memberLevel, memberImageIn, memberName, memberBirth, memberGender,
+			SmartSalesDAO dao1 = new SmartSalesDAOImpl();
+			dao1.updateMember(memberNo, memberLevel, memberImageIn, memberName, memberBirth, memberGender,
 					memberPreferences, memberPhone, memberEmail, memberPhotoURL);
 			response.sendRedirect("../member/GetAllMembers?" + getRandomWord());
 		}
