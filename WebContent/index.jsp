@@ -24,6 +24,7 @@
 <link href="./assets/css/animate.min.css" rel="stylesheet">
 <!-- Custom Theme Style -->
 <link href="./assets/css/custom.min.css" rel="stylesheet">
+<link href="./main.css" rel="stylesheet">
 <style>
 * {
 	margin: 0;
@@ -73,7 +74,7 @@ html, body {
 								onblur="this.placeholder='Password'" />
 						</div>
 						<div>
-							<button type="submit" class="btn btn-default submit">Log
+							<button type="submit" class="mb-2 mr-2 btn btn-dark">Log
 								in</button>
 							<br>
 							<!--  <a class="" href="./logintest.jsp">Log in</a> -->
