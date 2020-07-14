@@ -11,6 +11,7 @@ public class SalesRecordBean implements java.io.Serializable {
 	private String totalPrice;
 	private String gender;
 	private String number;
+	private String onCounter;
 
 	public String getDate() { return date; }
 	public String getOrderNumber() { return orderNumber; }
@@ -21,6 +22,7 @@ public class SalesRecordBean implements java.io.Serializable {
 	public String getTotalPrice() { return totalPrice; }
 	public String getGender() { return gender; }
 	public String getNumber() { return number; }
+	public String getOnCounter() { return onCounter; }
 	
 	public void setDate(String date) { this.date = date; }
 	public void setOrderNumber(String orderNumber) { this.orderNumber = orderNumber; }
@@ -31,4 +33,5 @@ public class SalesRecordBean implements java.io.Serializable {
 	public void setTotalPrice(String totalPrice) { this.totalPrice = totalPrice; }
 	public void setGender(String gender){ this.gender = gender; }
 	public void setNumber(String number) { this.number = number; }
+	public void setOnCounter(String onCounter) { this.onCounter = onCounter; }
 }

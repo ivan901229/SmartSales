@@ -23,6 +23,7 @@ public class SalesRecordDAOImpl implements SalesRecordDAO {
 	private static final String GET_GENDER ="SELECT gender FROM member_overview"; //取得性別欄位
 	private static final String DEL_PAY_INFO = "UPDATE product_information SET picked = 0 WHERE product_information.productNo = ?";
 	private static final String CLEAN_PAY_ALL = "UPDATE product_information SET picked = 0 WHERE product_information.picked != 0";
+	private static final String CLEAN_PAY_ONCOUNTER = "UPDATE member_overview SET onCounter = 0";
 	private static final String GET_ORDER_NUMBER = "SELECT MAX(OrderNumber) max FROM sales_record WHERE OrderNumber LIKE ?";
 	private static final String CLEAN_INVENTORY= "UPDATE inventory_list, product_information SET inventory_list.shelves = inventory_list.shelves - product_information.picked WHERE inventory_list.productNo = product_information.productNo AND inventory_list.shelves > 0";
 	private static final String TOTALAMOUNT= "{call totalAmount}";
@@ -315,6 +316,8 @@ public class SalesRecordDAOImpl implements SalesRecordDAO {
 		try {
 			PreparedStatement stmt = conn.prepareStatement(CLEAN_PAY_ALL);
 			stmt.execute();
+			stmt = conn.prepareStatement(CLEAN_PAY_ONCOUNTER);
+			stmt.execute();
 			stmt.close();
 			delStatus = true;
 		} catch (SQLException e) {
@@ -391,17 +394,18 @@ public class SalesRecordDAOImpl implements SalesRecordDAO {
 				cstmt.setString(8, memberGender);
 				cstmt.setString(9, memberNumber);
 				cstmt.execute();
-				CallableStatement cstmt1 = conn.prepareCall(CLEAN_INVENTORY);
-				cstmt1.execute();
-				cstmt1.close();
+				PreparedStatement stmt = conn.prepareStatement(CLEAN_INVENTORY);
+				stmt.execute();
 				CallableStatement cstmt2 = conn.prepareCall(TOTALAMOUNT);
 				cstmt2.execute();
 				cstmt2.close();
 				System.out.println("insert Stored Procedure successful!");
 				cstmt.close();
-				PreparedStatement stmt = conn.prepareStatement(CLEAN_PAY_ALL);
+				stmt = conn.prepareStatement(CLEAN_PAY_ALL);
 				stmt.execute();
 				System.out.println("clean successful!");
+				stmt = conn.prepareStatement(CLEAN_PAY_ONCOUNTER);
+				stmt.execute();
 				stmt.close();
 	        
 			} catch (SQLException e) {

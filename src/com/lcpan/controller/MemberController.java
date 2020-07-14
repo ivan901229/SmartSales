@@ -55,6 +55,9 @@ public class MemberController extends HttpServlet {
 		case "/SmartSales/member/SearchMemberPhone":
 			searchMemberPhone(request, response);
 			break; // 搜尋會員OK
+		case "/SmartSales/member/SearchMemberFace":
+			searchMemberFace(request, response);
+			break; // 結帳搜尋人臉辨識
 		case "/SmartSales/member/GetAllMembersDiamond":
 			getAllMembersDiamond(request, response);
 			break;
@@ -420,6 +423,24 @@ public class MemberController extends HttpServlet {
 			System.out.println(memberPhone);
 			SmartSalesDAO dao = new SmartSalesDAOImpl();
 			MemberBean member = dao.searchMemberPhone(memberPhone);
+			if(member!=null) {
+				request.setAttribute("check", "ok");
+				request.setAttribute("member", member);
+			}
+			else request.setAttribute("check", "null");
+			request.getRequestDispatcher("../pay.jsp").forward(request, response);
+		}
+		else
+			response.sendRedirect("../relogin.jsp");
+	}
+	private void searchMemberFace(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String checkLogIn = ""; // 判斷是否有log in
+		request.getRequestDispatcher("/LogIn/CheckLogIn").include(request, response);
+		checkLogIn = (String) request.getAttribute("checkLogIn");
+		if (checkLogIn.equals("true")) {
+			SmartSalesDAO dao = new SmartSalesDAOImpl();
+			MemberBean member = dao.searchMemberFace();
 			if(member!=null) {
 				request.setAttribute("check", "ok");
 				request.setAttribute("member", member);

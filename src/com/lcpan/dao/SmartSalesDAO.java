@@ -29,6 +29,7 @@ public interface SmartSalesDAO {
 	public void deleteProduct(String productNo);
 	public List<InventoryBean> productList(); //商品列表
 	public MemberBean searchMemberPhone(String memberPhone); 
+	public MemberBean searchMemberFace(); //結帳搜尋人臉辨識
 //	public void addImage();
 	public List<MemberBean> getAllMembersSilver(int pageNo);
 	public List<MemberBean> getAllMembersGold(int pageNo);

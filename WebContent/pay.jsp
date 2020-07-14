@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="java.util.*,com.lcpan.bean.MemberBean"%>
+	pageEncoding="UTF-8" import="java.util.*,java.io.*,com.lcpan.bean.MemberBean"%>
 
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
@@ -64,10 +64,11 @@
 												<input placeholder="請輸入會員電話" type="text" id="memberPhone"
 													class="form-control" name="memberPhone">
 												<button type="submit" class="btn-wide btn btn-success">查詢</button>
-												
 										</div>
 
 									</form>
+									<a class="btn btn-primary" href="../member/SearchMemberFace" role="button">Link</a>
+									<a class="btn btn-primary" href="" onclick="openCamera()" role="button">openCamera</a>
 									<div id="memberGender" class="text-center" style="margin-left: 26px;">
 											客戶性別： 
 											<input id="genderMale" class="text-center" type=radio name=SEX value=male>男 
@@ -147,6 +148,24 @@
 					$('#genderMale').attr('disabled', true);
 				}
 			}
+		}
+		function openCamera(){
+			<%
+			Process process = null;
+			List<String> processList = new ArrayList<String>();
+
+				Runtime.getRuntime().exec("D:\\workspace_Java\\test.bat");
+			    process = Runtime.getRuntime().exec("D:\\workspace_Java\\test.bat");
+			    BufferedReader input = new BufferedReader(new InputStreamReader(process.getInputStream()));
+			    StringBuilder result = new StringBuilder();
+			    String line = "";
+			    while ((line = input.readLine()) != null) {
+			    	result.append(line).append('\n');
+			    	
+			    }
+			    System.out.println(result);
+
+			%>
 		}
 		
 	</script>

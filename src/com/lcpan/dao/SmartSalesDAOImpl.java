@@ -38,7 +38,9 @@ public class SmartSalesDAOImpl implements SmartSalesDAO {
 	private static final String Update_PRODUCT = "{call upd_product_information(?, ?, ?, ?, ?)}";
 	private static final String DEL_RFID = "UPDATE rfid_tmp SET rfid = NULL WHERE rfid_tmp.No = 1;";
 	private static final String GET_PRODUCTNO ="SELECT productNo FROM product_information";
-	private static final String GET_MEMBERPHONE ="select m.number, m.name, m.memberLevel, m.gender, s.discount from member_overview as m inner join membership_status as s on m.memberLevel = s.memberLevel WHERE m.phone = ?";
+	private static final String GET_MEMBERPHONE ="select m.number, m.name, m.memberLevel, m.gender, s.discount from member_overview as m inner join membership_status as s on m.memberLevel = s.memberLevel WHERE m.phone = ? or m.onCounter = 1";
+	private static final String GET_MEMBERFACE ="select m.number, m.name, m.memberLevel, m.gender, s.discount from member_overview as m inner join membership_status as s on m.memberLevel = s.memberLevel WHERE m.onCounter = 1";
+
 	private static int pagesize = 11;  //¤@­¶Εγ¥ά11µ§
 	private static final String GET_MEMBER ="SELECT number,memberLevel,name,birthday,age,gender,preferences,phone,email,site,photoURL FROM member_overview LIMIT ";
 	private static final String GET_DIAMOND = "SELECT number,memberLevel,name,birthday,age,gender,preferences,phone,email,site,photoURL FROM member_overview WHERE memberLevel = 'Diamond' LIMIT ";
@@ -634,6 +636,33 @@ public class SmartSalesDAOImpl implements SmartSalesDAO {
 			}
 		}
 		return products;
+	}
+	
+	public MemberBean searchMemberFace() {
+		MemberBean member = new MemberBean();
+		try {
+			PreparedStatement stmt = conn.prepareStatement(GET_MEMBERFACE);
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next()) {
+				member.setMemberNo(rs.getString("number"));
+				member.setMemberName(rs.getString("name"));
+				member.setMemberLevel(rs.getString("memberLevel"));
+				member.setMemberGender(rs.getString("gender"));
+				member.setMemberDiscount(rs.getString("discount"));
+			}
+			else member=null;
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+		}
+		return member;
 	}
 	
 	public MemberBean searchMemberPhone(String memberPhone) {
