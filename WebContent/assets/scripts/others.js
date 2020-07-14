@@ -525,3 +525,20 @@ function cameraOff_1(){
     	} 
 	}); 
 }
+
+function facialScan(){
+	alert('擷取中，請稍後');
+	$.ajax({
+		type: "get", //訪問方式
+    	url: "../Ajax/FacialScan", //訪問路徑
+    	//contentType: "application/json;charset=utf-8",
+    	async: 'false',
+    	data: 'memberNo='+ $("#memberNo").val(),
+    	success: function(data) { 
+    		alert('擷取完成');
+    	}, 
+    	error: function(data) { 
+    		alert('擷取錯誤'); 
+    	} 
+	}); 
+}
