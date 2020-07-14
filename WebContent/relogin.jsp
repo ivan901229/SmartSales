@@ -22,9 +22,9 @@
 <link href="./assets/css/nprogress.css" rel="stylesheet">
 <!-- Animate.css -->
 <link href="./assets/css/animate.min.css" rel="stylesheet">
-
 <!-- Custom Theme Style -->
 <link href="./assets/css/custom.min.css" rel="stylesheet">
+<link href="./main.css" rel="stylesheet">
 <style>
 * {
 	margin: 0;
@@ -46,7 +46,7 @@ html, body {
 </head>
 <body
 	onunload="if(event.clientY<0) document.location=document.location.href"
-	id="area-render">
+	id="area-render" style="background: #D9FFFF">
 	<div>
 		<a class="hiddenanchor" id="signup"></a> <a class="hiddenanchor"
 			id="signin"></a>
@@ -69,7 +69,7 @@ html, body {
 								onblur="this.placeholder='Password'" />
 						</div>
 						<div>
-							<button type="submit" class="btn btn-default submit">Log
+							<button type="submit" class="mb-2 mr-2 btn btn-dark">Log
 								in</button>
 							<br>
 							<h2 style="color: white">${error}</h2>

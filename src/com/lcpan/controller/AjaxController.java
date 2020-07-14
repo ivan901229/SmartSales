@@ -1,7 +1,6 @@
 package com.lcpan.controller;
 
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -36,6 +35,12 @@ public class AjaxController extends HttpServlet {
 		case "/SmartSales/Ajax/SalesRecordTotalPrice":  //當日營業額
 			salesRecordTotalPrice(request, response);
 			break;
+		case "/SmartSales/Ajax/CameraOn_1":  //當日營業額
+			cameraOn_1(request, response);
+			break;
+		case "/SmartSales/Ajax/CameraOff_1":  //當日營業額
+			cameraOff_1(request, response);
+			break;
 		}
 	}
 
@@ -67,7 +72,9 @@ public class AjaxController extends HttpServlet {
 	
 	private void onSiteMemberList(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		AjaxDAO dao = new AjaxDAOImpl();
 		String rsString = dao.getOnSiteMembers();
@@ -95,6 +102,39 @@ public class AjaxController extends HttpServlet {
 		String rsString = dao.pay();
 //		System.out.println(rsString)
 		out.println(rsString);
+	}
+	
+	private void cameraOn_1(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		Runtime.getRuntime().exec("bash /home/ivan901229/Desktop/camera_on/ngrok_login_camera_on.sh");
+		
+//		Process process = null;
+//       List<String> processList = new ArrayList<String>();
+//        Runtime.getRuntime().exec("D:\\Java\\workspace\\test.bat");
+//        process = Runtime.getRuntime().exec("D:\\Java\\workspace\\test.bat");
+//        BufferedReader input = new BufferedReader(new InputStreamReader(process.getInputStream()));
+//        StringBuilder result = new StringBuilder();
+//        String line = "";
+//        while ((line = input.readLine()) != null) {
+//            result.append(line).append('\n');
+//        }
+//        System.out.println(result);
+        
+//		PrintWriter out = response.getWriter();
+//		AjaxDAO dao = new AjaxDAOImpl();
+//		String rsString = dao.pay();
+//		System.out.println(rsString)
+//		out.println(rsString);
+	}
+	
+	private void cameraOff_1(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		Runtime.getRuntime().exec("bash /home/ivan901229/Desktop/camera_off/ngrok_login_camera_off.sh");
+//		PrintWriter out = response.getWriter();
+//		AjaxDAO dao = new AjaxDAOImpl();
+//		String rsString = dao.pay();
+//		System.out.println(rsString)
+//		out.println(rsString);
 	}
 
 }

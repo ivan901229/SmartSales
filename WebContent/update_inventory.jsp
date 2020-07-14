@@ -75,10 +75,10 @@
 													<td class="text-center"><input type="text" readonly
 														value="<%=inventory.getProductNo()%>" name="productNo"
 														class="text-center" style="width: 50px"></td>
-													<td class="text-center"><input type="text"
+													<td class="text-center"><input type="text" oninput="value=value.replace(/[^\d]/g,'')" maxlength="3"
 														value="<%=inventory.getShelves()%>" name="shelves"
 														class="text-center" style="width: 150px"></td>
-													<td class="text-center"><input type="text"
+													<td class="text-center"><input type="text" oninput="value=value.replace(/[^\d]/g,'')" maxlength="3"
 														value="<%=inventory.getInWarehouse()%>"
 														name="inwareHouse" class="text-center"
 														style="width: 150px"></td>

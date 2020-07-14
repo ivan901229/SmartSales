@@ -72,8 +72,8 @@ var xmlhttp1;  //for memberonsitelist & scanNewRFID
 			           				number+"</td><td class='text-center'>"+
 			           				memberLevel+"</td><td class='text-center'>"+
 			           				"<button onclick='showPhoto("+number+
-			           				")'><img src='../assets/images/member_photo/"+number+
-			           				".jpg' style='height: 60px' /></button></td><td class='text-center'>"+
+			           				")'><img src='"+photoURL+
+			           				"' style='height: 60px' /></button></td><td class='text-center'>"+
 			           				name+"</td><td class='text-center'>"+
 			           				birthday+"</td><td class='text-center'>"+
 			           				age+"</td><td class='text-center'>"+
@@ -494,4 +494,34 @@ function loadXMLDoc3(url,cfunc)
 	xmlhttp3.onreadystatechange=cfunc;
 	xmlhttp3.open("GET",url,true);
 	xmlhttp3.send();
+}
+
+function cameraOn_1(){
+	$.ajax({
+		type: "get", 								    //訪問方式
+    	url: "../Ajax/CameraOn_1", //訪問路徑
+    	//contentType: "application/json;charset=utf-8",
+    	async: 'false',
+    	success: function(data) { 
+    		alert('開啟中，請稍後');
+    	}, 
+    	error: function(data) { 
+    		alert('開啟錯誤'); 
+    	} 
+	}); 
+}
+
+function cameraOff_1(){
+	$.ajax({
+		type: "get", 								    //訪問方式
+    	url: "../Ajax/CameraOff_1", //訪問路徑
+    	//contentType: "application/json;charset=utf-8",
+    	async: 'false',
+    	success: function(data) { 
+    		alert('關閉中，請稍後');
+    	}, 
+    	error: function(data) { 
+    		alert('關閉錯誤'); 
+    	} 
+	}); 
 }
