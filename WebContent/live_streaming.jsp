@@ -73,7 +73,7 @@
 										<div class="widget-chart p-3">
 											<div style="height: 270px;">
 												<video id="my-player1" class="video-js" controls style="margin:auto;">
-													<source src="rtmp://35.229.214.198:8000/live/test"
+													<source src="rtmp://34.92.49.67:8000/live/test"
 														type="rtmp/flv">
 												</video>
 											</div>
