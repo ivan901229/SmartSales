@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	import="java.util.*,com.lcpan.bean.MemberBean,com.lcpan.bean.AnalysisBean" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
 
@@ -25,9 +25,11 @@
     * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
     -->
 <link href="../main.css" rel="stylesheet">
+
 </head>
 
 <body>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 	<div
 		class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
@@ -50,12 +52,13 @@
 					<div class="row">
 						<div class="col-md-12 col-lg-6">
 							<div class="mb-3 card">
+							
 								<div
 									class="card-header-tab card-header-tab-animation card-header">
 									<div class="card-header-title">
 										<i
 											class="header-icon lnr-apartment icon-gradient bg-love-kiss">
-										</i> 月客流量
+										</i> 客流量
 									</div>
 								</div>
 								<div class="card-body">
@@ -66,7 +69,7 @@
 												<div class="widget-chat-wrapper-outer">
 													<div
 														class="widget-chart-wrapper widget-chart-wrapper-lg opacity-10 m-0">
-														<canvas id="canvas"></canvas>
+														<canvas id="chartFlow" width="800" height="600"></canvas>
 													</div>
 												</div>
 											</div>
@@ -75,82 +78,40 @@
 									</div>
 								</div>
 							</div>
+							<button type="button" id="bt" value="hide">Show Detail</button>
+							<table id="flowChart" class="mb-0 table table-sm table-dark text-center" style="display:none;">
+										<thead>
+											<tr>
+												<th>日期</th>
+												<th>男</th>
+												<th>女</th>
+												<th>會員</th>
+											</tr>
+										</thead>
+										<tbody>
+											<%
+												List<AnalysisBean> flow = (ArrayList<AnalysisBean>) request.getAttribute("flow");
+												for (int i = 0; i < flow.size(); i++) {
+											%>
+
+											<tr>
+												<td class="text-center" id="charD<%=i%>"><%=(flow.get(i)).getDate()%></td>
+												<td class="text-center"id="charM<%=i%>"><%=(flow.get(i)).getMale()%></td>
+												<td class="text-center"id="charF<%=i%>"><%=(flow.get(i)).getFemale()%></td>
+												<td class="text-center"id="charMe<%=i%>"><%=(flow.get(i)).getIsMember()%></td>
+												
+											</tr>
+											<%
+												}
+											%>
+										</tbody>
+									</table>
+									
 						</div>
 						<div class="col-md-12 col-lg-6">
-							<div class="mb-3 card">
-								<div class="card-header-tab card-header">
-									<div class="card-header-title">
-										<i
-											class="header-icon lnr-rocket icon-gradient bg-tempting-azure">
-										</i> 今日客流量
-									</div>
+							
+							
 
-								</div>
-								<div class="tab-content">
-									<div class="tab-pane fade active show" id="tab-eg-55">
-										<div class="widget-chart p-3">
-											<div style="height: 350px">
-												<canvas id="line-chart"></canvas>
-											</div>
-
-										</div>
-									</div>
-									<div class="pt-2 card-body">
-										<div class="row">
-											<div class="col-md-6">
-												<div class="widget-content">
-													<div class="widget-content-outer">
-														<div class="widget-content-wrapper">
-															<div class="widget-content-left">
-																<div class="widget-numbers fsize-3 text-muted">63%</div>
-															</div>
-															<div class="widget-content-right">
-																<div class="text-muted opacity-6">會員比</div>
-															</div>
-														</div>
-														<div class="widget-progress-wrapper mt-1">
-															<div
-																class="progress-bar-sm progress-bar-animated-alt progress">
-																<div class="progress-bar bg-danger" role="progressbar"
-																	aria-valuenow="63" aria-valuemin="0"
-																	aria-valuemax="100" style="width: 63%;"></div>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="col-md-6">
-												<div class="widget-content">
-													<div class="widget-content-outer">
-														<div class="widget-content-wrapper">
-															<div class="widget-content-left">
-																<div class="widget-numbers fsize-3 text-muted">52%</div>
-															</div>
-															<div class="widget-content-right">
-																<div class="text-muted opacity-6">性別比</div>
-															</div>
-														</div>
-														<div class="widget-progress-wrapper mt-1">
-															<div
-																class="progress-bar-sm progress-bar-animated-alt progress">
-																<div class="progress-bar bg-info" role="progressbar"
-																	aria-valuenow="52" aria-valuemin="0"
-																	aria-valuemax="100" style="width: 52%;"></div>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="main-card mb-3 card">
-								<div class="card-body">
-									<h5 class="card-title">年齡比</h5>
-									<canvas id="chart-horiz-bar"></canvas>
-								</div>
-							</div>
 						</div>
 					</div>
 				</div>
@@ -164,6 +125,79 @@
 	<script>
 		memberOnSiteCount();
 		salesTotalPrice();
+		window.onload=function(){
+			obt=document.getElementById("bt");
+		    flowclick=document.getElementById("flowChart");
+		    obt.onclick=function (){
+			if (flowclick.style.display=="none"){
+				flowclick.style.display="block";
+				obt.value="show";
+			}else {
+				flowclick.style.display="none"
+				obt.value="hide";
+			}
+		}
+		}
+		
+	</script>
+	<script>
+	var male = [];
+	var female = [];
+	var total = [];
+	var date = [];
+	var bkclorM = [];
+	var bkclorF = [];
+	var bkclorT = [];
+	setTimeout(function(){
+		var rows1 = document.getElementById("flowChart").rows.length-1; //獲得行數
+		var rows = rows1/10;
+		
+		for(i=0;i<rows;i++){
+			var d = $('#charD'+i).html();
+			var j = $('#charM'+i).html();
+			var k = $('#charF'+i).html();
+			var l = parseInt(j)+parseInt(k);
+			//console.log(j)
+			date.push(d);
+			male.push(j);
+			female.push(k);
+			total.push(l);
+			bkclorM.push('rgba(255, 99, 132, 1)');
+			bkclorF.push('rgba(54, 162, 235, 1)');
+			bkclorT.push('rgba(255, 206, 86, 1)');
+		
+		}
+		
+		
+	var ctx = document.getElementById('chartFlow').getContext('2d');
+	var chart = new Chart(ctx, {
+		
+		type: 'bar',
+	    data: {
+	    	
+	        labels: date,
+			datasets: [{
+	            label: '男性',
+	            backgroundColor: bkclorM,
+	            data: male
+	            
+	        },
+	        {
+	            label: '女性',
+	            backgroundColor: bkclorF,
+	            data: female
+	        },
+	        {
+	            label: '總來客數',
+	            backgroundColor: bkclorT,
+	            data: total
+	        }
+	        ]
+	    }
+	});
+	
+	},500);
+	
 	</script>
 </body>
 

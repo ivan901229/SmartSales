@@ -7,5 +7,4 @@ public class UserBean implements java.io.Serializable {
 	public String getUserId() { return userId; }
 	public void setUserId(String userId) { this.userId = userId; }
 	
-	
 }

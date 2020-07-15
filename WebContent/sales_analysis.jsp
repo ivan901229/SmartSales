@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
-	import="java.util.*,com.lcpan.bean.SalesRecordBean,com.lcpan.bean.InventoryBean"%>
+	import="java.util.*,com.lcpan.bean.AnalysisBean"%>
 
 <!doctype html>
 <html lang="zh-Hant-TW">
@@ -56,21 +56,46 @@
 							id="tab-content-0" role="tabpanel">
 							<div class="row">
 								<div class="col-md-6">
+								
 									<div class="main-card mb-3 card">
+									
 										<div class="card-body">
 											<h5 class="card-title">商品購買比例</h5>
-											<canvas id="chart-area"></canvas>
+											<canvas id="pieSum"></canvas>
 										</div>
+										
+										
+									</div>
+									<button type="button" id="bt" value="hide">Hide Detail</button>
+									<div class="container">
+								<table id="sumPie" class="mb-0 table table-sm table-dark text-center" style="display:block;">
+										<thead>
+											<tr>
+												<th>商品</th>
+												<th>數量</th>
+												
+											</tr>
+										</thead>
+										<tbody>
+											<%
+												List<AnalysisBean> sum = (ArrayList<AnalysisBean>) request.getAttribute("sum");
+												for (int i = 0; i < sum.size(); i++) {
+											%>
+
+											<tr>
+												<td class="text-center" id="pieN<%=i%>"><%=(sum.get(i)).getProductNo()%></td>
+												<td class="text-center"id="pieV<%=i%>"><%=(sum.get(i)).getProductSum()%></td>
+												
+												
+											</tr>
+											<%
+												}
+											%>
+										</tbody>
+									</table>
 									</div>
 								</div>
-								<div class="col-md-6">
-									<div class="main-card mb-3 card">
-										<div class="card-body">
-											<h5 class="card-title">男女購買比例</h5>
-											<canvas id="radar-chart"></canvas>
-										</div>
-									</div>
-								</div>
+								
 							</div>
 						</div>
 					</div>
@@ -87,6 +112,62 @@
 	<script>
 		memberOnSiteCount();
 		salesTotalPrice();
+		window.onload=function(){
+			obt=document.getElementById("bt");
+		    flowclick=document.getElementById("sumPie");
+		    obt.onclick=function (){
+			if (flowclick.style.display=="none"){
+				flowclick.style.display="block";
+				obt.value="show";
+			}else {
+				flowclick.style.display="none"
+				obt.value="hide";
+			}
+		}
+		}
+	</script>
+	<script>
+		var date = [];
+		var pievalue=[];
+		var bkclorM = [];
+		var bkclorF = [];
+		var bkclorT = [];
+		setTimeout(function(){
+			var rows = document.getElementById("sumPie").rows.length-1; //獲得行數
+			console.log(rows)
+			
+			for(i=0;i<rows;i++){
+				var d = $('#pieN'+i).html();
+				var j = $('#pieV'+i).html();
+				
+				//console.log(j)
+				date.push(d);
+				pievalue.push(j)
+				
+				bkclorM.push('rgba(255, 99, 132, 1)','rgba(54, 162, 235, 1)','rgba(255, 206, 86, 1)');
+				
+			
+			}
+			
+			
+		var ctx = document.getElementById('pieSum').getContext('2d');
+		var chart = new Chart(ctx, {
+			
+			type: 'pie',
+		    data: {
+		    	
+		        labels: date,
+				datasets: [{
+		            label: '男性',
+		            backgroundColor: bkclorM,
+		            data: pievalue
+		            
+		        }
+		        ]
+		    }
+		});
+		
+		},500);
 	</script>
 </body>
 </html>

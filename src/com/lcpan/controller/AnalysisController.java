@@ -12,8 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.lcpan.bean.InventoryBean;
 import com.lcpan.bean.SalesRecordBean;
+import com.lcpan.bean.AnalysisBean;
 import com.lcpan.dao.AjaxDAO;
 import com.lcpan.dao.AjaxDAOImpl;
+import com.lcpan.dao.AnalysisDAO;
+import com.lcpan.dao.AnalysisDAOImpl;
 import com.lcpan.dao.SalesRecordDAO;
 import com.lcpan.dao.SalesRecordDAOImpl;
 import com.lcpan.dao.SmartSalesDAO;
@@ -38,6 +41,9 @@ public class AnalysisController extends HttpServlet {
 		default :
 			request.getRequestDispatcher("../member/GetOnsiteMembers").forward(request, response);
 			break; // 錯誤網址-返回首頁
+		case "/SmartSales/analysis/FlowOfCustomer":flowOfcustomer(request, response);   //取得購買比例
+		    break; // 人流偵測	
+		
 		}
 	}
 	
@@ -47,12 +53,9 @@ public class AnalysisController extends HttpServlet {
 		request.getRequestDispatcher("/LogIn/CheckLogIn").include(request, response);
 		checkLogIn = (String) request.getAttribute("checkLogIn");
 		if (checkLogIn.equals("true")) {
-			SalesRecordDAO dao = new SalesRecordDAOImpl();
-			List<SalesRecordBean> salesrecords = dao.getAllSalesRecord(999999999);
-			request.setAttribute("salesrecords", salesrecords);
-			SmartSalesDAO dao1 = new SmartSalesDAOImpl();
-			List<InventoryBean> products = dao1.productList();
-			request.setAttribute("products", products);
+			AnalysisDAO dao = new AnalysisDAOImpl();
+			List<AnalysisBean> sum = dao.calProductSum();
+			request.setAttribute("sum", sum);
 			request.getRequestDispatcher("/sales_analysis.jsp").forward(request, response);
 		}
 		else
@@ -68,6 +71,21 @@ public class AnalysisController extends HttpServlet {
 			SalesRecordDAO dao = new SalesRecordDAOImpl();
 			List<SalesRecordBean> salesrecords = dao.getAllSalesRecord(999999999);
 			request.setAttribute("salesrecords", salesrecords);
+			request.getRequestDispatcher("/flow.jsp").forward(request, response);
+		}
+		else
+			response.sendRedirect("../relogin.jsp");
+	}
+	
+	private void flowOfcustomer(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException { // 人流偵測
+		String checkLogIn = ""; // 判斷是否有log in
+		request.getRequestDispatcher("/LogIn/CheckLogIn").include(request, response);
+		checkLogIn = (String) request.getAttribute("checkLogIn");
+		if (checkLogIn.equals("true")) {
+			AnalysisDAO dao = new AnalysisDAOImpl();
+			List<AnalysisBean> flow = dao.flowOfCustomer();
+			request.setAttribute("flow", flow);
 			request.getRequestDispatcher("/flow.jsp").forward(request, response);
 		}
 		else

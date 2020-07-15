@@ -135,7 +135,7 @@ public class InventoryController extends HttpServlet {
 			String rfid = request.getParameter("rfid");
 			SmartSalesDAO dao = new SmartSalesDAOImpl();
 			dao.newProduct(productNo, productName, category, price, rfid);
-			response.sendRedirect("../inventory/GetAllInventory");
+			response.sendRedirect("../inventory/NewProductJSP");
 		}
 		else
 			response.sendRedirect("../relogin.jsp");
