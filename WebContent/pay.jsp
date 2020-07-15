@@ -67,8 +67,9 @@
 										</div>
 
 									</form>
-									<a class="btn btn-primary" href="../member/SearchMemberFace" role="button">Link</a>
-									<a class="btn btn-primary" href="" onclick="openCamera()" role="button">openCamera</a>
+									<!-- 
+										<a class="btn-wide btn btn-primary" href="../member/SearchMemberFace" role="button">Link</a>
+								    -->
 									<div id="memberGender" class="text-center" style="margin-left: 26px;">
 											客戶性別： 
 											<input id="genderMale" class="text-center" type=radio name=SEX value=male>男 
@@ -131,7 +132,9 @@
 		paylist();
 		salesTotalPrice();
 		setTimeout(function() {	memberCheck();},200);
-		setInterval(function() {paylist();},500);
+		//setInterval(function() {paylist();},500);
+		var memberOnCounter = false;
+		setTimeout(function() {facialScanCounter();},1000);
 		
 		function memberCheck(){
 			if('<%=request.getAttribute("check")%>'=='ok'){
@@ -148,24 +151,6 @@
 					$('#genderMale').attr('disabled', true);
 				}
 			}
-		}
-		function openCamera(){
-			<%
-			Process process = null;
-			List<String> processList = new ArrayList<String>();
-
-				Runtime.getRuntime().exec("D:\\workspace_Java\\test.bat");
-			    process = Runtime.getRuntime().exec("D:\\workspace_Java\\test.bat");
-			    BufferedReader input = new BufferedReader(new InputStreamReader(process.getInputStream()));
-			    StringBuilder result = new StringBuilder();
-			    String line = "";
-			    while ((line = input.readLine()) != null) {
-			    	result.append(line).append('\n');
-			    	
-			    }
-			    System.out.println(result);
-
-			%>
 		}
 		
 	</script>
