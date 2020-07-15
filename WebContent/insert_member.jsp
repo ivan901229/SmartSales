@@ -69,7 +69,7 @@
 												<tr>
 													<th class="text-center">編號</th>
 													<th class="text-center">等級</th>
-													<!-- <th class="text-center">照片</th> -->
+													<th class="text-center">照片</th>
 													<th class="text-center">姓名</th>
 													<th class="text-center">生日</th>
 													<th class="text-center">性別</th>
@@ -90,12 +90,12 @@
 															<option value="Gold">Gold</option>
 															<option value="Diamond">Diamond</option>
 													</select></td>
-													<!-- 
+													
 													<td class="text-center">
 														<input class="text-center" style="width: 200px"
 														type="file" name="memberImage" /><br>
 													</td>
-													 -->
+													
 													<td class="text-center"><input class="text-center"
 														style="width: 100px" type="text" name="memberName"
 														required></td>
