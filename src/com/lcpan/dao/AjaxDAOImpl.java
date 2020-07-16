@@ -5,6 +5,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -19,7 +21,7 @@ public class AjaxDAOImpl implements AjaxDAO {
 	private static final String Get_PAY_INFO = "SELECT * FROM product_information where picked != 0";
 	
 	private static final String CLEAN_PAY_INFO = "UPDATE product_information SET picked = 0 WHERE product_information.picked != 0";
-	private static final String Get_TOTALPRICE_NOW = "SELECT SUM(totalPrice) FROM sales_record where date >= date(now()) and date < DATE_ADD(date(now()),INTERVAL 1 DAY)";
+	private static final String Get_TOTALPRICE_NOW = "SELECT SUM(totalPrice),photoURL FROM sales_record AS s, member_overview AS m where s.date >= date(now()) and s.date < DATE_ADD(date(now()),INTERVAL 1 DAY) and m.number = '-1'";
 	private static final String CLEAN_INVENTORY= "UPDATE inventory_list, product_information SET inventory_list.shelves = inventory_list.shelves - product_information.picked WHERE inventory_list.productNo = product_information.productNo AND inventory_list.shelves > 0";
 
 	Connection conn;
@@ -59,16 +61,21 @@ public class AjaxDAOImpl implements AjaxDAO {
 	}
 	
 	
-	public String getSalesRecordTotalPrice() {						
-		String salesRecordTotalPrice="";
+	public ArrayList<String> getSalesRecordTotalPrice() {						
+		String salesRecordTotalPrice1="";
+		ArrayList<String> salesRecordTotalPrice=new ArrayList<String>();
 		try {
 			PreparedStatement stmt = conn.prepareStatement(Get_TOTALPRICE_NOW);
 			ResultSet rs= stmt.executeQuery();
 			while (rs.next()) {
-				salesRecordTotalPrice = rs.getString("SUM(totalPrice)");
+				salesRecordTotalPrice1 = rs.getString("SUM(totalPrice)");
+				salesRecordTotalPrice.add(salesRecordTotalPrice1);
+				salesRecordTotalPrice1 = rs.getString("photoURL");
+				salesRecordTotalPrice.add(salesRecordTotalPrice1);
+				//System.out.print(salesRecordTotalPrice);
 //				System.out.println(salesRecordTotalPrice);
-				if(salesRecordTotalPrice == null) {
-					salesRecordTotalPrice=" 0";
+				if(salesRecordTotalPrice.get(0) == null) {
+					salesRecordTotalPrice.set(0, "0");
 				}
 			}
 			rs.close();

@@ -469,9 +469,16 @@ function payListToJSON(){
 function salesTotalPrice(){
 	 loadXMLDoc3("../Ajax/SalesRecordTotalPrice",function()
 				{
+		 s = xmlhttp3.responseText;
+		 console.log(s)
+		 var arrayStr=s.split(",");
+		 arrayStr1=arrayStr[0].replace("[","");
+		 arrayStr2=arrayStr[1].replace("]","");
+		 console.log(arrayStr1)
 				  	if (xmlhttp3.readyState==4 && xmlhttp3.status==200)
 				    {
-				    	document.getElementById("salesTotalPrice").innerHTML=xmlhttp3.responseText;
+				    	document.getElementById("salesTotalPrice").innerHTML=arrayStr1;
+				    	document.getElementById("totalcount").innerHTML=arrayStr2;
 				    }
 				});
 	 setTimeout(function() {

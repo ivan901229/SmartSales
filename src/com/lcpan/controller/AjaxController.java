@@ -1,6 +1,7 @@
 package com.lcpan.controller;
 
 import java.io.*;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -65,7 +66,7 @@ public class AjaxController extends HttpServlet {
 
 		PrintWriter out = response.getWriter();
 		AjaxDAO dao = new AjaxDAOImpl();
-		String salesRecordTotalPrice = dao.getSalesRecordTotalPrice();
+		List<String> salesRecordTotalPrice = dao.getSalesRecordTotalPrice();
 		out.println(salesRecordTotalPrice);
 
 	}
