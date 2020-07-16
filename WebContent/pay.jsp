@@ -132,7 +132,7 @@
 		paylist();
 		salesTotalPrice();
 		setTimeout(function() {	memberCheck();},200);
-		//setInterval(function() {paylist();},500);
+		setInterval(function() {paylist();},500);
 		var memberOnCounter = false;
 		setTimeout(function() {facialScanCounter();},1000);
 		

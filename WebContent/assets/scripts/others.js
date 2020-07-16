@@ -550,12 +550,15 @@ function facialScanCounter(){        // 櫃台人臉辨識
 	if(memberOnCounter == false && memberName==""){
 		$.ajax({
 			type: "get", //訪問方式
-	    	url: "../member/searchMemberFace", //訪問路徑
+	    	url: "../member/SearchMemberFace", //訪問路徑
 	    	//contentType: "application/json;charset=utf-8",
 	    	async: 'false',
-	    	success: function(data) { 
-	    		if(confirm('偵測到會員，請問是否要帶入會員資料')){
-	    			window.location.href = "../member/SearchMemberFace";
+	    	success: function(response) {
+	    		console.log("facialScan:"+response);
+	    		if(response==1){
+	    			if(confirm('偵測到會員，請問是否要帶入會員資料')){
+		    			window.location.href = "../member/SearchMemberPhone";
+		    		}
 	    		}
 	    		memberOnCounter = true;
 	    	}

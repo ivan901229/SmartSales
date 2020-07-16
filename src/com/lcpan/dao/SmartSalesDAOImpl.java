@@ -38,7 +38,7 @@ public class SmartSalesDAOImpl implements SmartSalesDAO {
 	private static final String Update_PRODUCT = "{call upd_product_information(?, ?, ?, ?, ?)}";
 	private static final String DEL_RFID = "UPDATE rfid_tmp SET rfid = NULL WHERE rfid_tmp.No = 1;";
 	private static final String GET_PRODUCTNO ="SELECT productNo FROM product_information";
-	private static final String GET_MEMBERPHONE ="select m.number, m.name, m.memberLevel, m.gender, s.discount from member_overview as m inner join membership_status as s on m.memberLevel = s.memberLevel WHERE m.phone = ?";
+	private static final String GET_MEMBERPHONE ="select m.number, m.name, m.memberLevel, m.gender, s.discount from member_overview as m inner join membership_status as s on m.memberLevel = s.memberLevel WHERE m.phone = ? or m.onCounter = 1";
 	private static final String GET_MEMBERFACE ="select m.number, m.name, m.memberLevel, m.gender, s.discount from member_overview as m inner join membership_status as s on m.memberLevel = s.memberLevel WHERE m.onCounter = 1";
 
 	private static int pagesize = 11;  //¤@­¶Εγ¥ά11µ§

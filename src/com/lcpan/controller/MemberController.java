@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.*;
@@ -437,21 +438,19 @@ public class MemberController extends HttpServlet {
 	}
 	private void searchMemberFace(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String checkLogIn = ""; // §PÂ_¬O§_¦³log in
-		request.getRequestDispatcher("/LogIn/CheckLogIn").include(request, response);
-		checkLogIn = (String) request.getAttribute("checkLogIn");
-		if (checkLogIn.equals("true")) {
+		  	PrintWriter out = response.getWriter();
 			SmartSalesDAO dao = new SmartSalesDAOImpl();
 			MemberBean member = dao.searchMemberFace();
 			if(member!=null) {
 				request.setAttribute("check", "ok");
 				request.setAttribute("member", member);
+			    out.println("1");
 			}
-			else request.setAttribute("check", "null");
-			request.getRequestDispatcher("../pay.jsp").forward(request, response);
-		}
-		else
-			response.sendRedirect("../relogin.jsp");
+//			else request.setAttribute("check", "null");
+//			request.getRequestDispatcher("../pay.jsp").forward(request, response);
+			else {
+				out.println("0");
+			}
 	}
 
 
