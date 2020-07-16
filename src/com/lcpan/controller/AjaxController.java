@@ -1,8 +1,7 @@
 package com.lcpan.controller;
 
 import java.io.*;
-import java.util.List;
-
+import java.util.*;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -41,6 +40,9 @@ public class AjaxController extends HttpServlet {
 			break;
 		case "/SmartSales/Ajax/CameraOff_1":  //當日營業額
 			cameraOff_1(request, response);
+			break;
+		case "/SmartSales/Ajax/FacialScan":  //當日營業額
+			facialScan(request, response);
 			break;
 		}
 	}
@@ -137,5 +139,51 @@ public class AjaxController extends HttpServlet {
 //		System.out.println(rsString)
 //		out.println(rsString);
 	}
-
+	
+	private void facialScan(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String memberNo = request.getParameter("memberNo");
+		
+//		Process process = null;
+		String command = "bash /home/ivan901229/Desktop/facial_detection/facial_scan_train.sh "+memberNo;
+		System.out.println(command);
+		try {
+			Thread.sleep(10000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+//		String path = "/home/ivan901229/Desktop/facial_detection/face_recognition_opencv_training/dataset/"+memberNo;   
+////		System.out.println(path);
+//		File dir = null;
+//	      boolean bool = false;
+//	      
+//	      try {
+//	         // returns pathnames for files and directory
+//	    	  dir = new File(path);
+//	         // create
+//	         bool = dir.mkdir();
+//	         // print
+//	         System.out.println("Directory created? "+bool);
+//	      } catch(Exception e) {                 
+//	    	  // if any error occurs
+//	         e.printStackTrace();
+//	      }
+//		try {
+//			process = Runtime.getRuntime().exec(command);
+//			BufferedReader input = new BufferedReader(new InputStreamReader(process.getInputStream()));
+////			StringBuilder result = new StringBuilder();
+//			String line = "";
+//			while ((line = input.readLine()) != null) {
+////		        result.append(line).append('\n');
+//		        System.out.println(line);
+//			}
+////			System.out.println(result);
+//			input.close();
+//			process.waitFor();
+//		} catch (IOException e) {
+//            e.printStackTrace();
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+	}
 }

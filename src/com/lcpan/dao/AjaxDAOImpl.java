@@ -1,6 +1,5 @@
 package com.lcpan.dao;
 
-import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,10 +18,10 @@ public class AjaxDAOImpl implements AjaxDAO {
 	private static final String Get_ONSITE_MEMBERS = "SELECT number,memberLevel,name,birthday,age,gender,preferences,phone,email,site,photoURL FROM member_overview WHERE site = 'T'";
 	private static final String Get_RFID_TMP = "SELECT rfid FROM rfid_tmp";
 	private static final String Get_PAY_INFO = "SELECT * FROM product_information where picked != 0";
-	
-	private static final String CLEAN_PAY_INFO = "UPDATE product_information SET picked = 0 WHERE product_information.picked != 0";
+
+//	private static final String CLEAN_PAY_INFO = "UPDATE product_information SET picked = 0 WHERE product_information.picked != 0";
 	private static final String Get_TOTALPRICE_NOW = "SELECT SUM(totalPrice),photoURL FROM sales_record AS s, member_overview AS m where s.date >= date(now()) and s.date < DATE_ADD(date(now()),INTERVAL 1 DAY) and m.number = '-1'";
-	private static final String CLEAN_INVENTORY= "UPDATE inventory_list, product_information SET inventory_list.shelves = inventory_list.shelves - product_information.picked WHERE inventory_list.productNo = product_information.productNo AND inventory_list.shelves > 0";
+//	private static final String CLEAN_INVENTORY= "UPDATE inventory_list, product_information SET inventory_list.shelves = inventory_list.shelves - product_information.picked WHERE inventory_list.productNo = product_information.productNo AND inventory_list.shelves > 0";
 
 	Connection conn;
 	

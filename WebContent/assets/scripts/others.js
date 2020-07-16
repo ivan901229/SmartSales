@@ -532,3 +532,47 @@ function cameraOff_1(){
     	} 
 	}); 
 }
+
+function facialScanON(){
+	alert('擷取中，請稍後');
+	$.ajax({
+		type: "get", //訪問方式
+    	url: "../Ajax/FacialScan", //訪問路徑
+    	//contentType: "application/json;charset=utf-8",
+    	async: 'false',
+    	data: 'memberNo='+ $("#memberNo").val(),
+    	success: function(data) { 
+    		alert('擷取完成');
+    	}, 
+    	error: function(data) { 
+    		alert('擷取錯誤'); 
+    	} 
+	}); 
+}
+
+
+function facialScanCounter(){        // 櫃台人臉辨識
+		var memberName = $("#memberName").html();
+		console.log(memberName);
+	if(memberOnCounter == false && memberName==""){
+		$.ajax({
+			type: "get", //訪問方式
+	    	url: "../member/SearchMemberFace", //訪問路徑
+	    	//contentType: "application/json;charset=utf-8",
+	    	async: 'false',
+	    	success: function(response) {
+	    		console.log("facialScan:"+response);
+	    		if(response==1){
+	    			if(confirm('偵測到會員，請問是否要帶入會員資料')){
+		    			window.location.href = "../member/SearchMemberPhone";
+		    		}
+	    		}
+	    		memberOnCounter = true;
+	    	}
+		}); 
+	}
+	
+	setTimeout(function() {
+		salesTotalPrice();
+	}, 1000);
+}

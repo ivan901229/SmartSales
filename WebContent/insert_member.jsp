@@ -57,7 +57,9 @@
 					<div class="row">
 						<div class="col-md-12">
 							<div class="main-card mb-3 card">
-								<div class="card-header"></div>
+								<div class="card-header">
+									<button type="button" onclick="facialScanON()" class="btn-wide btn btn-success">人臉掃描</button>
+								</div>
 								<form method="post" action="../member/InsertMember"
 									onSubmit="return CheckSubmit();" enctype="multipart/form-data">
 									<div class="table-responsive">
@@ -80,7 +82,7 @@
 												<tr>
 													<td class="text-center"><input type="text"
 														class="text-center" style="width: 50px" readonly
-														value="<%=request.getAttribute("max")%>" name="memberNo">
+														value="<%=request.getAttribute("max")%>" id="memberNo" name="memberNo">
 													</td>
 													<td class="text-center"><select class="text-center"
 														style="width: 80px" name="memberLevel" id="">
@@ -88,11 +90,12 @@
 															<option value="Gold">Gold</option>
 															<option value="Diamond">Diamond</option>
 													</select></td>
+													
 													<td class="text-center">
-														<!-- <input class="text-center" style="width:50px" type="text" name="imagePath"> -->
 														<input class="text-center" style="width: 200px"
 														type="file" name="memberImage" /><br>
 													</td>
+													
 													<td class="text-center"><input class="text-center"
 														style="width: 100px" type="text" name="memberName"
 														required></td>

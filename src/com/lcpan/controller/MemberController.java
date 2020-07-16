@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.*;
@@ -163,7 +164,8 @@ public class MemberController extends HttpServlet {
 					OutputStream out = new FileOutputStream(
 							"/opt/tomcat/webapps/member_photo/assets/images/member_photo/" + memberNo
 									+ extension);                                //Ubuntu
-					extension = ".jpg";
+					System.out.println(extension);
+//					extension = ".jpg";
 					byte[] buf = new byte[512];
 					int length;
 					while ((length = in.read(buf)) != -1) {
@@ -281,13 +283,14 @@ public class MemberController extends HttpServlet {
 //		System.out.println("dotIdx:" + dotIdx);
 			String filename;
 			String extension = "";
+			String memberPhotoURL="";  // 上傳路徑用
 			
 			SmartSalesDAO dao = new SmartSalesDAOImpl();    // 確認資料庫的照片路徑
 			String photoURL = dao.getPhotoURL(memberNo);
 			File memberImageURL = new File("/opt/tomcat/webapps/member_photo/assets/images"+photoURL); //ubuntu
-			System.out.println(memberImageURL);
+//			File memberImageURL = new File(photoURL); //windows
+//			System.out.println("memberImageURL:"+memberImageURL);
 //			System.out.println(memberImage.exists());
-			
 			if (dotIdx != -1) { // 判斷是否有上傳檔案
 				extension = header.substring(dotIdx, header.length() - 1);
 				if (slashIdx != -1)
@@ -311,25 +314,26 @@ public class MemberController extends HttpServlet {
 //									+ extension);                              //windows
 					OutputStream out = new FileOutputStream(
 							"/opt/tomcat/webapps/member_photo/assets/images/member_photo/" + memberNo
-									+ extension);                              //Ubuntu
+									+ extension);   
 					byte[] buf = new byte[512];
 					int length;
 					while ((length = in.read(buf)) != -1) {
-//				System.out.println(length);
+//					System.out.println(length);
 						out.write(buf, 0, length);
 					}
 					in.close();
 					out.close();
 					memberImageIn = memberImage.getInputStream();
 					System.out.println(memberImageIn);
+					memberPhotoURL = "/member_photo/" + memberNo + extension;
 				}
 			} else {
+				System.out.println(memberImageURL);
 //				memberImageIn = new FileInputStream(
 //						"D:\\Java\\workspace\\SmartSales\\WebContent\\assets\\images\\member_photo\\" + memberNo
 //								+ ".jpg");									   //windows
-				memberImageIn = new FileInputStream(
-						"/opt/tomcat/webapps/member_photo/assets/images" + memberImageURL);                                     //Ubuntu
-				System.out.println(memberImageIn);
+				memberImageIn = new FileInputStream(memberImageURL);    
+				memberPhotoURL = photoURL;
 			}
 			String memberName = request.getParameter("memberName");
 			String memberBirth = request.getParameter("memberBirth");
@@ -337,8 +341,7 @@ public class MemberController extends HttpServlet {
 			String memberPreferences = request.getParameter("memberPreferences");
 			String memberPhone = request.getParameter("memberPhone");
 			String memberEmail = request.getParameter("memberEmail");
-			String memberPhotoURL = "/member_photo/" + memberNo + extension;
-			System.out.println(memberPhotoURL);
+
 			SmartSalesDAO dao1 = new SmartSalesDAOImpl();
 			dao1.updateMember(memberNo, memberLevel, memberImageIn, memberName, memberBirth, memberGender,
 					memberPreferences, memberPhone, memberEmail, memberPhotoURL);
@@ -435,21 +438,19 @@ public class MemberController extends HttpServlet {
 	}
 	private void searchMemberFace(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String checkLogIn = ""; // 判斷是否有log in
-		request.getRequestDispatcher("/LogIn/CheckLogIn").include(request, response);
-		checkLogIn = (String) request.getAttribute("checkLogIn");
-		if (checkLogIn.equals("true")) {
+		  	PrintWriter out = response.getWriter();
 			SmartSalesDAO dao = new SmartSalesDAOImpl();
 			MemberBean member = dao.searchMemberFace();
 			if(member!=null) {
 				request.setAttribute("check", "ok");
 				request.setAttribute("member", member);
+			    out.println("1");
 			}
-			else request.setAttribute("check", "null");
-			request.getRequestDispatcher("../pay.jsp").forward(request, response);
-		}
-		else
-			response.sendRedirect("../relogin.jsp");
+//			else request.setAttribute("check", "null");
+//			request.getRequestDispatcher("../pay.jsp").forward(request, response);
+			else {
+				out.println("0");
+			}
 	}
 
 

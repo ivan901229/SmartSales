@@ -73,7 +73,7 @@
 										<div class="widget-chart p-3">
 											<div style="height: 270px;">
 												<video id="my-player1" class="video-js" controls style="margin:auto;">
-													<source src="rtmp://34.92.49.67:8000/live/test"
+													<source src="rtmp://35.229.214.198:8000/live/test"
 														type="rtmp/flv">
 												</video>
 											</div>
@@ -115,7 +115,7 @@
 										</i> 影像2
 										<span style="position:absolute;right:75px;">off</span>
 										<div class="custom-control custom-switch" style="position:absolute;right:10px;">
-  											<input type="checkbox" class="custom-control-input" id="customSwitch2">
+  											<input type="checkbox" class="custom-control-input" id="customSwitch2" checked>
   											<label class="custom-control-label" for="customSwitch2">on</label>
   										</div>
 									</div>
@@ -125,7 +125,7 @@
 										<div class="widget-chart p-3">
 											<div style="height: 270px;">
 												<video id="my-player2" class="video-js" controls style="margin:auto;">
-													<source src="rtmp://35.229.214.198:8000/live/test"
+													<source src="rtmp://34.92.49.67:8000/live/test"
 														type="rtmp/flv">
 												</video>
 											</div>
