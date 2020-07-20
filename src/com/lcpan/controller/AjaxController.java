@@ -109,19 +109,16 @@ public class AjaxController extends HttpServlet {
 	
 	private void cameraOn_1(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		Runtime.getRuntime().exec("bash /home/ivan901229/Desktop/camera_on/ngrok_login_camera_on.sh");
+//		String cmds[] = {"/bin/bash","-c","echo 123456| sudo -S bash /home/ivan901229/Desktop/camera_on/camera_on.sh"};
+//		Runtime.getRuntime().exec(cmds);
 		
-//		Process process = null;
-//       List<String> processList = new ArrayList<String>();
-//        Runtime.getRuntime().exec("D:\\Java\\workspace\\test.bat");
-//        process = Runtime.getRuntime().exec("D:\\Java\\workspace\\test.bat");
+		Process process = Runtime.getRuntime().exec("bash /home/ivan901229/Desktop/camera_on/camera_on.sh");
+//		String line;
 //        BufferedReader input = new BufferedReader(new InputStreamReader(process.getInputStream()));
-//        StringBuilder result = new StringBuilder();
-//        String line = "";
 //        while ((line = input.readLine()) != null) {
-//            result.append(line).append('\n');
+//            System.out.println(line);
 //        }
-//        System.out.println(result);
+//        input.close();
         
 //		PrintWriter out = response.getWriter();
 //		AjaxDAO dao = new AjaxDAOImpl();
@@ -132,7 +129,7 @@ public class AjaxController extends HttpServlet {
 	
 	private void cameraOff_1(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		Runtime.getRuntime().exec("bash /home/ivan901229/Desktop/camera_off/ngrok_login_camera_off.sh");
+		Runtime.getRuntime().exec("bash /home/ivan901229/Desktop/camera_off/camera_off.sh");
 //		PrintWriter out = response.getWriter();
 //		AjaxDAO dao = new AjaxDAOImpl();
 //		String rsString = dao.pay();
