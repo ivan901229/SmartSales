@@ -5,12 +5,13 @@ import java.io.InputStream;
 import java.sql.*;
 import java.util.*;
 import javax.sql.DataSource;
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 
 import com.lcpan.bean.InventoryBean;
 import com.lcpan.bean.MemberBean;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 
 public class SmartSalesDAOImpl implements SmartSalesDAO {
 	

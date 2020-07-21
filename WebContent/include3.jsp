@@ -13,7 +13,7 @@
 					</div>
 					<div class="widget-content-right">
 						<div class="widget-numbers text-white">
-							<span id=totalcount>10人</span>
+							<span id=totalcount></span>
 						</div>
 					</div>
 				</div>
