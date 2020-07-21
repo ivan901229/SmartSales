@@ -470,11 +470,17 @@ function salesTotalPrice(){
 	 loadXMLDoc3("../Ajax/SalesRecordTotalPrice",function()
 				{
 		 s = xmlhttp3.responseText;
-		 console.log(s)
+		 //console.log(typeof(s))
 		 var arrayStr=s.split(",");
 		 arrayStr1=arrayStr[0].replace("[","");
-		 arrayStr2=arrayStr[1].replace("]","");
-		 console.log(arrayStr1)
+		 arrayStr2=arrayStr[1];
+		 if(arrayStr2 == undefined){
+			 arrayStr2="0";
+		 }else{
+			 arrayStr2=arrayStr[1].replace("]","");
+		 }
+		 //console.log(arrayStr1)
+		 //console.log(arrayStr2)
 				  	if (xmlhttp3.readyState==4 && xmlhttp3.status==200)
 				    {
 				    	document.getElementById("salesTotalPrice").innerHTML=arrayStr1;
